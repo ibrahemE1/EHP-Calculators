@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>EHP | الحاسبة الهيدروليكية للسلندر</title>
+    <style>html,body{margin:0;padding:0;background:#03060e}</style>
+    <meta name="theme-color" content="#0a0f1c">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="assets/icon-192.png">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+</head>
+<body>
+<style>#ehp-hyd,#ehp-hyd *{box-sizing:border-box;margin:0;padding:0}#ehp-hyd{
+    font-family:'Segoe UI',Tahoma,sans-serif;
+    background:linear-gradient(135deg,#0a0f1c,#03060e);
+    color:#e2e8f0;padding:20px;min-height:100vh;
+  }#ehp-hyd .container{max-width:1300px;margin:auto}#ehp-hyd h1{
+    text-align:center;color:#f5b042;margin-bottom:8px;
+    font-size:26px;text-shadow:0 0 20px rgba(245,176,66,.4);
+  }#ehp-hyd .subtitle{text-align:center;color:#94a3b8;margin-bottom:25px;font-size:13px}#ehp-hyd .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}@container (max-width:768px){#ehp-hyd .grid{grid-template-columns:1fr}}#ehp-hyd .box{
+    background:rgba(51,65,85,.6);padding:18px;border-radius:14px;
+    border:1px solid #2a3a60;backdrop-filter:blur(10px);
+  }#ehp-hyd .box h2{
+    color:#f5b042;font-size:16px;margin-bottom:15px;
+    padding-bottom:8px;border-bottom:2px solid #f5b042;
+    display:flex;align-items:center;gap:8px;
+  }#ehp-hyd .box h2 span{font-size:20px}#ehp-hyd .field{margin-bottom:12px}#ehp-hyd .field label{
+    display:flex;justify-content:space-between;
+    font-size:12px;color:#cbd5e1;margin-bottom:5px;
+  }#ehp-hyd .field label .en{color:#64748b;font-size:11px;direction:ltr}#ehp-hyd .input-group{display:flex;gap:6px}#ehp-hyd .input-group select{
+    flex:0 0 45%;padding:8px;border-radius:8px;
+    background:#0f1828;color:#f5b042;border:1px solid #2a3a60;
+    font-size:13px;cursor:pointer;
+  }#ehp-hyd .input-group input{
+    flex:1;padding:8px 10px;border-radius:8px;
+    background:#0a1020;color:#fff;border:1px solid #2a3a60;
+    font-size:14px;font-weight:bold;
+  }#ehp-hyd .input-group input:focus{
+    outline:none;border-color:#f5b042;
+    box-shadow:0 0 0 3px rgba(245,176,66,.2);
+  }#ehp-hyd .btn-row{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px;margin:15px 0}@container (max-width:600px){#ehp-hyd .btn-row{grid-template-columns:1fr}}#ehp-hyd button{
+    padding:14px;font-size:15px;font-weight:bold;
+    color:#fff;border:none;border-radius:10px;cursor:pointer;
+    transition:.3s;font-family:inherit;
+  }#ehp-hyd button:hover{transform:translateY(-2px)}#ehp-hyd .btn-calc{background:linear-gradient(135deg,#f5b042,#d48d2b)}#ehp-hyd .btn-calc:hover{box-shadow:0 8px 20px rgba(245,176,66,.4)}#ehp-hyd .btn-print{background:linear-gradient(135deg,#10b981,#059669)}#ehp-hyd .btn-save{background:linear-gradient(135deg,#f59e0b,#d97706)}#ehp-hyd .results{
+    background:rgba(15,23,42,.8);padding:20px;border-radius:14px;
+    border:1px solid #25355a;margin-bottom:20px;
+  }#ehp-hyd .results h2{
+    color:#f5b042;font-size:15px;margin:15px 0 10px;
+    padding-bottom:6px;border-bottom:1px solid #25355a;
+  }#ehp-hyd .results h2:first-child{margin-top:0}#ehp-hyd .row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:9px 12px;border-radius:6px;margin-bottom:4px;
+    background:rgba(51,65,85,.4);font-size:13px;
+  }#ehp-hyd .row:hover{background:rgba(51,65,85,.8)}#ehp-hyd .row .label{color:#cbd5e1}#ehp-hyd .row .label small{color:#64748b;direction:ltr;display:inline-block;margin-right:6px}#ehp-hyd .row .val{color:#f5b042;font-weight:bold;font-size:14px;direction:ltr}#ehp-hyd .highlight{background:rgba(245,176,66,.15)!important;border:1px solid #f5b042}#ehp-hyd .highlight .val{color:#facc15;font-size:15px}#ehp-hyd .warn{background:rgba(239,68,68,.15)!important;border:1px solid #ef4444}#ehp-hyd .warn .val{color:#fca5a5}#ehp-hyd .good{background:rgba(16,185,129,.15)!important;border:1px solid #10b981}#ehp-hyd .good .val{color:#6ee7b7}#ehp-hyd .chart-box{
+    background:rgba(15,23,42,.8);padding:20px;border-radius:14px;
+    border:1px solid #25355a;margin-bottom:20px;
+  }#ehp-hyd .chart-box h2{color:#f5b042;font-size:15px;margin-bottom:15px}#ehp-hyd table{
+    width:100%;border-collapse:collapse;margin-top:10px;font-size:12px;
+    background:rgba(15,23,42,.6);border-radius:8px;overflow:hidden;
+  }#ehp-hyd th,#ehp-hyd td{padding:10px;text-align:center;border-bottom:1px solid #25355a}#ehp-hyd th{background:rgba(245,176,66,.2);color:#facc15;font-weight:bold}#ehp-hyd tr:hover{background:rgba(51,65,85,.4)}#ehp-hyd td{color:#e2e8f0;direction:ltr}#ehp-hyd .badge{
+    display:inline-block;padding:3px 8px;border-radius:12px;
+    font-size:11px;font-weight:bold;
+  }#ehp-hyd .badge-ok{background:rgba(16,185,129,.2);color:#6ee7b7}#ehp-hyd .badge-warn{background:rgba(245,158,11,.2);color:#fcd34d}#ehp-hyd .badge-bad{background:rgba(239,68,68,.2);color:#fca5a5}@media print{#ehp-hyd{background:#fff;color:#000}#ehp-hyd button,#ehp-hyd .btn-row{display:none}#ehp-hyd .box,#ehp-hyd .results,#ehp-hyd .chart-box{background:#fff;border:1px solid #ccc}#ehp-hyd .row .val,#ehp-hyd .box h2,#ehp-hyd .results h2{color:#0369a1}}#ehp-hyd .warnbox{background:rgba(245,158,11,.12);border:1px solid #f59e0b;color:#fcd34d;padding:10px 14px;border-radius:10px;margin-bottom:12px;font-size:13px;line-height:1.8}#ehp-hyd .errbox{background:rgba(239,68,68,.15);border:1px solid #ef4444;color:#fca5a5;padding:12px 16px;border-radius:10px;font-size:13px;line-height:1.9}#ehp-hyd .hint{font-size:11px;color:#64748b;margin:6px 4px 4px;line-height:1.6}#ehp-hyd .field .hint{margin:4px 2px 0}#ehp-hyd .charts{display:grid;grid-template-columns:1fr 1fr;gap:18px}@container (max-width:768px){#ehp-hyd .charts{grid-template-columns:1fr}}#ehp-hyd .bg{background:rgba(51,65,85,.35);padding:14px;border-radius:12px;border:1px solid #25355a}#ehp-hyd .bg-t{color:#facc15;font-size:13px;font-weight:bold;margin-bottom:10px}#ehp-hyd .bg-t span{color:#64748b;font-weight:normal;direction:ltr;display:inline-block}#ehp-hyd .bar-row{display:grid;grid-template-columns:105px 1fr 70px;gap:8px;align-items:center;margin-bottom:8px;font-size:12px}#ehp-hyd .bar-l{color:#cbd5e1}#ehp-hyd .bar-track{height:14px;background:#0f1828;border-radius:7px;overflow:hidden;direction:ltr}#ehp-hyd .bar-fill{height:100%;border-radius:7px}#ehp-hyd .bar-v{direction:ltr;text-align:left;color:#e2e8f0;font-weight:bold}#ehp-hyd .grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}@container (max-width:768px){#ehp-hyd .grid{grid-template-columns:minmax(0,1fr)}}#ehp-hyd .input-group input,#ehp-hyd .input-group select{min-width:0}#ehp-hyd .row{flex-wrap:wrap;gap:6px}#ehp-hyd .row .val{text-align:left}#ehp-hyd .simctl input[type=range]{width:auto;flex:1;min-width:120px;max-width:260px}#ehp-hyd .simctl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}#ehp-hyd .simctl button{padding:8px 14px;font-size:13px;border-radius:8px}#ehp-hyd .btn-sim{background:linear-gradient(135deg,#f5b042,#d48d2b)}#ehp-hyd .btn-sim2{background:#2a3a60}#ehp-hyd .simctl label{font-size:12px;color:#cbd5e1;display:flex;align-items:center;gap:6px}#ehp-hyd .simctl select{padding:6px;border-radius:8px;background:#0f1828;color:#f5b042;border:1px solid #2a3a60;font-size:12px}#ehp-hyd .simctl input[type=range]{accent-color:#f5b042;direction:ltr}#ehp-hyd .simsvg{width:100%;height:auto;display:block;background:#0b1220;border:1px solid #25355a;border-radius:12px;direction:ltr}#ehp-hyd .simread{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:12px}#ehp-hyd .rd{background:rgba(51,65,85,.4);border-radius:8px;padding:8px 10px;font-size:12px;color:#94a3b8;display:flex;flex-direction:column;gap:2px}#ehp-hyd .rd b{color:#facc15;font-size:14px;direction:ltr;text-align:right}#ehp-hyd .simwarn{display:none;background:rgba(239,68,68,.15);border:1px solid #ef4444;color:#fca5a5;padding:8px 12px;border-radius:8px;margin-bottom:10px;font-size:12px}@media print{#ehp-hyd .simctl{display:none}}#ehp-hyd .combo{position:relative;flex:1;min-width:0}#ehp-hyd .combo input{width:100%;padding-left:40px}#ehp-hyd .combo input[type=number]{-moz-appearance:textfield}#ehp-hyd .combo input::-webkit-outer-spin-button,#ehp-hyd .combo input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}#ehp-hyd .combo-btn{position:absolute;left:0;top:0;bottom:0;width:36px;padding:0;font-size:14px;color:#f5b042;
+    background:#0f1828;border:1px solid #2a3a60;border-radius:8px 0 0 8px;cursor:pointer}#ehp-hyd .combo-btn:hover{transform:none;background:#25355a}#ehp-hyd .combo-list{display:none;position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:60;max-height:220px;overflow-y:auto;
+    background:#0f1828;border:1px solid #f5b042;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.55)}#ehp-hyd .combo.open .combo-list{display:block}#ehp-hyd .combo-item{padding:8px 12px;font-size:13px;color:#e2e8f0;cursor:pointer;border-bottom:1px solid #25355a;direction:ltr;text-align:right}#ehp-hyd .combo-item:last-child{border-bottom:none}#ehp-hyd .combo-item:hover{background:rgba(245,176,66,.25)}#ehp-hyd .combo-item.sel{background:rgba(245,176,66,.35);color:#facc15;font-weight:bold}#ehp-hyd .box.has-open{position:relative;z-index:40}#ehp-hyd .simdock{position:sticky;top:0;z-index:200;background:#0b1220;border:1px solid #25355a;border-radius:14px;
+    padding:10px 12px;margin-bottom:16px;box-shadow:0 8px 24px rgba(0,0,0,.5)}#ehp-hyd .simdock .simctl{margin-bottom:6px;gap:8px}#ehp-hyd .simdock .simtitle{color:#f5b042;font-weight:bold;font-size:13px;margin-inline-end:auto}#ehp-hyd .simdock .simsvg{max-height:26vh;border:none;background:transparent}#ehp-hyd .simdock.collapsed .simsvg,#ehp-hyd .simdock.collapsed .simwarn{display:none}#ehp-hyd .simdock.collapsed .simctl{margin-bottom:0}@container (max-width:600px){#ehp-hyd .simdock{padding:8px;margin-left:-8px;margin-right:-8px;border-radius:10px}#ehp-hyd .simdock .simtitle{display:none}#ehp-hyd .simdock .simctl button{padding:6px 10px}#ehp-hyd .simdock .simctl input[type=range]{min-width:90px}}@media print{#ehp-hyd .simdock{position:static;box-shadow:none}}#ehp-hyd{min-height:100vh;min-height:100dvh;position:relative;-webkit-text-size-adjust:100%}#ehp-hyd::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:0;
+    background-image:repeating-linear-gradient(45deg,rgba(245,176,66,.03) 0,rgba(245,176,66,.03) 2px,transparent 2px,transparent 8px)}#ehp-hyd .container{position:relative;z-index:1;width:100%}#ehp-hyd .company-header{background:linear-gradient(135deg,#0c1727cc,#051020cc);padding:1rem 1.5rem;text-align:center;
+    border-bottom:3px solid #f5b042;border-radius:14px;margin-bottom:20px}#ehp-hyd .company-name{font-size:1.4rem;font-weight:800;color:#fff}#ehp-hyd .company-name span{color:#f5b042}#ehp-hyd .company-sub{font-size:.75rem;color:#f5b042;font-weight:bold;letter-spacing:1px;margin-top:4px}#ehp-hyd .company-units{font-size:.65rem;color:#c4a46a;margin-top:5px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap}#ehp-hyd .company-units span{background:#1e2a4455;padding:2px 10px;border-radius:20px}#ehp-hyd footer{text-align:center;font-size:.65rem;padding:.8rem;color:#6c86a3}#ehp-hyd .box{backdrop-filter:none;-webkit-backdrop-filter:none;min-width:0}#ehp-hyd .grid>*{min-width:0}#ehp-hyd .field label{gap:8px;flex-wrap:wrap}#ehp-hyd .btn-calc,#ehp-hyd .btn-sim{color:#0a0f1c}#ehp-hyd .charts{grid-template-columns:repeat(2,minmax(0,1fr))}@container (max-width:768px){#ehp-hyd .charts{grid-template-columns:minmax(0,1fr)}}@container (max-width:600px){#ehp-hyd{padding:10px}}#ehp-hyd .simdock .simsvg{aspect-ratio:1000/360;max-height:26vh}@media print{#ehp-hyd::before{display:none}#ehp-hyd footer{display:none}}
+#ehp-hyd{container-type:inline-size;position:relative;direction:rtl;text-align:right;font-size:16px;line-height:1.5;color:#e2e8f0;min-height:0;padding:14px;margin:0 0 20px;border-radius:14px;background:linear-gradient(135deg,#0a0f1c,#03060e);font-family:'Segoe UI',Tahoma,sans-serif}
+#ehp-hyd::before{position:absolute;border-radius:inherit}
+#ehp-hyd .simdock{top:var(--ehp-top,0px)}
+</style><div id="ehp-hyd"><div class="container"> <div class="company-header"> <div class="company-name">⚙️ <span>Hydraulic Calculator Pro</span></div> <div class="company-sub">EHP - الحاسبة الهيدروليكية الشاملة</div> <div class="company-units"><span>🔵 Pump</span><span>🟢 Cylinder</span><span>🛢️ Tank</span><span>🌡️ Cooling</span><span>🔧 Pipe</span></div> </div> <div class="simdock" id="simDock"> <div class="simctl"> <span class="simtitle">🎬 محاكاة السطوانة | Live Cylinder Simulation</span> <button class="btn-sim" id="simPlay" onclick="simToggle()">⏸ إيقاف</button> <button class="btn-sim2" onclick="simReset()">⏮</button> <label>السرعة <select id="simSpeed" onchange="simSetSpeed()"> <option value="0.25">0.25×</option><option value="0.5">0.5×</option> <option value="1" selected>1× حقيقي</option> <option value="2">2×</option><option value="5">5×</option> <option value="10">10×</option><option value="25">25×</option> </select> </label> <label>الموضع <input type="range" id="simPos" min="0" max="1000" value="0" oninput="simScrub(this.value)"></label> <button class="btn-sim2" id="simCollapse" onclick="simCollapse()">🔽 تصغير</button> </div> <div class="simwarn" id="simWarn">⚠️ المدخلات الحالية غير صالحة — المحاكاة معروضة بآخر قيم صحيحة (راجع رسالة الخطأ في النتائج).</div> <svg id="simSvg" class="simsvg" viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg"> <defs> <marker id="arrDim" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/></marker> <marker id="arrRod" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#fbbf24"/></marker> <marker id="arrIn"  viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#f87171"/></marker> <marker id="arrOut" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#38bdf8"/></marker> <linearGradient id="rodGrad" x1="0" y1="0" x2="0" y2="1"> <stop offset="0" stop-color="#f1f5f9"/><stop offset=".5" stop-color="#94a3b8"/><stop offset="1" stop-color="#64748b"/> </linearGradient> <linearGradient id="pistonGrad" x1="0" y1="0" x2="0" y2="1"> <stop offset="0" stop-color="#7dd3fc"/><stop offset=".5" stop-color="#0ea5e9"/><stop offset="1" stop-color="#0369a1"/> </linearGradient> </defs> <g id="simBack"></g> <g id="simDyn"></g> <g id="simFront"></g> </svg> </div> <div class="grid"> <div class="box"> <h2><span>🔵</span> الطرمبة | Pump</h2> <div class="field"> <label><span>إزاحة الطرمبة (cc/rev)</span><span class="en">Displacement</span></label> <div class="input-group"> <select onchange="setVal('Vp',this.value)"> <option value="">-- اختر | Select --</option> <option value="4">4 cc</option><option value="6">6 cc</option> <option value="8">8 cc</option><option value="10">10 cc</option> <option value="12">12 cc</option><option value="14">14 cc</option> <option value="16">16 cc</option><option value="20">20 cc</option> <option value="25">25 cc</option><option value="32">32 cc</option> <option value="40">40 cc</option><option value="50">50 cc</option> <option value="63">63 cc</option><option value="80">80 cc</option> <option value="100">100 cc</option> </select> <input type="number" id="Vp" value="20" step="0.1"> </div> </div> <div class="field"> <label><span>سرعة الدوران (RPM)</span><span class="en">Speed</span></label> <div class="input-group"> <select onchange="setVal('n',this.value)"> <option value="">-- اختر | Select --</option> <option value="960">960 RPM</option><option value="1450">1450 RPM</option> <option value="1750">1750 RPM</option><option value="2900">2900 RPM</option> <option value="3500">3500 RPM</option> </select> <input type="number" id="n" value="1450"> </div> </div> <div class="field"> <label><span>الكفاءة الحجمية (%)</span><span class="en">Vol. Efficiency</span></label> <div class="input-group"> <select onchange="setVal('ev',this.value)"> <option value="">-- اختر | Select --</option> <option value="80">80 %</option><option value="85">85 %</option> <option value="88">88 %</option><option value="90">90 %</option> <option value="92">92 %</option><option value="95">95 %</option> <option value="98">98 %</option> </select> <input type="number" id="ev" value="92"> </div> </div> <div class="field"> <label><span>ضغط التشغيل (bar)</span><span class="en">Pressure</span></label> <div class="input-group"> <select onchange="setVal('P',this.value)"> <option value="">-- اختر | Select --</option> <option value="50">50 bar</option><option value="70">70 bar</option> <option value="100">100 bar</option><option value="140">140 bar</option> <option value="160">160 bar</option><option value="180">180 bar</option> <option value="210">210 bar</option><option value="250">250 bar</option> <option value="315">315 bar</option> </select> <input type="number" id="P" value="150"> </div> </div> <div class="field"> <label><span>الكفاءة الكلية (%)</span><span class="en">Total Efficiency</span></label> <div class="input-group"> <select onchange="setVal('et',this.value)"> <option value="">-- اختر | Select --</option> <option value="70">70 %</option><option value="75">75 %</option> <option value="80">80 %</option><option value="85">85 %</option> <option value="90">90 %</option> </select> <input type="number" id="et" value="85"> </div> </div> </div> <div class="box"> <h2><span>🟢</span> السطوانة | Cylinder</h2> <div class="field"> <label><span>قطر البستم D (mm)</span><span class="en">Bore Diameter</span></label> <div class="input-group"> <select onchange="setVal('D',this.value)"> <option value="">-- اختر | Select --</option> <option value="25">25 mm</option><option value="32">32 mm</option> <option value="40">40 mm</option><option value="50">50 mm</option> <option value="63">63 mm</option><option value="80">80 mm</option> <option value="100">100 mm</option><option value="125">125 mm</option> <option value="160">160 mm</option><option value="200">200 mm</option> <option value="250">250 mm</option> </select> <input type="number" id="D" value="63"> </div> </div> <div class="field"> <label><span>قطر الذراع d (mm)</span><span class="en">Rod Diameter</span></label> <div class="input-group"> <select onchange="setVal('d',this.value)"> <option value="">-- اختر | Select --</option> <option value="12">12 mm</option><option value="14">14 mm</option> <option value="16">16 mm</option><option value="18">18 mm</option> <option value="20">20 mm</option><option value="22">22 mm</option> <option value="25">25 mm</option><option value="28">28 mm</option> <option value="32">32 mm</option><option value="36">36 mm</option> <option value="45">45 mm</option><option value="50">50 mm</option> <option value="56">56 mm</option><option value="70">70 mm</option> <option value="90">90 mm</option><option value="110">110 mm</option> </select> <input type="number" id="d" value="36"> </div> </div> <div class="field"> <label><span>الشوط L (mm)</span><span class="en">Stroke Length</span></label> <div class="input-group"> <select onchange="setVal('L',this.value)"> <option value="">-- اختر | Select --</option> <option value="100">100 mm</option><option value="150">150 mm</option> <option value="200">200 mm</option><option value="250">250 mm</option> <option value="300">300 mm</option><option value="400">400 mm</option> <option value="500">500 mm</option><option value="600">600 mm</option> <option value="800">800 mm</option><option value="1000">1000 mm</option> </select> <input type="number" id="L" value="500"> </div> </div> <div class="field"> <label><span>الكفاءة الميكانيكية (%)</span><span class="en">Mech. Efficiency</span></label> <div class="input-group"> <select onchange="setVal('em',this.value)"> <option value="">-- اختر | Select --</option> <option value="80">80 %</option><option value="85">85 %</option> <option value="88">88 %</option><option value="90">90 %</option> <option value="92">92 %</option><option value="95">95 %</option> </select> <input type="number" id="em" value="90"> </div> </div> </div> </div> <div class="grid"> <div class="box"> <h2><span>🛢️</span> الخزان | Reservoir Tank</h2> <div class="field"> <label><span>معامل حجم الخزان (× التدفق)</span><span class="en">Tank Factor</span></label> <div class="input-group"> <select onchange="setVal('tankF',this.value)"> <option value="">-- اختر | Select --</option> <option value="1">1× (خفيف)</option> <option value="2">2× (قياسي)</option> <option value="3" selected>3× (موصى به)</option> <option value="4">4× (صناعي)</option> <option value="5">5× (ثقيل)</option> </select> <input type="number" id="tankF" value="3" step="0.1"> </div> </div> <div class="field"> <label><span>زمن دورة التشغيل (ث)</span><span class="en">Cycle Time</span></label> <div class="input-group"> <select onchange="setVal('tc',this.value)"> <option value="">-- اختر | Select --</option> <option value="30">30 s</option><option value="60">60 s</option> <option value="120">120 s</option><option value="300">300 s</option> <option value="600">600 s</option> </select> <input type="number" id="tc" value="60"> </div> </div> </div> <div class="box"> <h2><span>🌡️</span> التبريد | Cooling</h2> <div class="field"> <label><span>درجة حرارة الجو (°C)</span><span class="en">Ambient Temp</span></label> <div class="input-group"> <select onchange="setVal('Tamb',this.value)"> <option value="">-- اختر | Select --</option> <option value="20">20 °C</option><option value="25">25 °C</option> <option value="30">30 °C</option><option value="35">35 °C</option> <option value="40">40 °C</option><option value="45">45 °C</option> <option value="50">50 °C</option> </select> <input type="number" id="Tamb" value="35"> </div> </div> <div class="field"> <label><span>درجة الزيت المستهدفة (°C)</span><span class="en">Target Oil Temp</span></label> <div class="input-group"> <select onchange="setVal('Toil',this.value)"> <option value="">-- اختر | Select --</option> <option value="40">40 °C</option><option value="45">45 °C</option> <option value="50">50 °C</option><option value="55">55 °C</option> <option value="60">60 °C</option><option value="65">65 °C</option> </select> <input type="number" id="Toil" value="55"> </div> </div> <div class="field"> <label><span>معامل انتقال حرارة الخزان k (W/m²·K)</span><span class="en">Tank Heat Transfer</span></label> <div class="input-group"> <select onchange="setVal('tankK',this.value)"> <option value="">-- اختر | Select --</option> <option value="8">8 (مغلق / هواء ساكن)</option> <option value="12">12 (تهوية عادية)</option> <option value="15">15 (تهوية جيدة)</option> <option value="20">20 (هواء متحرك / مروحة)</option> </select> <input type="number" id="tankK" value="12" step="0.5"> </div> <div class="hint">قيم تقريبية للتقدير — راجع مرجعك أو قياس فعلي للتصميم النهائي.</div> </div> </div> </div> <div class="grid"> <div class="box"> <h2><span>🔁</span> الدائرة والتشغيل | Circuit & Duty</h2> <div class="field"> <label><span>فقد الضغط في الفالفات والخطوط (bar)</span><span class="en">Circuit ΔP</span></label> <div class="input-group"> <select onchange="setVal('dP',this.value)"> <option value="">-- اختر | Select --</option> <option value="0">0 bar</option><option value="5">5 bar</option> <option value="10">10 bar</option><option value="15">15 bar</option> <option value="20">20 bar</option><option value="30">30 bar</option> </select> <input type="number" id="dP" value="0" step="1" min="0"> </div> <div class="hint">بيتخصم من ضغط السطوانة (القوى بتقل) ويدخل في الحرارة. واقعيًا غالبًا 10–15 bar.</div> </div> <div class="field"> <label><span>حالة الطرمبة بين الدورات</span><span class="en">Idle Mode (uses Cycle Time)</span></label> <div class="input-group"> <select id="idleMode" style="flex:1 1 100%"> <option value="cont" selected>تشغيل مستمر (بدون انتظار)</option> <option value="unl">انتظار Unloaded (الطرمبة بدون حمل)</option> <option value="rel">انتظار على الـ Relief (ضغط كامل)</option> </select> </div> <div class="hint">"زمن الدورة" في قسم الخزان بيتستخدم هنا لحساب نسبة التشغيل والحرارة المتوسطة.</div> </div> </div> <div class="box"> <h2><span>🔧</span> المواسير | Lines</h2> <div class="field"> <label><span>أقصى سرعة: ضغط / رجوع / سحب (m/s)</span><span class="en">Max Velocity</span></label> <div class="input-group"> <input type="number" id="vP" value="4.5" step="0.1" title="خط الضغط"> <input type="number" id="vR" value="1.2" step="0.1" title="خط الرجوع"> <input type="number" id="vS" value="0.9" step="0.1" title="خط السحب"> </div> <div class="hint">حدود تصميمية — عدّلها حسب كتالوج/معيار شغلك (الرجوع الشائع 1.5–3 m/s).</div> </div> <div class="field"> <label><span>ID فعلي (اختياري): ضغط / رجوع / سحب (mm)</span><span class="en">Actual Inside Diameter</span></label> <div class="input-group"> <input type="number" id="idP" value="" step="0.1" placeholder="تلقائي" title="خط الضغط"> <input type="number" id="idR" value="" step="0.1" placeholder="تلقائي" title="خط الرجوع"> <input type="number" id="idS" value="" step="0.1" placeholder="تلقائي" title="خط السحب"> </div> <div class="hint">سيبها فاضية للاختيار التلقائي من جدول الخراطيم. للتيوب/الماسورة الصلب اكتب الـ ID الداخلي الفعلي.</div> </div> </div> </div> <div class="btn-row"> <button class="btn-calc" onclick="calc()">🧮 احسب | Calculate</button> <button class="btn-print" onclick="window.print()">🖨️ طباعة | Print</button> <button class="btn-save" onclick="saveComparison()">💾 أضف للمقارنة</button> </div> <div class="chart-box" id="simInfo"> <h2>📟 قراءات المحاكاة اللحظية | Simulation Readout</h2> <div class="hint" id="simNote"></div> <div class="hint">🔴 غرفة الضغط (زيت من الطرمبة) &nbsp;·&nbsp; 🔵 غرفة الرجوع للخزان &nbsp;·&nbsp; الخطوط المتقطعة = موضع البستم عند نهايتي الشوط &nbsp;·&nbsp; المنفذ A عند البستم، B عند الذراع</div> <div class="simread" id="simRead"></div> </div> <div class="results" id="out"></div> <div class="chart-box"> <h2>📊 المخطط البياني | Performance Charts</h2> <div class="charts" id="charts"></div> </div> <div class="chart-box"> <h2>📋 جدول المقارنة | Comparison Table</h2> <div style="overflow-x:auto"><table id="compTable"> <thead> <tr> <th>#</th><th>D (mm)</th><th>d (mm)</th><th>L (mm)</th> <th>Push (kN)</th><th>Pull (kN)</th> <th>V-out (mm/s)</th><th>Q (L/min)</th> <th>Power (kW)</th><th>حذف</th> </tr> </thead> <tbody id="compBody"> <tr><td colspan="10" style="color:#64748b;padding:20px">لا توجد نتائج محفوظة — اضغط "أضف للمقارنة" بعد الحساب</td></tr> </tbody> </table></div> </div> <footer>© EHP - الحاسبة الهيدروليكية الشاملة | تحديث فوري عند تغيير القيم</footer> </div></div><script>
+(function(){
+let comparisons = [];
+
+/* ================= أدوات مساعدة ================= */
+function setVal(id, val){
+  if(val !== '') document.getElementById(id).value = val;
+}
+function fmt(n, dec=2){
+  if(!Number.isFinite(n)) return '—';
+  return n.toLocaleString('en-US',{minimumFractionDigits:dec, maximumFractionDigits:dec});
+}
+function getVal(id){ return +document.getElementById(id).value; }
+function getStr(id){ return document.getElementById(id).value; }
+
+/* ================= جدول المقاسات =================
+   المقاسات دي هي الـ ID الاسمي للخرطوم الهيدروليكي (Dash size: -4 ... -48).
+   لو الخط تيوب/ماسورة صلب اكتب الـ ID الفعلي في خانة "ID فعلي" في قسم المواسير. */
+const pipeSizes = [
+  {in:'1/4"', mm:6.35},  {in:'3/8"', mm:9.52},   {in:'1/2"', mm:12.7},
+  {in:'5/8"', mm:15.88}, {in:'3/4"', mm:19.05},  {in:'1"',   mm:25.4},
+  {in:'1-1/4"', mm:31.75},{in:'1-1/2"', mm:38.1},{in:'2"',   mm:50.8},
+  {in:'2-1/2"', mm:63.5},{in:'3"',   mm:76.2}
+];
+
+function velFromID(Q_Lmin, id_mm){
+  const A = Math.PI/4 * (id_mm/1000)**2;          // m²
+  return (Q_Lmin/60000) / A;                      // m/s
+}
+function selectPipe(Q_Lmin, Vmax){
+  for(const p of pipeSizes){
+    const V = velFromID(Q_Lmin, p.mm);
+    if(V <= Vmax) return {...p, V};
+  }
+  const last = pipeSizes[pipeSizes.length-1];
+  return {...last, V: velFromID(Q_Lmin, last.mm)};
+}
+function checkVel(V, vmax){
+  const lo = vmax*0.4;
+  if(V < lo)   return {t:'badge-warn', txt:'بطيء Slow'};
+  if(V > vmax) return {t:'badge-bad',  txt:'سريع Fast'};
+  return {t:'badge-ok', txt:'مثالي OK'};
+}
+function lineRow(label, small, Q, vmax, idManual){
+  let name, V;
+  if(idManual > 0){
+    V = velFromID(Q, idManual);
+    name = `ID ${fmt(idManual,1)} mm (يدوي)`;
+  } else {
+    const p = selectPipe(Q, vmax);
+    V = p.V;
+    name = `${p.in} خرطوم (ID ${fmt(p.mm,1)} mm)`;
+  }
+  const c = checkVel(V, vmax);
+  return `<div class="row"><span class="label">${label} <small>${small} (≤${fmt(vmax,1)} m/s) — Q=${fmt(Q,1)} L/min</small></span>
+    <span class="val">${name} — ${fmt(V,2)} m/s <span class="badge ${c.t}">${c.txt}</span></span></div>`;
+}
+
+/* ================= رسم الأعمدة (بدون مكتبات خارجية) ================= */
+function barGroup(title, unit, items, dec=1){
+  const max = Math.max(...items.map(i=>i.v), 1e-9);
+  return `<div class="bg"><div class="bg-t">${title} <span>${unit}</span></div>` +
+    items.map(i=>`
+      <div class="bar-row">
+        <span class="bar-l">${i.l}</span>
+        <div class="bar-track"><div class="bar-fill" style="width:${Math.max(0,i.v/max*100).toFixed(1)}%;background:${i.c}"></div></div>
+        <span class="bar-v">${fmt(i.v,dec)}</span>
+      </div>`).join('') + `</div>`;
+}
+
+/* ================= الحساب ================= */
+function calc(){
+  try{ calcCore(); }
+  catch(err){
+    console.error(err);
+    const o=document.getElementById('out');
+    if(o) o.innerHTML='<div class="errbox"><b>❌ خطأ في الحساب:</b> '+String(err&&err.message||err)+'</div>';
+    simInvalid(true);
+  }
+}
+let calcQueued=false;
+function scheduleCalc(){
+  if(calcQueued) return; calcQueued=true;
+  requestAnimationFrame(()=>{ calcQueued=false; calc(); });
+}
+function calcCore(){
+  const out = document.getElementById('out');
+
+  // ----- قراءة المدخلات -----
+  const Vp = getVal('Vp'), n = getVal('n'), ev = getVal('ev')/100;
+  const P = getVal('P'), et = getVal('et')/100;
+  const D = getVal('D'), d = getVal('d'), L = getVal('L'), em = getVal('em')/100;
+  const tankF = getVal('tankF'), tc = getVal('tc');
+  const Tamb = getVal('Tamb'), Toil = getVal('Toil'), tankK = getVal('tankK');
+  const dP = getVal('dP'), idleMode = getStr('idleMode');
+  const vMaxP = getVal('vP'), vMaxR = getVal('vR'), vMaxS = getVal('vS');
+  const idP = getVal('idP'), idR = getVal('idR'), idS = getVal('idS');
+
+  // ----- التحقق من المدخلات -----
+  const errors = [], warns = [];
+  if(!(Vp > 0)) errors.push('إزاحة الطرمبة لازم تكون أكبر من صفر');
+  if(!(n > 0))  errors.push('سرعة الدوران لازم تكون أكبر من صفر');
+  if(!(ev > 0 && ev <= 1)) errors.push('الكفاءة الحجمية لازم تكون بين 0 و 100%');
+  if(!(et > 0 && et <= 1)) errors.push('الكفاءة الكلية لازم تكون بين 0 و 100%');
+  if(ev > 0 && et > ev)    errors.push('الكفاءة الكلية أكبر من الحجمية — مستحيل (الكلية = الحجمية × الميكانيكية-الهيدروليكية)');
+  if(!(P > 0)) errors.push('ضغط التشغيل لازم يكون أكبر من صفر');
+  if(!(D > 0)) errors.push('قطر البستم لازم يكون أكبر من صفر');
+  if(!(d >= 0 && d < D)) errors.push('قطر الذراع لازم يكون أصغر من قطر البستم');
+  if(!(L > 0)) errors.push('الشوط لازم يكون أكبر من صفر');
+  if(!(em > 0 && em <= 1)) errors.push('الكفاءة الميكانيكية للسطوانة لازم تكون بين 0 و 100%');
+  if(!(dP >= 0 && dP < P)) errors.push('فقد الضغط في الدائرة لازم يكون بين 0 وضغط التشغيل');
+  if(!(tankF > 0)) errors.push('معامل الخزان لازم يكون أكبر من صفر');
+  if(!(tc > 0))    errors.push('زمن الدورة لازم يكون أكبر من صفر');
+  if(!(tankK > 0)) errors.push('معامل انتقال الحرارة k لازم يكون أكبر من صفر');
+  if(!(vMaxP > 0 && vMaxR > 0 && vMaxS > 0)) errors.push('حدود السرعات في المواسير لازم تكون أكبر من صفر');
+  if(Vp>5000||n>30000||P>2000||D>3000||L>30000||tankF>100||tc>1e6) errors.push('قيمة كبيرة بشكل غير منطقي — راجع الأرقام (الحد الأقصى: إزاحة 5000 cc، 30000 RPM، ضغط 2000 bar، قطر 3000 mm، شوط 30000 mm)');
+
+  if(errors.length){
+    out.innerHTML = `<div class="errbox"><b>❌ راجع المدخلات:</b><br>• ${errors.join('<br>• ')}</div>`;
+    document.getElementById('charts').innerHTML = '';
+    window._lastCalc = null;
+    simInvalid(true);
+    return;
+  }
+
+  // ===== الطرمبة =====
+  const Q_theo = (Vp * n) / 1000;                 // L/min
+  const Q_act  = Q_theo * ev;                     // L/min
+  const Q_mm3s = Q_act * 1e6 / 60;                // mm³/s
+  const Q_m3s  = Q_act / 60000;                   // m³/s
+  const slip   = Q_theo - Q_act;
+  const power_hyd   = (P * Q_act) / 600;          // kW
+  const power_shaft = power_hyd / et;             // kW
+
+  // ===== السطوانة =====
+  const pC = P - dP;                              // الضغط الفعّال عند السطوانة (bar)
+  const A1 = Math.PI/4 * D*D;
+  const A_rod = Math.PI/4 * d*d;
+  const A2 = A1 - A_rod;
+
+  const Vout = Q_mm3s / A1;                       // mm/s
+  const Vin  = Q_mm3s / A2;
+  const ratio = A1 / A2;
+
+  const Fpush_ideal = pC * 0.1 * A1 / 1000;       // kN
+  const Fpull_ideal = pC * 0.1 * A2 / 1000;
+  const Fpush = Fpush_ideal * em;
+  const Fpull = Fpull_ideal * em;
+
+  const tout = L / Vout, tin = L / Vin;
+  const t_total = tout + tin;
+  const oil_push = A1 * L / 1e6;                  // L
+  const oil_pull = A2 * L / 1e6;
+  const rodVol   = A_rod * L / 1e6;               // L — التغير الصافي في مستوى الخزان
+
+  // ===== الماسورة =====
+  const Q_ret_max = Q_act * ratio;                // أقصى تدفق رجوع (وقت رجوع الذراع، من ناحية البستم)
+  const Q_suction = Q_theo;                       // خط السحب بيشوف التدفق النظري
+
+  // ===== الخزان =====
+  const tankVol    = Q_act * tankF;               // L (حجم الزيت)
+  const tankVolMin = Q_act * 2;
+  const tankVolMax = Q_act * 4;
+  const tankGross  = tankVol / 0.8;               // L (الحجم الكلي بمستوى زيت 80%)
+  const tankHeight = Math.cbrt(tankGross * 1e6 / 3);   // mm  (L=2H, W=1.5H → V=3H³)
+  const tankWidth  = tankHeight * 1.5;
+  const tankLength = tankHeight * 2;
+
+  // ===== الحرارة =====
+  // ميزان الطاقة: الحرارة = قدرة العمود − القدرة المفيدة (F·v) أثناء الحركة تحت حمل كامل
+  const W_cycle_kJ = (Fpush + Fpull) * L / 1000;         // kN·m = kJ
+  const P_useful   = W_cycle_kJ / t_total;               // kW
+  const loss_pump  = power_shaft - power_hyd;            // kW
+  const loss_dP    = dP * Q_act / 600;                   // kW
+  const loss_cyl   = pC * Q_act / 600 * (1 - em);        // kW
+  const heat_run   = Math.max(0, power_shaft - P_useful);// kW أثناء الحركة
+
+  const duty = Math.min(1, t_total / tc);
+  let heat_kW;
+  if(idleMode === 'unl')      heat_kW = heat_run * duty;                          // انتظار Unloaded
+  else if(idleMode === 'rel') heat_kW = heat_run * duty + power_shaft * (1-duty); // انتظار على Relief
+  else                        heat_kW = heat_run;                                 // تشغيل مستمر
+  const heatLoss = heat_kW * 860;                        // kcal/h
+
+  const dT = Toil - Tamb;
+  const A_tank = 0.0696 * Math.pow(tankGross, 0.666);    // m² (تقدير تقريبي)
+  const tankCooling_kW = dT > 0 ? tankK * A_tank * dT / 1000 : 0;
+  const tankCooling = tankCooling_kW * 860;              // kcal/h
+
+  const heatToRemove_kW = Math.max(0, heat_kW - tankCooling_kW);
+  const heatToRemove = heatToRemove_kW * 860;
+  const coolerSel_kW = heatToRemove_kW * 1.25;           // معامل أمان 1.25
+
+  let heatStatus;
+  if(heatToRemove_kW <= 0.001) heatStatus = `<span class="badge badge-ok">لا يحتاج مبرد No Cooler</span>`;
+  else if(heatToRemove_kW < 0.5) heatStatus = `<span class="badge badge-warn">مبرد صغير Small (&lt;0.5 kW)</span>`;
+  else if(heatToRemove_kW < 3)   heatStatus = `<span class="badge badge-warn">مبرد متوسط Medium</span>`;
+  else heatStatus = `<span class="badge badge-bad">مبرد كبير Large (≥3 kW)</span>`;
+
+  // ----- تنبيهات -----
+  if(dT <= 0) warns.push('درجة الزيت المستهدفة أقل من أو تساوي حرارة الجو — الخزان مش هيطرد حرارة (التبريد الطبيعي = 0)');
+  if(rodVol > 0.2 * tankVol) warns.push(`تغير مستوى الزيت في الخزان (${fmt(rodVol,1)} L) كبير بالنسبة لحجم الخزان — كبّر الخزان أو راجع الحجم`);
+  if(idleMode !== 'cont' && tc < t_total) warns.push(`زمن الدورة (${tc} s) أقل من زمن الحركة (${fmt(t_total,1)} s) — اتحسب كتشغيل مستمر`);
+
+  const warnHtml = warns.length ? `<div class="warnbox">⚠️ ${warns.join('<br>⚠️ ')}</div>` : '';
+
+  // ===== عرض النتائج =====
+  out.innerHTML = warnHtml + `
+    <h2>🔄 التدفق | Flow Rate</h2>
+    <div class="row highlight"><span class="label">التدفق النظري <small>Theoretical</small></span><span class="val">${fmt(Q_theo)} L/min</span></div>
+    <div class="row highlight"><span class="label">التدفق الفعلي <small>Actual Flow</small></span><span class="val">${fmt(Q_act)} L/min</span></div>
+    <div class="row"><span class="label">التدفق <small>m³/s</small></span><span class="val">${Q_m3s.toExponential(3)} m³/s</span></div>
+    <div class="row"><span class="label">التدفق <small>mm³/s</small></span><span class="val">${fmt(Q_mm3s,0)} mm³/s</span></div>
+    <div class="row"><span class="label">الفقد الداخلي <small>Slip Loss</small></span><span class="val">${fmt(slip)} L/min</span></div>
+    <div class="row"><span class="label">أقصى تدفق رجوع للخزان <small>Max Return Flow (retract)</small></span><span class="val">${fmt(Q_ret_max)} L/min</span></div>
+
+    <h2>⚡ القدرة | Power</h2>
+    <div class="row"><span class="label">القدرة الهيدروليكية <small>Hydraulic</small></span><span class="val">${fmt(power_hyd)} kW</span></div>
+    <div class="row highlight"><span class="label">القدرة المطلوبة <small>Shaft Power</small></span><span class="val">${fmt(power_shaft)} kW</span></div>
+    <div class="row"><span class="label">بالحصان <small>Horsepower</small></span><span class="val">${fmt(power_shaft*1.341)} HP</span></div>
+
+    <h2>📐 مساحات السطوانة | Cylinder Areas</h2>
+    <div class="row"><span class="label">مساحة البستم A₁ <small>Piston Area</small></span><span class="val">${fmt(A1,0)} mm²</span></div>
+    <div class="row"><span class="label">مساحة الذراع <small>Rod Area</small></span><span class="val">${fmt(A_rod,0)} mm²</span></div>
+    <div class="row"><span class="label">مساحة الحلقة A₂ <small>Annulus</small></span><span class="val">${fmt(A2,0)} mm²</span></div>
+
+    <h2>🏃 السرعات | Speeds</h2>
+    <div class="row highlight"><span class="label">سرعة الخروج <small>Extend</small></span><span class="val">${fmt(Vout,1)} mm/s</span></div>
+    <div class="row highlight"><span class="label">سرعة الرجوع <small>Retract</small></span><span class="val">${fmt(Vin,1)} mm/s</span></div>
+    <div class="row"><span class="label">نسبة السرعة <small>Ratio</small></span><span class="val">${fmt(ratio)} : 1</span></div>
+
+    <h2>💪 القوى | Forces</h2>
+    <div class="row"><span class="label">الضغط الفعّال عند السطوانة <small>Cylinder Pressure = P − ΔP</small></span><span class="val">${fmt(pC,1)} bar</span></div>
+    <div class="row"><span class="label">قوة الدفع النظرية <small>Push Ideal</small></span><span class="val">${fmt(Fpush_ideal)} kN</span></div>
+    <div class="row highlight"><span class="label">قوة الدفع الفعلية <small>Push Actual</small></span><span class="val">${fmt(Fpush)} kN</span></div>
+    <div class="row"><span class="label">قوة السحب النظرية <small>Pull Ideal</small></span><span class="val">${fmt(Fpull_ideal)} kN</span></div>
+    <div class="row highlight"><span class="label">قوة السحب الفعلية <small>Pull Actual</small></span><span class="val">${fmt(Fpull)} kN</span></div>
+    <div class="row"><span class="label">بالطن <small>Push in Tons-force</small></span><span class="val">${fmt(Fpush/9.81)} ton</span></div>
+
+    <h2>⏱️ الأزمنة | Timing</h2>
+    <div class="row"><span class="label">زمن الخروج <small>Extend</small></span><span class="val">${fmt(tout)} s</span></div>
+    <div class="row"><span class="label">زمن الرجوع <small>Retract</small></span><span class="val">${fmt(tin)} s</span></div>
+    <div class="row highlight"><span class="label">الدورة الكاملة <small>Full Cycle</small></span><span class="val">${fmt(t_total)} s</span></div>
+
+    <h2>🛢️ الزيت والخزان | Oil & Tank</h2>
+    <div class="row"><span class="label">زيت الخروج <small>Oil per Extend</small></span><span class="val">${fmt(oil_push,3)} L</span></div>
+    <div class="row"><span class="label">زيت الرجوع <small>Oil per Retract</small></span><span class="val">${fmt(oil_pull,3)} L</span></div>
+    <div class="row"><span class="label">تغير مستوى الخزان (حجم الذراع) <small>Level Swing</small></span><span class="val">${fmt(rodVol,3)} L</span></div>
+    <div class="row highlight"><span class="label">حجم الزيت الموصى به <small>Recommended Oil Volume</small></span><span class="val">${fmt(tankVol,1)} L</span></div>
+    <div class="row"><span class="label">النطاق المقبول <small>Acceptable Range (2×–4×)</small></span><span class="val">${fmt(tankVolMin,0)} - ${fmt(tankVolMax,0)} L</span></div>
+    <div class="row"><span class="label">أبعاد تقديرية للخزان (L×W×H) <small>Est. Dimensions @80% fill</small></span><span class="val">${fmt(tankLength,0)} × ${fmt(tankWidth,0)} × ${fmt(tankHeight,0)} mm</span></div>
+
+    <h2>🌡️ الحرارة والتبريد | Heat & Cooling</h2>
+    <div class="row"><span class="label">فقد الطرمبة <small>Pump Loss</small></span><span class="val">${fmt(loss_pump)} kW</span></div>
+    <div class="row"><span class="label">فقد الضغط في الدائرة <small>Circuit ΔP Loss</small></span><span class="val">${fmt(loss_dP)} kW</span></div>
+    <div class="row"><span class="label">احتكاك السطوانة <small>Cylinder Friction</small></span><span class="val">${fmt(loss_cyl)} kW</span></div>
+    <div class="row"><span class="label">الحرارة أثناء الحركة <small>Heat while moving</small></span><span class="val">${fmt(heat_run)} kW</span></div>
+    ${idleMode !== 'cont' ? `<div class="row"><span class="label">نسبة التشغيل <small>Duty = t_cycle / T</small></span><span class="val">${fmt(duty*100,0)} %</span></div>` : ''}
+    <div class="row highlight"><span class="label">الحرارة المتوسطة المتولدة <small>Avg Heat Generated</small></span><span class="val">${fmt(heat_kW)} kW = ${fmt(heatLoss,0)} kcal/h</span></div>
+    <div class="row"><span class="label">فرق الحرارة ΔT <small>Temp Diff</small></span><span class="val">${fmt(dT,1)} °C</span></div>
+    <div class="row"><span class="label">مساحة سطح الخزان <small>Tank Surface (est.)</small></span><span class="val">${fmt(A_tank,2)} m²</span></div>
+    <div class="row"><span class="label">تبريد الخزان الطبيعي <small>Tank Cooling</small></span><span class="val">${fmt(tankCooling_kW)} kW = ${fmt(tankCooling,0)} kcal/h</span></div>
+    <div class="row highlight"><span class="label">الحرارة المطلوب طردها <small>Heat to Remove</small></span><span class="val">${fmt(heatToRemove_kW)} kW = ${fmt(heatToRemove,0)} kcal/h</span></div>
+    <div class="row"><span class="label">قدرة المبرد المقترحة <small>Cooler ×1.25 safety</small></span><span class="val">${fmt(coolerSel_kW)} kW</span></div>
+    <div class="row"><span class="label">الحالة <small>Status</small></span><span class="val">${heatStatus}</span></div>
+    <div class="hint">* الحرارة محسوبة على افتراض حمل كامل أثناء الحركة، فهي حد أدنى. لو فيه throttling أو relief أثناء التشغيل الحرارة هتزيد.</div>
+
+    <h2>🔧 المواسير الموصى بها | Recommended Lines</h2>
+    ${lineRow('خط الضغط','Pressure Line', Q_act, vMaxP, idP)}
+    ${lineRow('خط الرجوع','Return Line (max)', Q_ret_max, vMaxR, idR)}
+    ${lineRow('خط السحب','Suction Line (Q نظري)', Q_suction, vMaxS, idS)}
+    <div class="row"><span class="label">سرعة داخل السطوانة (مقترح) <small>Cylinder Port Vel.</small></span><span class="val">≤ 5 m/s</span></div>
+    <div class="hint">* جدول المقاسات التلقائي = ID اسمي لخرطوم هيدروليكي. لو تيوب/ماسورة صلب اكتب الـ ID الفعلي في قسم المواسير. راجع الفالفات على تدفق الرجوع الأقصى.</div>
+  `;
+
+  // ===== الرسوم =====
+  document.getElementById('charts').innerHTML =
+    barGroup('💪 القوى | Forces','kN',[
+      {l:'دفع Push', v:Fpush, c:'#0ea5e9'}, {l:'سحب Pull', v:Fpull, c:'#38bdf8'}], 2) +
+    barGroup('🏃 السرعات | Speeds','mm/s',[
+      {l:'خروج Extend', v:Vout, c:'#10b981'}, {l:'رجوع Retract', v:Vin, c:'#34d399'}], 1) +
+    barGroup('🔄 التدفق | Flow','L/min',[
+      {l:'نظري Theo.', v:Q_theo, c:'#f59e0b'}, {l:'فعلي Actual', v:Q_act, c:'#fbbf24'},
+      {l:'رجوع أقصى', v:Q_ret_max, c:'#f97316'}], 1) +
+    barGroup('⚡ القدرة والحرارة | Power & Heat','kW',[
+      {l:'هيدروليكية', v:power_hyd, c:'#a78bfa'}, {l:'العمود Shaft', v:power_shaft, c:'#ef4444'},
+      {l:'حرارة متوسطة', v:heat_kW, c:'#fb7185'}], 2);
+
+  // تخزين القيم لزر المقارنة
+  window._lastCalc = {D,d,L,Fpush,Fpull,Vout,Q_act,power_shaft};
+
+  // ===== المحاكاة =====
+  simUpdate({D,d,L,pC,P,Q_act,Q_theo,ratio,A1,A2,Vout,Vin,tout,tin,Fpush,Fpull});
+}
+
+/* ================= جدول المقارنة ================= */
+function renderComparison(){
+  const body = document.getElementById('compBody');
+  if(!comparisons.length){
+    body.innerHTML = '<tr><td colspan="10" style="color:#64748b;padding:20px">لا توجد نتائج محفوظة — اضغط "أضف للمقارنة" بعد الحساب</td></tr>';
+    return;
+  }
+  body.innerHTML = comparisons.map((x,i) => `
+    <tr>
+      <td>${i+1}</td>
+      <td>${x.D}</td><td>${x.d}</td><td>${x.L}</td>
+      <td style="color:#7dd3fc">${x.Fpush.toFixed(1)}</td>
+      <td style="color:#6ee7b7">${x.Fpull.toFixed(1)}</td>
+      <td>${x.Vout.toFixed(0)}</td>
+      <td>${x.Q_act.toFixed(1)}</td>
+      <td style="color:#fcd34d">${x.power_shaft.toFixed(2)}</td>
+      <td><button onclick="delRow(${i})" style="background:#ef4444;padding:4px 10px;font-size:11px;border-radius:6px">✕</button></td>
+    </tr>
+  `).join('');
+}
+
+function saveComparison(){
+  if(!window._lastCalc){ alert('اضغط "احسب" أولاً | Press Calculate first'); return; }
+  comparisons.push({...window._lastCalc});
+  renderComparison();
+}
+
+function delRow(i){
+  comparisons.splice(i,1);
+  renderComparison();
+}
+
+
+/* ================= محاكاة السطوانة (SVG) ================= */
+let simS = null;      // آخر قيم صحيحة من الحساب
+let simG = null;      // الأبعاد الهندسية للرسم (px)
+const sim = {f:0, dir:'ext', dwell:0, playing:true, speed:1, last:null};
+const simEl = {};
+
+function mm(v){ return fmt(v, Number.isInteger(v) ? 0 : 1); }
+
+function simInit(){
+  const cards = [
+    ['rdState','الحالة'], ['rdPos','الموضع p'], ['rdVel','السرعة v'], ['rdForce','القوة F'],
+    ['rdQin','تدفق الدخول (Q)'], ['rdQout','تدفق الرجوع للخزان'],
+    ['rdVA','زيت غرفة البستم (A₁)'], ['rdVB','زيت غرفة الذراع (A₂)'], ['rdT','زمن الشوط']
+  ];
+  document.getElementById('simRead').innerHTML =
+    cards.map(c=>`<div class="rd"><span>${c[1]}</span><b id="${c[0]}">—</b></div>`).join('');
+  cards.forEach(c=>{ simEl[c[0]] = document.getElementById(c[0]); });
+  simEl.back = document.getElementById('simBack');
+  simEl.dyn  = document.getElementById('simDyn');
+  simEl.front= document.getElementById('simFront');
+  simEl.play = document.getElementById('simPlay');
+  simEl.pos  = document.getElementById('simPos');
+  simEl.warn = document.getElementById('simWarn');
+  simEl.note = document.getElementById('simNote');
+  const dock = document.getElementById('simDock');
+  if(typeof requestAnimationFrame === 'function') requestAnimationFrame(simLoop);
+}
+
+function simInvalid(flag){ if(simEl.warn) simEl.warn.style.display = flag ? 'block' : 'none'; }
+
+function simUpdate(S){
+  for(const k in S) if(typeof S[k]==='number' && !Number.isFinite(S[k])){ simInvalid(true); return; }
+  simS = S;
+  simInvalid(false);
+  simDrawStatic();
+  simDraw();
+}
+
+/* ---- الأبعاد الهندسية للرسم ---- */
+function simGeom(S){
+  const W=1000, X0=90, capT=14, wallT=9, pwMax=34, rodMin=50;
+  const budget = (960 - X0) - 2*capT - pwMax - rodMin;   // الطول المتاح لضعف الشوط (البستم + الذراع الخارج)
+  const s = Math.min(budget/(2*S.L), 190/S.D);            // px/mm للأطوال
+  let sy = s;                                             // px/mm للأقطار
+  if(S.D*s < 76) sy = 76/S.D;                             // تكبير رأسي لو السطوانة رفيعة
+  const Dpx = S.D*sy;
+  const rodPx = S.d > 0 ? Math.max(S.d*sy, 5) : 0;
+  const pw = Math.min(pwMax, Math.max(14, Dpx*0.28));
+  const xi0 = X0 + capT, Lpx = S.L*s, xi1 = xi0 + Lpx + pw;
+  const H = 12 + 78 + Dpx + 2*wallT + 84 + 24;            // ارتفاع الرسم بيتغير مع القطر
+  const cy = 12 + 78 + wallT + Dpx/2;
+  return {W,H,X0,capT,wallT,s,sy,ex:sy/s,Dpx,rodPx,pw,xi0,Lpx,xi1,Lrod:Lpx+rodMin,cy,
+          top:cy-Dpx/2, bot:cy+Dpx/2, outTop:cy-Dpx/2-wallT, outBot:cy+Dpx/2+wallT};
+}
+
+/* ---- الطبقات الثابتة (بتتعمل من جديد لما القيم تتغير) ---- */
+function simDrawStatic(){
+  const S = simS; if(!S) return;
+  const g = simG = simGeom(S);
+  document.getElementById('simSvg').setAttribute('viewBox', `0 0 ${g.W} ${fmt(g.H,0).replace(/,/g,'')}`);
+  const xL = g.X0, xA = g.xi0 + 9, xB = g.xi1 - 9;
+
+  let b = '';
+  b += `<rect x="${g.xi0}" y="${g.top}" width="${g.xi1-g.xi0}" height="${g.Dpx}" fill="#0b1220"/>`;
+  for(const y of [g.outTop, g.bot])
+    b += `<rect x="${g.xi0}" y="${y}" width="${g.xi1-g.xi0}" height="${g.wallT}" fill="#64748b" stroke="#94a3b8"/>`;
+  for(const x of [xL, g.xi1])
+    b += `<rect x="${x}" y="${g.outTop}" width="${g.capT}" height="${g.outBot-g.outTop}" fill="#475569" stroke="#94a3b8"/>`;
+  for(const x of [xA, xB]){
+    b += `<rect x="${x-7}" y="${g.outTop-20}" width="14" height="20" fill="#475569" stroke="#94a3b8"/>`;
+    b += `<rect x="${x-4}" y="${g.outTop}" width="8" height="${g.wallT}" fill="#0b1220"/>`;
+  }
+  b += `<line x1="${xL-12}" y1="${g.cy}" x2="985" y2="${g.cy}" stroke="#64748b" stroke-width="1" stroke-dasharray="14 4 3 4" opacity=".7"/>`;
+  simEl.back.innerHTML = b;
+
+  const dimStyle = 'stroke="#94a3b8" stroke-width="1"';
+  const dimArrows = 'marker-start="url(#arrDim)" marker-end="url(#arrDim)"';
+  const txtC = c => `fill="${c}" font-size="13" font-weight="bold" font-family="Segoe UI,Tahoma,sans-serif"`;
+  let f = '';
+
+  // مواضع البستم عند نهايتي الشوط (ظل متقطع)
+  for(const x of [g.xi0, g.xi0 + g.Lpx])
+    f += `<rect x="${x}" y="${g.top+1}" width="${g.pw}" height="${g.Dpx-2}" fill="none" stroke="#7dd3fc" stroke-width="1" stroke-dasharray="4 3" opacity=".6"/>`;
+
+  // D — قطر البستم
+  const xd = xL - 30;
+  f += `<line x1="${xL-2}" y1="${g.top}" x2="${xd-6}" y2="${g.top}" ${dimStyle}/>`;
+  f += `<line x1="${xL-2}" y1="${g.bot}" x2="${xd-6}" y2="${g.bot}" ${dimStyle}/>`;
+  f += `<line x1="${xd}" y1="${g.top}" x2="${xd}" y2="${g.bot}" ${dimStyle} ${dimArrows}/>`;
+  f += `<text transform="translate(${xd-9},${g.cy}) rotate(-90)" text-anchor="middle" ${txtC('#e2e8f0')}>D = Ø${mm(S.D)} mm</text>`;
+
+  // d — قطر الذراع
+  if(g.rodPx > 0){
+    const xr = g.xi1 + g.capT + 22;
+    f += `<line x1="${xr}" y1="${g.cy-g.rodPx/2}" x2="${xr}" y2="${g.cy+g.rodPx/2}" stroke="#fbbf24" stroke-width="1.5" ${dimArrows.replace(/arrDim/g,'arrRod')}/>`;
+    f += `<text x="${xr+8}" y="${g.cy-(g.rodPx*1.4+6)/2-8}" ${txtC('#fbbf24')}>d = Ø${mm(S.d)} mm</text>`;
+  }
+
+  // L — الشوط
+  const yD = g.outBot + 46, xe = g.xi0 + g.Lpx;
+  f += `<line x1="${g.xi0}" y1="${g.outBot+2}" x2="${g.xi0}" y2="${yD+6}" ${dimStyle}/>`;
+  f += `<line x1="${xe}" y1="${g.outBot+2}" x2="${xe}" y2="${yD+6}" ${dimStyle}/>`;
+  f += `<line x1="${g.xi0}" y1="${yD}" x2="${xe}" y2="${yD}" ${dimStyle} ${dimArrows}/>`;
+  f += `<text x="${(g.xi0+xe)/2}" y="${yD-8}" text-anchor="middle" ${txtC('#e2e8f0')}>L = ${mm(S.L)} mm (الشوط)</text>`;
+
+  if(g.ex > 1.05)
+    f += `<text x="10" y="${g.H-10}" fill="#f59e0b" font-size="11" font-family="Segoe UI,Tahoma,sans-serif">الأقطار مكبّرة ×${fmt(g.ex,1)} في الرسم لوضوح الشكل — الأطوال بمقياس حقيقي</text>`;
+  simEl.front.innerHTML = f;
+
+  if(simEl.note) simEl.note.textContent =
+    `مقياس الرسم للأطوال: 1 px = ${fmt(1/g.s,2)} mm` + (g.ex > 1.05 ? ` — الأقطار مكبّرة ×${fmt(g.ex,1)}` : ' — الأقطار بنفس المقياس');
+}
+
+/* ---- الطبقة المتحركة (كل إطار) ---- */
+function simDraw(){
+  const S = simS, g = simG; if(!S || !g) return;
+  const ext = sim.dir === 'ext', dwell = sim.dwell > 0;
+  const xp = g.xi0 + sim.f * g.Lpx;                       // الوجه الأيسر للبستم
+  const cP = 'rgba(239,68,68,.40)', cR = 'rgba(56,189,248,.30)';
+  const txtB = 'font-size="12" font-family="Segoe UI,Tahoma,sans-serif"';
+  let h = '';
+
+  // الزيت في الغرفتين
+  h += `<rect x="${g.xi0}" y="${g.top}" width="${Math.max(0, xp-g.xi0)}" height="${g.Dpx}" fill="${ext?cP:cR}"/>`;
+  h += `<rect x="${xp+g.pw}" y="${g.top}" width="${Math.max(0, g.xi1-xp-g.pw)}" height="${g.Dpx}" fill="${ext?cR:cP}"/>`;
+
+  // الذراع
+  const tip = xp + g.pw + g.Lrod;
+  if(g.rodPx > 0){
+    h += `<rect x="${xp+g.pw}" y="${g.cy-g.rodPx/2}" width="${g.Lrod}" height="${g.rodPx}" fill="url(#rodGrad)" stroke="#64748b"/>`;
+    const eh = g.rodPx*1.4 + 6;
+    h += `<rect x="${tip-14}" y="${g.cy-eh/2}" width="14" height="${eh}" rx="3" fill="#94a3b8" stroke="#e2e8f0"/>`;
+  }
+  // البستم
+  h += `<rect x="${xp}" y="${g.top+1}" width="${g.pw}" height="${g.Dpx-2}" fill="url(#pistonGrad)" stroke="#7dd3fc"/>`;
+  for(const k of [0.25, 0.75])
+    h += `<line x1="${xp+g.pw*k}" y1="${g.top+1}" x2="${xp+g.pw*k}" y2="${g.bot-1}" stroke="#0c4a6e" stroke-width="2"/>`;
+
+  // مساحات الغرفتين (لو المكان يكفي)
+  if(xp - g.xi0 > 100)
+    h += `<text x="${g.xi0+8}" y="${g.top+16}" fill="#fecaca" ${txtB}>A₁ = ${fmt(S.A1,0)} mm²</text>`;
+  if(g.xi1 - xp - g.pw > 100 && g.rodPx < g.Dpx - 32)
+    h += `<text x="${g.xi1-8}" y="${g.top+16}" text-anchor="end" fill="#bae6fd" ${txtB}>A₂ = ${fmt(S.A2,0)} mm²</text>`;
+
+  // مدخل ومخرج الزيت
+  const Qin = S.Q_act, Qout = ext ? S.Q_act/S.ratio : S.Q_act*S.ratio;
+  const tubeTop = g.outTop - 20, xA = g.xi0 + 9, xB = g.xi1 - 9;
+  const port = (x, isIn, q, letter, anchor, dx) => {
+    let s = '';
+    if(!dwell){
+      s += isIn
+        ? `<line x1="${x}" y1="${tubeTop-30}" x2="${x}" y2="${tubeTop-3}" stroke="#f87171" stroke-width="2.5" marker-end="url(#arrIn)"/>`
+        : `<line x1="${x}" y1="${tubeTop-3}" x2="${x}" y2="${tubeTop-30}" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrOut)"/>`;
+      s += `<text x="${x+dx}" y="${tubeTop-36}" text-anchor="${anchor}" fill="${isIn?'#fca5a5':'#7dd3fc'}" font-weight="bold" ${txtB}>${letter} · ${isIn?'IN':'OUT'} ${fmt(q,1)} L/min</text>`;
+    } else {
+      s += `<text x="${x+dx}" y="${tubeTop-8}" text-anchor="${anchor}" fill="#94a3b8" ${txtB}>${letter}</text>`;
+    }
+    return s;
+  };
+  h += port(xA, ext,  ext ? Qin : Qout, 'A', 'end',   8);
+  h += port(xB, !ext, ext ? Qout : Qin, 'B', 'start', -8);
+
+  // علامة الموضع على خط الشوط
+  const yD = g.outBot + 46, pcur = sim.f * S.L;
+  h += `<circle cx="${xp}" cy="${yD}" r="5" fill="#f59e0b" stroke="#fff" stroke-width="1"/>`;
+  const lx = Math.min(940, Math.max(70, xp));
+  h += `<text x="${lx}" y="${yD+26}" text-anchor="middle" fill="#fbbf24" font-weight="bold" ${txtB}>p = ${fmt(pcur,0)} mm</text>`;
+
+  // لوحة الحالة (أعلى اليمين)
+  const F = ext ? S.Fpush : S.Fpull, v = dwell ? 0 : (ext ? S.Vout : S.Vin);
+  const state = dwell ? 'STROKE END — Relief' : (ext ? 'EXTEND ▶' : '◀ RETRACT');
+  h += `<text x="985" y="26" text-anchor="end" fill="#fbbf24" font-size="15" font-weight="bold" font-family="Segoe UI,Tahoma,sans-serif">${state}${(!sim.playing && !dwell) ? ' (paused)' : ''}</text>`;
+  h += `<text x="985" y="46" text-anchor="end" fill="#e2e8f0" ${txtB}>F = ${fmt(F,1)} kN   |   v = ${fmt(v,1)} mm/s</text>`;
+
+  simEl.dyn.innerHTML = h;
+
+  // بطاقات القراءات
+  const T = ext ? S.tout : S.tin, tcur = ext ? sim.f*S.tout : (1-sim.f)*S.tin;
+  simEl.rdState.textContent = dwell ? 'نهاية الشوط (Relief)' : (ext ? 'خروج Extend' : 'رجوع Retract');
+  simEl.rdPos.textContent   = `${fmt(pcur,0)} mm (${fmt(sim.f*100,0)}%)`;
+  simEl.rdVel.textContent   = `${fmt(v,1)} mm/s`;
+  simEl.rdForce.textContent = `${fmt(F,2)} kN`;
+  simEl.rdQin.textContent   = dwell ? '→ Relief' : `${fmt(Qin,1)} L/min`;
+  simEl.rdQout.textContent  = dwell ? '≈ 0' : `${fmt(Qout,1)} L/min`;
+  simEl.rdVA.textContent    = `${fmt(S.A1*pcur/1e6,3)} L`;
+  simEl.rdVB.textContent    = `${fmt(S.A2*(S.L-pcur)/1e6,3)} L`;
+  simEl.rdT.textContent     = `${fmt(tcur,2)} / ${fmt(T,2)} s`;
+
+  if(simEl.pos && (typeof document.activeElement === 'undefined' || document.activeElement !== simEl.pos))
+    simEl.pos.value = Math.round(sim.f*1000);
+}
+
+/* ---- التحريك ---- */
+function simStep(dt){
+  if(!simS) return;
+  if(sim.dwell > 0){
+    sim.dwell -= dt;
+    if(sim.dwell <= 0){ sim.dwell = 0; sim.dir = (sim.dir === 'ext') ? 'ret' : 'ext'; }
+    return;
+  }
+  if(sim.dir === 'ext'){
+    sim.f += dt * sim.speed / simS.tout;
+    if(sim.f >= 1){ sim.f = 1; sim.dwell = 0.5; }
+  } else {
+    sim.f -= dt * sim.speed / simS.tin;
+    if(sim.f <= 0){ sim.f = 0; sim.dwell = 0.5; }
+  }
+}
+function simLoop(ts){
+  if(sim.last === null) sim.last = ts;
+  let dt = (ts - sim.last)/1000; sim.last = ts;
+  if(dt > 0.1) dt = 0.1;
+  try{
+    if(sim.playing){
+      simStep(dt);
+      if(ts - (sim.ld||0) >= 33){ sim.ld = ts; simDraw(); }
+    }
+  }catch(e){ console.error(e); sim.playing = false; }
+  requestAnimationFrame(simLoop);
+}
+function simToggle(){
+  sim.playing = !sim.playing;
+  simEl.play.textContent = sim.playing ? '⏸ إيقاف' : '▶ تشغيل';
+  simDraw();
+}
+function simReset(){ sim.f = 0; sim.dir = 'ext'; sim.dwell = 0; simDraw(); }
+function simSetSpeed(){ sim.speed = +document.getElementById('simSpeed').value || 1; }
+function simScrub(v){
+  const nf = Math.min(1, Math.max(0, (+v)/1000));
+  sim.dir = nf >= sim.f ? 'ext' : 'ret';
+  sim.f = nf; sim.dwell = 0; sim.playing = false;
+  simEl.play.textContent = '▶ تشغيل';
+  simDraw();
+}
+
+/* تحديث لحظي: أي تغيير في خانات الإدخال يعيد الحساب والرسم */
+document.addEventListener('input',  e => { if(e.target.closest && e.target.closest('#ehp-hyd .grid')) scheduleCalc(); });
+document.addEventListener('change', e => { if(e.target.closest && e.target.closest('#ehp-hyd .grid')) scheduleCalc(); });
+
+
+/* ================= خانة واحدة: كتابة أو اختيار من القائمة ================= */
+function initCombos(){
+  const all = [];
+  document.querySelectorAll('#ehp-hyd .input-group').forEach(grp => {
+    const sel = grp.querySelector('select[onchange*="setVal"]');
+    if(!sel) return;
+    const m = sel.getAttribute('onchange').match(/setVal\('(\w+)'/);
+    const inp = m && document.getElementById(m[1]);
+    if(!inp) return;
+
+    const opts = [...sel.options].filter(o => o.value !== '').map(o => ({v:o.value, t:o.textContent.trim()}));
+    sel.remove();
+
+    const wrap = document.createElement('div');
+    wrap.className = 'combo';
+    inp.parentNode.insertBefore(wrap, inp);
+    wrap.appendChild(inp);
+
+    const btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'combo-btn'; btn.tabIndex = -1;
+    btn.setAttribute('aria-label', 'اختر من القائمة'); btn.textContent = '▾';
+    const list = document.createElement('div');
+    list.className = 'combo-list';
+    list.innerHTML = opts.map(o => `<div class="combo-item" data-v="${o.v}">${o.t}</div>`).join('');
+    wrap.appendChild(btn); wrap.appendChild(list);
+
+    const box = wrap.closest('.box');
+    const close = () => { wrap.classList.remove('open'); if(box) box.classList.remove('has-open'); };
+    const open = () => {
+      all.forEach(c => c.close());
+      list.querySelectorAll('.combo-item').forEach(it => it.classList.toggle('sel', +it.dataset.v === +inp.value));
+      wrap.classList.add('open'); if(box) box.classList.add('has-open');
+      const sel1 = list.querySelector('.sel'); if(sel1 && sel1.scrollIntoView) sel1.scrollIntoView({block:'nearest'});
+    };
+    all.push({close});
+
+    btn.addEventListener('click', () => wrap.classList.contains('open') ? close() : open());
+    list.addEventListener('mousedown', e => e.preventDefault());
+    list.addEventListener('click', e => {
+      const it = e.target.closest('.combo-item'); if(!it) return;
+      inp.value = it.dataset.v;
+      inp.dispatchEvent(new Event('input', {bubbles:true}));   // يحدّث الحساب والمحاكاة فورًا
+      close();
+    });
+    inp.addEventListener('keydown', e => {
+      if(e.key === 'ArrowDown'){ e.preventDefault(); open(); }
+      else if(e.key === 'Escape') close();
+    });
+    document.addEventListener('click', e => { if(!wrap.contains(e.target)) close(); });
+  });
+}
+
+/* تصغير/تكبير لوحة المحاكاة الثابتة */
+function simCollapse(){
+  const dock = document.getElementById('simDock');
+  const c = dock.classList.toggle('collapsed');
+  document.getElementById('simCollapse').textContent = c ? '🔼 تكبير' : '🔽 تصغير';
+}
+
+function boot(){ initCombos(); simInit(); calc(); }
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+Object.assign(window,{setVal,calc,saveComparison,delRow,simToggle,simReset,simSetSpeed,simScrub,simCollapse});
+})();
+</script>
+
+<a href="index.html" id="ehpHome" aria-label="القائمة الرئيسية" title="القائمة الرئيسية"
+   style="position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);left:10px;z-index:99999;width:40px;height:40px;border-radius:50%;background:rgba(10,15,28,.88);color:#f5b042;border:2px solid #f5b042;display:flex;align-items:center;justify-content:center;font-size:20px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.5)">🏠</a>
+<style>@media print{#ehpHome{display:none!important}}</style>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}</script>
+</body>
+</html>

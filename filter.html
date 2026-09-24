@@ -1,0 +1,2019 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>EHP | الهندسيه للهيدروليك والنيوماتيك | نظام البحث عن الفلاتر</title>
+    <style>
+        /* ===== الأساسيات ===== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', 'Poppins', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0a0f1c, #03060e);
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: repeating-linear-gradient(
+                45deg,
+                rgba(245, 176, 66, 0.03) 0px,
+                rgba(245, 176, 66, 0.03) 2px,
+                transparent 2px,
+                transparent 8px
+            );
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: "EHP • Filter Cross Reference • Eaton • Hydraulic Filters";
+            position: fixed;
+            bottom: 20px;
+            right: -50px;
+            font-size: 0.7rem;
+            color: rgba(245, 176, 66, 0.08);
+            white-space: nowrap;
+            transform: rotate(-25deg);
+            pointer-events: none;
+            z-index: 0;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            background: rgba(12, 20, 30, 0.88);
+            backdrop-filter: blur(8px);
+            border-radius: 2rem;
+            box-shadow: 0 25px 45px -12px black, 0 0 0 1px rgba(245, 176, 66, 0.25);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+            padding: 0;
+        }
+
+        /* ===== صورة الشركة ===== */
+        .hero {
+            position: relative;
+            line-height: 0;
+            border-bottom: 3px solid #f5b042;
+        }
+        .hero img {
+            width: 100%;
+            height: auto;
+            max-height: 380px;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+        .hero::after {
+            content: "";
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            height: 35%;
+            background: linear-gradient(to bottom, transparent, rgba(12, 20, 30, 0.9));
+            pointer-events: none;
+        }
+        .company-ar {
+            font-size: 0.95rem;
+            color: #ffffff;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0c1727cc, #051020cc);
+            backdrop-filter: blur(4px);
+            padding: 1rem 1.5rem;
+            text-align: center;
+            border-bottom: 3px solid #f5b042;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .header h1 {
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 800;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        .header h1 span {
+            color: #f5b042;
+        }
+        .header .badge {
+            background: #f5b042;
+            color: #0a0f1c;
+            padding: 4px 18px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .company-sub {
+            font-size: 0.75rem;
+            color: #f5b042;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+        .company-units {
+            font-size: 0.65rem;
+            color: #c4a46a;
+            margin-top: 5px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .company-units span {
+            background: #1e2a4455;
+            padding: 2px 10px;
+            border-radius: 20px;
+        }
+
+        .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 0.8rem 1.2rem;
+            background: #07101e66;
+            border-bottom: 1px solid #1e2a44;
+        }
+        .stats .stat-item {
+            background: #0f1828cc;
+            padding: 3px 14px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            color: #8aa4c2;
+            border: 1px solid #25355a;
+        }
+        .stats .stat-item strong {
+            color: #f5b042;
+        }
+
+        .search-wrapper {
+            position: relative;
+            padding: 0.8rem 1.2rem;
+        }
+        .search-wrapper input {
+            width: 100%;
+            padding: 14px 50px 14px 20px;
+            font-size: 1rem;
+            background: #0a1020cc;
+            border: 2px solid #2a3a60;
+            border-radius: 1rem;
+            outline: none;
+            transition: all 0.3s;
+            color: #f5b042;
+            font-weight: 500;
+        }
+        .search-wrapper input::placeholder {
+            color: #6c86a3;
+            font-weight: 400;
+        }
+        .search-wrapper input:focus {
+            border-color: #f5b042;
+            box-shadow: 0 0 20px rgba(245, 176, 66, 0.15);
+            color: #facc15;
+        }
+        .search-wrapper .clear-btn {
+            position: absolute;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            color: #6c86a3;
+            cursor: pointer;
+            display: none;
+            transition: color 0.3s;
+        }
+        .search-wrapper .clear-btn:hover {
+            color: #f5b042;
+        }
+        .search-wrapper .search-icon {
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            color: #6c86a3;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 0 1.2rem 0.8rem;
+        }
+        .filters button {
+            padding: 5px 16px;
+            border: 1.5px solid #2a3a60;
+            border-radius: 25px;
+            background: #0f1828cc;
+            cursor: pointer;
+            font-size: 0.7rem;
+            transition: all 0.2s;
+            color: #8aa4c2;
+            font-weight: 500;
+        }
+        .filters button:hover {
+            background: #1a2a44;
+            border-color: #f5b042;
+            color: #f5b042;
+        }
+        .filters button.active {
+            background: linear-gradient(135deg, #f5b042, #d48d2b);
+            color: #0a0f1c;
+            border-color: #f5b042;
+            font-weight: 700;
+            box-shadow: 0 0 15px rgba(245, 176, 66, 0.3);
+        }
+
+        .suggestions {
+            position: absolute;
+            top: calc(100% - 10px);
+            left: 20px;
+            right: 20px;
+            background: #0f1828cc;
+            backdrop-filter: blur(8px);
+            border: 2px solid #2a3a60;
+            border-top: none;
+            border-radius: 0 0 1rem 1rem;
+            max-height: 350px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        }
+        .suggestions.show {
+            display: block;
+        }
+        .suggestion-item {
+            padding: 12px 18px;
+            cursor: pointer;
+            border-bottom: 1px solid #1a2a44;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.15s;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .suggestion-item:hover {
+            background: #1a2a44;
+        }
+        .suggestion-item.active {
+            background: #1a2a44;
+        }
+        .suggestion-item .num {
+            font-weight: 700;
+            color: #f5b042;
+            min-width: 90px;
+            font-size: 0.85rem;
+        }
+        .suggestion-item .desc {
+            color: #e2e8f0;
+            font-size: 0.8rem;
+            flex: 1;
+            margin: 0 8px;
+        }
+        .suggestion-item .alt {
+            font-size: 0.7rem;
+            color: #84cc16;
+            background: #1a2a4455;
+            padding: 2px 12px;
+            border-radius: 15px;
+            white-space: nowrap;
+            border: 1px solid #2a4a3a;
+        }
+        .suggestion-item .section-tag {
+            font-size: 0.6rem;
+            color: #8aa4c2;
+            background: #0a1020cc;
+            padding: 2px 10px;
+            border-radius: 12px;
+            border: 1px solid #25355a;
+        }
+        .suggestion-item .highlight {
+            background: #f5b04244;
+            padding: 0 3px;
+            border-radius: 3px;
+            color: #facc15;
+        }
+
+        .result-card {
+            margin: 0.5rem 1.2rem 1rem;
+            border: 2px solid #28a745;
+            border-radius: 1.2rem;
+            padding: 1.2rem;
+            background: #07101ecc;
+            backdrop-filter: blur(4px);
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .result-card.show {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .result-card .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #1a2a44;
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+        }
+        .result-card .result-header h3 {
+            color: #f5b042;
+            margin: 0;
+            font-size: 1.1rem;
+        }
+        .result-card .result-header .section-badge {
+            background: #f5b042;
+            color: #0a0f1c;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .result-card .result-header .action-buttons {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .result-card .result-header .action-buttons button {
+            padding: 5px 16px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .result-card .result-header .action-buttons .print-btn {
+            background: #6c86a3;
+            color: white;
+        }
+        .result-card .result-header .action-buttons .print-btn:hover {
+            background: #8aa4c2;
+        }
+        .result-card .result-header .action-buttons .whatsapp-btn {
+            background: #25D366;
+            color: white;
+        }
+        .result-card .result-header .action-buttons .whatsapp-btn:hover {
+            background: #1da851;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.3);
+        }
+        .result-card table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .result-card table tr {
+            border-bottom: 1px solid #1a2a44;
+        }
+        .result-card table tr:last-child {
+            border-bottom: none;
+        }
+        .result-card table td {
+            padding: 10px 8px;
+            vertical-align: top;
+        }
+        .result-card .label {
+            font-weight: 700;
+            color: #f5b042;
+            width: 28%;
+            background: #0a1020cc;
+            border-radius: 6px;
+            padding: 10px 16px;
+            font-size: 0.85rem;
+        }
+        .result-card .value {
+            padding: 10px 16px;
+            color: #e2e8f0;
+            font-size: 0.9rem;
+        }
+        .result-card .value .alt-link {
+            color: #84cc16;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.2s;
+            text-decoration: underline;
+        }
+        .result-card .value .alt-link:hover {
+            color: #f5b042;
+        }
+        .result-card table tr.dual .label { width: 17%; }
+        .result-card table tr.dual .value { width: 33%; }
+        .result-card table tr.dual .eaton-label { color: #64b5f6; }
+        .result-card .eaton-val .e-num { color: #64b5f6; font-weight: 700; display: block; }
+        .result-card .eaton-val .e-desc { color: #e2e8f0; font-size: 0.8rem; }
+        #resultNumber, #resultDesc, #resultAlt, #resultEaton, #resultSectionFull {
+            direction: ltr;
+            text-align: right;
+        }
+        .section-badge, .section-tag, .stat-item strong,
+        .suggestion-item .num, .suggestion-item .desc, .suggestion-item .alt {
+            direction: ltr;
+            unicode-bidi: isolate;
+        }
+        .filters button { direction: ltr; }
+        .result-card .result-footer {
+            margin-top: 15px;
+            font-size: 0.7rem;
+            color: #6c86a3;
+            border-top: 1px solid #1a2a44;
+            padding-top: 12px;
+            text-align: center;
+        }
+
+        .status-msg {
+            padding: 10px 18px;
+            border-radius: 1rem;
+            margin: 0 1.2rem 0.8rem;
+            font-size: 0.8rem;
+            display: none;
+            backdrop-filter: blur(4px);
+        }
+        .status-msg.info {
+            background: #0d47a133;
+            color: #64b5f6;
+            border: 1px solid #0d47a166;
+            display: block;
+        }
+        .status-msg.success {
+            background: #1b5e2033;
+            color: #66bb6a;
+            border: 1px solid #1b5e2066;
+            display: block;
+        }
+        .status-msg.warning {
+            background: #e6510033;
+            color: #ffa726;
+            border: 1px solid #e6510066;
+            display: block;
+        }
+        .status-msg.error {
+            background: #b71c1c33;
+            color: #ef5350;
+            border: 1px solid #b71c1c66;
+            display: block;
+        }
+
+        footer {
+            background: #03070fcc;
+            backdrop-filter: blur(4px);
+            text-align: center;
+            font-size: 0.6rem;
+            padding: 0.6rem;
+            color: #6c86a3;
+            border-top: 1px solid #1a2a44;
+        }
+
+        .suggestions::-webkit-scrollbar {
+            width: 6px;
+        }
+        .suggestions::-webkit-scrollbar-track {
+            background: #0a1020;
+            border-radius: 3px;
+        }
+        .suggestions::-webkit-scrollbar-thumb {
+            background: #2a3a60;
+            border-radius: 3px;
+        }
+        .suggestions::-webkit-scrollbar-thumb:hover {
+            background: #f5b042;
+        }
+
+        @media (max-width: 650px) {
+            .header h1 { font-size: 1.1rem; }
+            .search-wrapper input { font-size: 0.9rem; padding: 12px 45px 12px 16px; }
+            .suggestion-item { flex-wrap: wrap; gap: 4px; }
+            .suggestion-item .num { min-width: 60px; font-size: 0.8rem; }
+            .suggestion-item .desc { font-size: 0.75rem; margin: 0 4px; }
+            .result-card table td { display: block; padding: 4px 0; }
+            .result-card table tr.dual .label, .result-card table tr.dual .value { width: 100%; }
+            .result-card .label { width: 100%; background: none; padding: 4px 0 0; font-size: 0.8rem; }
+            .result-card .value { padding: 2px 0 10px; font-size: 0.85rem; border-bottom: 1px solid #1a2a44; }
+            .result-card table tr:last-child .value { border-bottom: none; }
+            .filters button { font-size: 0.6rem; padding: 3px 10px; }
+            .stats .stat-item { font-size: 0.6rem; padding: 2px 8px; }
+            .result-card .result-header h3 { font-size: 0.95rem; }
+            .result-card .result-header .action-buttons button { font-size: 0.65rem; padding: 4px 12px; }
+        }
+    </style>
+    <meta name="theme-color" content="#0a0f1c">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="assets/icon-192.png">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <div>
+                <h1>🔍 <span>نظام البحث عن الفلاتر</span></h1>
+                <div class="company-ar">الهندسيه للهيدروليك والنيوماتيك</div>
+                <div class="company-sub">EHP - Engineering For Hydraulics & Pneumatics</div>
+            </div>
+            <span class="badge" id="totalBadge">0 فلتر</span>
+        </div>
+
+        <div class="company-units">
+            <span>🔄 Eaton EasyFit</span>
+            <span>📋 Cross Reference</span>
+            <span>🔧 Hydraulic Filters</span>
+            <span>📊 HYDAC • EPE • MAHLE • PALL</span>
+        </div>
+
+        <div class="stats" id="statsContainer"></div>
+
+        <div class="search-wrapper">
+            <span class="search-icon">🔎</span>
+            <input type="text" id="searchInput"
+            placeholder="ابحث برقم الفلتر، الوصف، أو البديل..."
+            autocomplete="off">
+            <button class="clear-btn" id="clearBtn" title="مسح البحث">✕</button>
+            <div class="suggestions" id="suggestionsBox"></div>
+        </div>
+
+        <div class="filters" id="filtersContainer">
+            <button class="active" data-section="الكل">📋 الكل</button>
+            <button data-section="02.R..HC">02.R..HC</button>
+            <button data-section="02.D..HC">02.D..HC</button>
+            <button data-section="02.RN..HC">02.RN..HC</button>
+            <button data-section="02.DN..HC">02.DN..HC</button>
+            <button data-section="03.1">03.1</button>
+            <button data-section="03.2">03.2</button>
+            <button data-section="03.RL">03.RL</button>
+            <button data-section="03.DL">03.DL</button>
+            <button data-section="03.EN">03.EN</button>
+            <button data-section="03.HD">03.HD</button>
+            <button data-section="04.PI">04.PI (Mahle)</button>
+            <button data-section="04.PI-NR">04.PI-NR (Mahle)</button>
+            <button data-section="04.PI-DN">04.PI-DN (Mahle)</button>
+            <button data-section="04.852">04.852</button>
+            <button data-section="05">05 (PALL)</button>
+        </div>
+
+        <div id="statusMessage" class="status-msg info">
+            💡 اكتب رقم الفلتر أو جزء من الوصف للبحث
+        </div>
+
+        <div class="result-card" id="resultCard">
+            <div class="result-header">
+                <h3>📋 بيانات الفلتر</h3>
+                <div>
+                    <span class="section-badge" id="resultSection">-</span>
+                </div>
+                <div class="action-buttons">
+                    <button class="print-btn" onclick="printResult()">🖨️ طباعة</button>
+                    <button class="whatsapp-btn" onclick="sendWhatsApp()">💬 واتساب</button>
+                </div>
+            </div>
+            <table>
+                <tr>
+                    <td class="label">🔢 رقم القطعة (Ident No.)</td>
+                    <td class="value" id="resultNumber">-</td>
+                </tr>
+                <tr>
+                    <td class="label">📝 الوصف (Designation)</td>
+                    <td class="value" id="resultDesc">-</td>
+                </tr>
+                <tr class="dual">
+                    <td class="label">🔄 الفلتر البديل (Alternative)</td>
+                    <td class="value" id="resultAlt">-</td>
+                    <td class="label eaton-label">🔵 البديل في EATON</td>
+                    <td class="value" id="resultEaton">-</td>
+                </tr>
+                <tr>
+                    <td class="label">📂 القسم (Section)</td>
+                    <td class="value" id="resultSectionFull">-</td>
+                </tr>
+            </table>
+            <div class="result-footer">
+                💡 انقر على رقم الفلتر البديل للبحث عنه مباشرة
+            </div>
+        </div>
+
+        <footer>
+            © EHP - Engineering For Hydraulics & Pneumatics - الهندسيه للهيدروليك والنيوماتيك | Eaton EasyFit Cross Reference | <span id="totalCount">0</span> فلتر
+        </footer>
+    </div>
+
+    <script>
+        // ================================================================
+        //  📦 قاعدة البيانات - جميع الفلاتر من ملف EASYFIT_CROSS_REFERENCE_BASE.pdf
+        //  التنسيق: [الرقم, الوصف, البديل, القسم]
+        // ================================================================
+        const filterData = [
+
+            // ===== 02.R..HC (HYDAC R series) =====
+            ["306193", "02.0030 R.3VG.30.HC.S.P", "0030 R 003 BN HC", "02.R..HC"],
+            ["306195", "02.0030 R.6VG.30.HC.S.P", "0030 R 006 BN HC", "02.R..HC"],
+            ["301801", "02.0030 R.10VG.30.HC.S.P", "0030 R 010 BN HC", "02.R..HC"],
+            ["301976", "02.0030 R.20VG.30.HC.S.P", "0030 R 020 BN HC", "02.R..HC"],
+            ["302553", "02.0030 R.25G.30.HC.S.P", "0030 R 025 W HC", "02.R..HC"],
+            ["305069", "02.0060 R.3VG.30.HC.S.P", "0060 R 003 BN HC", "02.R..HC"],
+            ["324829", "02.0060 R.6VG.30.HC.S.P", "0060 R 006 BN HC", "02.R..HC"],
+            ["322642", "02.0060 R.10VG.30.HC.S.P", "0060 R 010 BN HC", "02.R..HC"],
+            ["322087", "02.0060 R.20VG.30.HC.S.P", "0060 R 020 BN HC", "02.R..HC"],
+            ["300390", "02.0060 R.25G.30.HC.S.P", "0060 R 025 W HC", "02.R..HC"],
+            ["324832", "02.0110 R.3VG.30.HC.S.P", "0110 R 003 BN HC", "02.R..HC"],
+            ["324834", "02.0110 R.6VG.30.HC.S.P", "0110 R 006 BN HC", "02.R..HC"],
+            ["322668", "02.0110 R.10VG.30.HC.S.P", "0110 R 010 BN HC", "02.R..HC"],
+            ["322085", "02.0110 R.20VG.30.HC.S.P", "0110 R 020 BN HC", "02.R..HC"],
+            ["322409", "02.0110 R.25G.30.HC.S.P", "0110 R 025 W HC", "02.R..HC"],
+            ["310581", "02.0160 R.3VG.30.HC.S.P", "0160 R 003 BN HC", "02.R..HC"],
+            ["310584", "02.0160 R.6VG.30.HC.S.P", "0160 R 006 BN HC", "02.R..HC"],
+            ["310585", "02.0160 R.10VG.30.HC.S.P", "0160 R 010 BN HC", "02.R..HC"],
+            ["310586", "02.0160 R.20VG.30.HC.S.P", "0160 R 020 BN HC", "02.R..HC"],
+            ["311039", "02.0160 R.25G.30.HC.S.P", "0160 R 025 W HC", "02.R..HC"],
+            ["—", "02.0165 R.3VG.30.HC.S.P", "0165 R 003 BN HC", "02.R..HC"],
+            ["324389", "02.0165 R.6VG.30.HC.S.P", "0165 R 006 BN HC", "02.R..HC"],
+            ["320121", "02.0165 R.10VG.30.HC.S.P", "0165 R 010 BN HC", "02.R..HC"],
+            ["319506", "02.0165 R.20VG.30.HC.S.P", "0165 R 020 BN HC", "02.R..HC"],
+            ["—", "02.0165 R.25G.30.HC.S.P", "0165 R 025 W HC", "02.R..HC"],
+            ["310591", "02.0240 R.3VG.30.HC.S.P", "0240 R 003 BN HC", "02.R..HC"],
+            ["310592", "02.0240 R.6VG.30.HC.S.P", "0240 R 006 BN HC", "02.R..HC"],
+            ["310593", "02.0240 R.10VG.30.HC.S.P", "0240 R 010 BN HC", "02.R..HC"],
+            ["310594", "02.0240 R.20VG.30.HC.S.P", "0240 R 020 BN HC", "02.R..HC"],
+            ["311041", "02.0240 R.25G.30.HC.S.P", "0240 R 025 W HC", "02.R..HC"],
+            ["307308", "02.0330 R.3VG.30.HC.S.P", "0330 R 003 BN HC", "02.R..HC"],
+            ["307309", "02.0330 R.6VG.30.HC.S.P", "0330 R 005 BN HC", "02.R..HC"],
+            ["307302", "02.0330 R.10VG.30.HC.S.P", "0330 R 010 BN HC", "02.R..HC"],
+            ["307310", "02.0330 R.20VG.30.HC.S.P", "0330 R 020 BN HC", "02.R..HC"],
+            ["311043", "02.0330 R.25G.30.HC.S.P", "0330 R 025 W HC", "02.R..HC"],
+            ["307311", "02.0500 R.3VG.30.HC.S.P", "0500 R 003 BN HC", "02.R..HC"],
+            ["307312", "02.0500 R.6VG.30.HC.S.P", "0500 R 006 BN HC", "02.R..HC"],
+            ["307215", "02.0500 R.10VG.30.HC.S.P", "0500 R 010 BN HC", "02.R..HC"],
+            ["307313", "02.0500 R.20VG.30.HC.S.P", "0500 R 020 BN HC", "02.R..HC"],
+            ["311045", "02.0500 R.25G.30.HC.S.P", "0500 R 025 W HC", "02.R..HC"],
+            ["307617", "02.0660 R.3VG.30.HC.S.P", "0660 R 003 BN HC", "02.R..HC"],
+            ["307618", "02.0660 R.6VG.30.HC.S.P", "0660 R 006 BN HC", "02.R..HC"],
+            ["307620", "02.0660 R.10VG.30.HC.S.P", "0660 R 010 BN HC", "02.R..HC"],
+            ["307621", "02.0660 R.20VG.30.HC.S.P", "0660 R 020 BN HC", "02.R..HC"],
+            ["311047", "02.0660 R.25G.30.HC.S.P", "0660 R 025 W HC", "02.R..HC"],
+            ["307622", "02.0850 R.3VG.30.HC.S.P", "0850 R 003 BN HC", "02.R..HC"],
+            ["307623", "02.0850 R.6VG.30.HC.S.P", "0850 R 006 BN HC", "02.R..HC"],
+            ["307624", "02.0850 R.10VG.30.HC.S.P", "0850 R 010 BN HC", "02.R..HC"],
+            ["307625", "02.0850 R.20VG.30.HC.S.P", "0850 R 020 BN HC", "02.R..HC"],
+            ["311049", "02.0850 R.25G.30.HC.S.P", "0850 R 025 W HC", "02.R..HC"],
+            ["310573", "02.0950 R.3VG.30.HC.S.P", "0950 R 003 BN HC", "02.R..HC"],
+            ["310574", "02.0950 R.6VG.30.HC.S.P", "0950 R 006 BN HC", "02.R..HC"],
+            ["310575", "02.0950 R.10VG.30.HC.S.P", "0950 R 010 BN HC", "02.R..HC"],
+            ["310576", "02.0950 R.20VG.30.HC.S.P", "0950 R 020 BN HC", "02.R..HC"],
+            ["311051", "02.0950 R.25G.30.HC.S.P", "0950 R 025 W HC", "02.R..HC"],
+            ["310557", "02.1300 R.3VG.30.HC.S.P", "1300 R 003 BN HC", "02.R..HC"],
+            ["310558", "02.1300 R.6VG.30.HC.S.P", "1300 R 006 BN HC", "02.R..HC"],
+            ["310559", "02.1300 R.10VG.30.HC.S.P", "1300 R 010 BN HC", "02.R..HC"],
+            ["310560", "02.1300 R.20VG.30.HC.S.P", "1300 R 020 BN HC", "02.R..HC"],
+            ["311053", "02.1300 R.25G.30.HC.S.P", "1300 R 025 W HC", "02.R..HC"],
+            ["322897", "02.1700 R.3VG.30.HC.S.P", "1700 R 003 BN HC", "02.R..HC"],
+            ["324430", "02.1700 R.6VG.30.HC.S.P", "1700 R 006 BN HC", "02.R..HC"],
+            ["319011", "02.1700 R.10VG.30.HC.S.P", "1700 R 010 BN HC", "02.R..HC"],
+            ["319012", "02.1700 R.20VG.30.HC.S.P", "1700 R 020 BN HC", "02.R..HC"],
+            ["—", "02.1700 R.25G.30.HC.S.P", "1700 R 025 W HC", "02.R..HC"],
+            ["322788", "02.2600 R.3VG.30.HC.S.P", "2600 R 003 BN HC", "02.R..HC"],
+            ["322789", "02.2600 R.6VG.30.HC.S.P", "2600 R 006 BN HC", "02.R..HC"],
+            ["315502", "02.2600 R.10VG.30.HC.S.P", "2600 R 010 BN HC", "02.R..HC"],
+            ["323912", "02.2600 R.20VG.30.HC.S.P", "2600 R 020 BN HC", "02.R..HC"],
+            ["319469", "02.2600 R.25G.30.HC.S.P", "2600 R 025 W HC", "02.R..HC"],
+
+            // ===== 02.D..HC (HYDAC D series) =====
+            ["—", "02.0055 D.3VG.30.HC.E.P", "0055 D 003 BN-HC", "02.D..HC"],
+            ["—", "02.0055 D.6VG.30.HC.E.P", "0055 D 005 BN-HC", "02.D..HC"],
+            ["330089", "02.0055 D.10VG.30.HC.E.P", "0055 D 010 BN-HC", "02.D..HC"],
+            ["—", "02.0055 D.20VG.30.HC.E.P", "0055 D 020 BN-HC", "02.D..HC"],
+            ["305276", "02.0060 D.3VG.30.HC.E.P", "0060 D 003 BN-HC", "02.D..HC"],
+            ["306002", "02.0060 D.3VG.HR.HC.E.P", "0060 D 003 BH-HC", "02.D..HC"],
+            ["300400", "02.0060 D.6VG.30.HC.E.P", "0060 D 005 BN-HC", "02.D..HC"],
+            ["300833", "02.0060 D.6VG.HR.HC.E.P", "0060 D 005 BH-HC", "02.D..HC"],
+            ["300398", "02.0060 D.10VG.30.HC.E.P", "0060 D 010 BN-HC", "02.D..HC"],
+            ["300399", "02.0060 D.10VG.HR.HC.E.P", "0060 D 010 BH-HC", "02.D..HC"],
+            ["300832", "02.0060 D.20VG.30.HC.E.P", "0060 D 020 BN-HC", "02.D..HC"],
+            ["302192", "02.0060 D.20VG.HR.HC.E.P", "0060 D 020 BH-HC", "02.D..HC"],
+            ["300397", "02.0060 D.25G.30.HC.E.P", "0060 D 025 W", "02.D..HC"],
+            ["—", "02.0075 D.3VG.30.HC.E.P", "0075 D 003 BN-HC", "02.D..HC"],
+            ["331320", "02.0075 D.6VG.30.HC.E.P", "0075 D 005 BN-HC", "02.D..HC"],
+            ["330091", "02.0075 D.10VG.30.HC.E.P", "0075 D 010 BN-HC", "02.D..HC"],
+            ["—", "02.0075 D.20VG.30.HC.E.P", "0075 D 020 BN-HC", "02.D..HC"],
+            ["306194", "02.0110 D.3VG.30.HC.E.P", "0110 D 003 BN-HC", "02.D..HC"],
+            ["300839", "02.0110 D.3VG.HR.HC.E.P", "0110 D 003 BH-HC", "02.D..HC"],
+            ["303530", "02.0110 D.6VG.30.HC.E.P", "0110 D 005 BN-HC", "02.D..HC"],
+            ["300405", "02.0110 D.6VG.HR.HC.E.P", "0110 D 005 BH-HC", "02.D..HC"],
+            ["300403", "02.0110 D.10VG.30.HC.E.P", "0110 D 010 BN-HC", "02.D..HC"],
+            ["300840", "02.0110 D.10VG.HR.HC.E.P", "0110 D 010 BH-HC", "02.D..HC"],
+            ["300404", "02.0110 D.20VG.30.HC.E.P", "0110 D 020 BN-HC", "02.D..HC"],
+            ["300841", "02.0110 D.20VG.HR.HC.E.P", "0110 D 020 BH-HC", "02.D..HC"],
+            ["300837", "02.0110 D.25G.30.E.P", "0110 D 025 W", "02.D..HC"],
+            ["306199", "02.0140 D.3VG.30.HC.E.P", "0140 D 003 BN-HC", "02.D..HC"],
+            ["306203", "02.0140 D.3VG.HR.HC.E.P", "0140 D 003 BH-HC", "02.D..HC"],
+            ["306200", "02.0140 D.6VG.30.HC.E.P", "0140 D 005 BN-HC", "02.D..HC"],
+            ["306204", "02.0140 D.6VG.HR.HC.E.P", "0140 D 005 BH-HC", "02.D..HC"],
+            ["303306", "02.0140 D.10VG.30.HC.E.P", "0140 D 010 BN-HC", "02.D..HC"],
+            ["306334", "02.0140 D.10VG.HR.HC.E.P", "0140 D 010 BH-HC", "02.D..HC"],
+            ["306202", "02.0140 D.20VG.30.HC.E.P", "0140 D 020 BN-HC", "02.D..HC"],
+            ["306205", "02.0140 D.20VG.HR.HC.E.P", "0140 D 020 BH-HC", "02.D..HC"],
+            ["306198", "02.0140 D.25G.30.E.P", "0140 D 025 W", "02.D..HC"],
+            ["304872", "02.0160 D.3VG.30.HC.E.P", "0160 D 003 BN-HC", "02.D..HC"],
+            ["300847", "02.0160 D.3VG.HR.HC.E.P", "0160 D 003 BH-HC", "02.D..HC"],
+            ["300416", "02.0160 D.6VG.30.HC.E.P", "0160 D 005 BN-HC", "02.D..HC"],
+            ["300417", "02.0160 D.6VG.HR.HC.E.P", "0160 D 005 BH-HC", "02.D..HC"],
+            ["300848", "02.0160 D.10VG.30.HC.E.P", "0160 D 010 BN-HC", "02.D..HC"],
+            ["300412", "02.0160 D.10VG.HR.HC.E.P", "0160 D 010 BH-HC", "02.D..HC"],
+            ["300413", "02.0160 D.20VG.30.HC.E.P", "0160 D 020 BN-HC", "02.D..HC"],
+            ["300414", "02.0160 D.20VG.HR.HC.E.P", "0160 D 020 BH-HC", "02.D..HC"],
+            ["300411", "02.0160 D.25G.30.E.P", "0160 D 025 W", "02.D..HC"],
+            ["306211", "02.0240 D.3VG.30.HC.E.P", "0240 D 003 BN-HC", "02.D..HC"],
+            ["300853", "02.0240 D.3VG.HR.HC.E.P", "0240 D 003 BH-HC", "02.D..HC"],
+            ["300426", "02.0240 D.6VG.30.HC.E.P", "0240 D 005 BN-HC", "02.D..HC"],
+            ["306214", "02.0240 D.6VG.HR.HC.E.P", "0240 D 005 BH-HC", "02.D..HC"],
+            ["300423", "02.0240 D.10VG.30.HC.E.P", "0240 D 010 BN-HC", "02.D..HC"],
+            ["302841", "02.0240 D.10VG.HR.HC.E.P", "0240 D 010 BH-HC", "02.D..HC"],
+            ["300425", "02.0240 D.20VG.30.HC.E.P", "0240 D 020 BN-HC", "02.D..HC"],
+            ["304431", "02.0240 D.20VG.HR.HC.E.P", "0240 D 020 BH-HC", "02.D..HC"],
+            ["300851", "02.0240 D.25G.30.E.P", "0240 D 025 W", "02.D..HC"],
+            ["306217", "02.0280 D.3VG.30.HC.E.P", "0280 D 003 BN-HC", "02.D..HC"],
+            ["306221", "02.0280 D.3VG.HR.HC.E.P", "0280 D 003 BH-HC", "02.D..HC"],
+            ["306218", "02.0280 D.6VG.30.HC.E.P", "0280 D 005 BN-HC", "02.D..HC"],
+            ["306222", "02.0280 D.6VG.HR.HC.E.P", "0280 D 005 BH-HC", "02.D..HC"],
+            ["306219", "02.0280 D.10VG.30.HC.E.P", "0280 D 010 BN-HC", "02.D..HC"],
+            ["306223", "02.0280 D.10VG.HR.HC.E.P", "0280 D 010 BH-HC", "02.D..HC"],
+            ["306220", "02.0280 D.20VG.30.HC.E.P", "0280 D 020 BN-HC", "02.D..HC"],
+            ["306224", "02.0280 D.20VG.HR.HC.E.P", "0280 D 020 BH-HC", "02.D..HC"],
+            ["306216", "02.0280 D.25G.30.E.P", "0280 D 025 W", "02.D..HC"],
+            ["300431", "02.0330 D.3VG.30.HC.E.P", "0330 D 003 BN-HC", "02.D..HC"],
+            ["300861", "02.0330 D.3VG.HR.HC.E.P", "0330 D 003 BH-HC", "02.D..HC"],
+            ["300864", "02.0330 D.6VG.30.HC.E.P", "0330 D 005 BN-HC", "02.D..HC"],
+            ["300865", "02.0330 D.6VG.HR.HC.E.P", "0330 D 005 BH-HC", "02.D..HC"],
+            ["300862", "02.0330 D.10VG.30.HC.E.P", "0330 D 010 BN-HC", "02.D..HC"],
+            ["300432", "02.0330 D.10VG.HR.HC.E.P", "0330 D 010 BH-HC", "02.D..HC"],
+            ["300863", "02.0330 D.20VG.30.HC.E.P", "0330 D 020 BN-HC", "02.D..HC"],
+            ["300433", "02.0330 D.20VG.HR.HC.E.P", "0330 D 020 BH-HC", "02.D..HC"],
+            ["300860", "02.0330 D.25G.30.E.P", "0330 D 025 W", "02.D..HC"],
+            ["306230", "02.0500 D.3VG.30.HC.E.P", "0500 D 003 BN-HC", "02.D..HC"],
+            ["306234", "02.0500 D.3VG.HR.HC.E.P", "0500 D 003 BH-HC", "02.D..HC"],
+            ["306231", "02.0500 D.6VG.30.HC.E.P", "0500 D 005 BN-HC", "02.D..HC"],
+            ["306235", "02.0500 D.6VG.HR.HC.E.P", "0500 D 005 BH-HC", "02.D..HC"],
+            ["306232", "02.0500 D.10VG.30.HC.E.P", "0550 D 010 BN-HC", "02.D..HC"],
+            ["306236", "02.0500 D.10VG.HR.HC.E.P", "0500 D 010 BH-HC", "02.D..HC"],
+            ["306233", "02.0500 D.20VG.30.HC.E.P", "0500 D 020 BN-HC", "02.D..HC"],
+            ["306237", "02.0500 D.20VG.HR.HC.E.P", "0500 D 020 BH-HC", "02.D..HC"],
+            ["306229", "02.0500 D.25G.30.E.P", "0500 D 025 W", "02.D..HC"],
+            ["301800", "02.0660 D.3VG.30.HC.E.P", "0660 D 003 BN-HC", "02.D..HC"],
+            ["303658", "02.0660 D.3VG.HR.HC.E.P", "0660 D 003 BH-HC", "02.D..HC"],
+            ["306239", "02.0660 D.6VG.30.HC.E.P", "0660 D 005 BN-HC", "02.D..HC"],
+            ["300441", "02.0660 D.6VG.HR.HC.E.P", "0660 D 005 BH-HC", "02.D..HC"],
+            ["300438", "02.0660 D.10VG.30.HC.E.P", "0660 D 010 BN-HC", "02.D..HC"],
+            ["303305", "02.0660 D.10VG.HR.HC.E.P", "0660 D 010 BH-HC", "02.D..HC"],
+            ["300439", "02.0660 D.20VG.30.HC.E.P", "0660 D 020 BN-HC", "02.D..HC"],
+            ["300440", "02.0660 D.20VG.HR.HC.E.P", "0660 D 020 BH-HC", "02.D..HC"],
+            ["300437", "02.0660 D.25G.30.E.P", "0660 D 025 W", "02.D..HC"],
+            ["330193", "02.0990 D.10VG.30.HC.E.P", "0990 D 010 BN-HC", "02.D..HC"],
+            ["330190", "02.0990 D.10VG.HR.HC.E.P", "0990 D 010 BH-HC", "02.D..HC"],
+            ["321741", "02.1320 D.3VG.HR.HC.E.P", "1320 D 003 BH-HC", "02.D..HC"],
+            ["321740", "02.1320 D.10VG.HR.HC.E.P", "1320 D 010 BH-HC", "02.D..HC"],
+
+            // ===== 02.RN..HC (HYDAC RN series) =====
+            ["317483", "01.NR 63.3VG.10.B.P.-", "0063 RN 003 BN HC", "02.RN..HC"],
+            ["317484", "01. NR 63.6VG.10.B.P.-", "0063 RN 006 BN HC", "02.RN..HC"],
+            ["314218", "01. NR 63.10VG.10.B.P.-", "0063 RN 010 BN HC", "02.RN..HC"],
+            ["312792", "01.NR 63.25VG.10.B.P.-", "0063 RN 025 BN HC", "02.RN..HC"],
+            ["317487", "01.NR 100.3VG.10.B.P.-", "0100 RN 003 BN HC", "02.RN..HC"],
+            ["316886", "01.NR 100.6VG.10.B.P.-", "0100 RN 006 BN HC", "02.RN..HC"],
+            ["313167", "01.NR 100.10VG.10.B.P.-", "0100 RN 010 BN HC", "02.RN..HC"],
+            ["312504", "01.NR 100.25VG.10.B.P.-", "0100 RN 025 BN HC", "02.RN..HC"],
+            ["314485", "01.NR 160.3VG.10.B.P.-", "0160 RN 003 BN HC", "02.RN..HC"],
+            ["314486", "01.NR 160.6VG.10.B.P.-", "0160 RN 006 BN HC", "02.RN..HC"],
+            ["314220", "01.NR 160.10VG.10.B.P.-", "0160 RN 010 BN HC", "02.RN..HC"],
+            ["314449", "01.NR 160.25VG.10.B.P.-", "0160 RN 025 BN HC", "02.RN..HC"],
+            ["314491", "01.NR 250.3VG.10.B.P.-", "0250 RN 003 BN HC", "02.RN..HC"],
+            ["314492", "01.NR 250.6VG.10.B.P.-", "0250 RN 006 BN HC", "02.RN..HC"],
+            ["314191", "01.NR 250.10VG.10.B.P.-", "0250 RN 010 BN HC", "02.RN..HC"],
+            ["314454", "01.NR 250.25VG.10.B.P.-", "0250 RN 025 BN HC", "02.RN..HC"],
+            ["317489", "01.NR 400.3VG.10.B.P.-", "0400 RN 003 BN HC", "02.RN..HC"],
+            ["314817", "01.NR 400.6VG.10.B.P.-", "0400 RN 006 BN HC", "02.RN..HC"],
+            ["314870", "01.NR 400.10VG.10.B.P.-", "0400 RN 010 BN HC", "02.RN..HC"],
+            ["317492", "01.NR 400.25VG.10.B.P.-", "0400 RN 025 BN HC", "02.RN..HC"],
+            ["304533", "01.NR 630.3VG.10.B.P.-", "0630 RN 003 BN HC", "02.RN..HC"],
+            ["304534", "01.NR 630.6VG.10.B.P.-", "0630 RN 006 BN HC", "02.RN..HC"],
+            ["304535", "01.NR 630.10VG.10.B.P.-", "0630 RN 010 BN HC", "02.RN..HC"],
+            ["305036", "01.NR 630.25VG.10.B.P.-", "0630 RN 025 BN HC", "02.RN..HC"],
+            ["306604", "01.NR 1000.3VG.10.B.P.-", "1000 RN 003 BN HC", "02.RN..HC"],
+            ["305449", "01.NR1000.6VG.10.B.P.-", "1000 RN 006 BN HC", "02.RN..HC"],
+            ["306605", "01.NR 1000.10VG.10.B.P.-", "1000 RN 010 BN HC", "02.RN..HC"],
+            ["306606", "01.NR 1000.25VG.10.B.P.-", "1000 RN 025 BN HC", "02.RN..HC"],
+
+            // ===== 02.DN..HC (HYDAC DN series) =====
+            ["312621", "01.NL 40.3VG.30.E.P.-", "0040 DN 003 BN HC", "02.DN..HC"],
+            ["313873", "01.NL 40.3VG.HR.E.P.-", "0040 DN 003 BH HC", "02.DN..HC"],
+            ["312623", "01.NL 40.6VG.30.E.P.-", "0040 DN 006 BN HC", "02.DN..HC"],
+            ["312884", "01.NL 40.6VG.HR.E.P.-", "0040 DN 006 BH HC", "02.DN..HC"],
+            ["311433", "01.NL 40.10VG.30.E.P.-", "0040 DN 010 BN HC", "02.DN..HC"],
+            ["312299", "01.NL 40.10VG.HR.E.P.-", "0040 DN 010 BH HC", "02.DN..HC"],
+            ["312542", "01.NL 40.25VG.30.E.P.-", "0040 DN 025 BN HC", "02.DN..HC"],
+            ["314169", "01.NL 40.25VG.HR.E.P.-", "0040 DN 025 BH HC", "02.DN..HC"],
+            ["312636", "01.NL 63.3VG.30.E.P.-", "0063 DN 003 BN HC", "02.DN..HC"],
+            ["316536", "01.NL 63.3VG.HR.E.P.-", "0063 DN 003 BH HC", "02.DN..HC"],
+            ["312637", "01.NL 63.6VG.30.E.P.-", "0063 DN 006 BN HC", "02.DN..HC"],
+            ["317323", "01.NL 63.6VG.HR.E.P.-", "0063 DN 006 BH HC", "02.DN..HC"],
+            ["311365", "01.NL 63.10VG.30.E.P.-", "0063 DN 010 BN HC", "02.DN..HC"],
+            ["311487", "01.NL 63.10VG.HR.E.P.-", "0063 DN 010 BH HC", "02.DN..HC"],
+            ["311571", "01.NL 63.25VG.30.E.P.-", "0063 DN 025 BN HC", "02.DN..HC"],
+            ["315123", "01.NL 63.25VG.HR.E.P.-", "0063 DN 025 BH HC", "02.DN..HC"],
+            ["312649", "01.NL 100.3VG.30.E.P.-", "0100 DN 003 BN HC", "02.DN..HC"],
+            ["312797", "01.NL 100.3VG.HR.E.P.-", "0100 DN 003 BH HC", "02.DN..HC"],
+            ["312651", "01.NL 100.6VG.30.E.P.-", "0100 DN 006 BN HC", "02.DN..HC"],
+            ["313670", "01.NL 100.6VG.HR.E.P.-", "0100 DN 006 BH HC", "02.DN..HC"],
+            ["311574", "01.NL 100.10VG.30.E.P.-", "0100 DN 010 BN HC", "02.DN..HC"],
+            ["312301", "01.NL 100.10VG.HR.E.P.-", "0100 DN 010 BH HC", "02.DN..HC"],
+            ["312653", "01.NL 100.25VG.30.E.P.-", "0100 DN 025 BN HC", "02.DN..HC"],
+            ["301752", "01.NL 100.25VG.HR.E.P.-", "0100 DN 025 BH HC", "02.DN..HC"],
+            ["300784", "01.NL 250.3VG.30.E.P.-", "0250 DN 003 BN HC", "02.DN..HC"],
+            ["300790", "01.NL 250.6VG.30.E.P.-", "0250 DN 006 BN HC", "02.DN..HC"],
+            ["300367", "01.NL 250.10VG.30.E.P.-", "0250 DN 010 BN HC", "02.DN..HC"],
+            ["301900", "01.NL 250.25VG.30.E.P.-", "0250 DN 025 BN HC", "02.DN..HC"],
+            ["307250", "01.NL 400.3VG.30.E.P.-", "0400 DN 003 BN HC", "02.DN..HC"],
+            ["311449", "01.NL 400.3VG.HR.E.P.-", "0400 DN 003 BH HC", "02.DN..HC"],
+            ["307251", "01.NL 400.6VG.30.E.P.-", "0400 DN 006 BN HC", "02.DN..HC"],
+            ["311448", "01.NL 400.6VG.HR.E.P.-", "0400 DN 006 BH HC", "02.DN..HC"],
+            ["307252", "01.NL 400.10VG.30.E.P.-", "0400 DN 010 BN HC", "02.DN..HC"],
+            ["312800", "01.NL 400.10VG.HR.E.P.-", "0400 DN 010 BH HC", "02.DN..HC"],
+            ["307255", "01.NL 400.25VG.30.E.P.-", "0400 DN 025 BN HC", "02.DN..HC"],
+            ["314880", "01.NL 400.25VG.HR.E.P.-", "0400 DN 025 BH HC", "02.DN..HC"],
+            ["300371", "01.NL 630.3VG.30.E.P.-", "0630 DN 003 BN HC", "02.DN..HC"],
+            ["300795", "01.NL 630.6VG.30.E.P.-", "0630 DN 006 BN HC", "02.DN..HC"],
+            ["300791", "01.NL 630.10VG.30.E.P.-", "0630 DN 010 BN HC", "02.DN..HC"],
+            ["300792", "01.NL 630.25VG.30.E.P.-", "0630 DN 025 BN HC", "02.DN..HC"],
+
+            // ===== 03.1 (EPE) =====
+            ["306379", "03.1.56.3VG.16.B.O", "1.56 K 3", "03.1"],
+            ["306380", "03.1.56.6VG.16.B.O", "1.56 K 6", "03.1"],
+            ["303721", "03.1.56.10VG.16.B.O", "1.56 K 10", "03.1"],
+            ["300449", "03.1.56.25G.16.B.O", "1.56 G 25", "03.1"],
+            ["300448", "03.1.56.25VG.16.B.O", "1.56 K 25", "03.1"],
+            ["300884", "03.1.56.40G.16.B.O", "1.56 G 40", "03.1"],
+            ["306377", "03.1.56.60G.16.B.O", "1.56 G 60", "03.1"],
+            ["300450", "03.1.56.100G.16.B.O", "1.56 G 100", "03.1"],
+            ["306381", "03.1.90.3VG.16.B.O", "1.90 K 3", "03.1"],
+            ["306382", "03.1.90.6VG.16.B.O", "1.90 K 6", "03.1"],
+            ["304548", "03.1.90.10VG.16.B.O", "1.90 K 10", "03.1"],
+            ["300885", "03.1.90.25G.16.B.O", "1.90 G 25", "03.1"],
+            ["303736", "03.1.90.25VG.16.B.O", "1.90 K 25", "03.1"],
+            ["300451", "03.1.90.40G.16.B.O", "1.90 G 40", "03.1"],
+            ["300886", "03.1.90.60G.16.B.O", "1.90 G 60", "03.1"],
+            ["300887", "03.1.90.100G.16.B.O", "1.90 G 100", "03.1"],
+            ["306385", "03.1.140.3VG.16.B.O", "1.140 K 3", "03.1"],
+            ["306386", "03.1.140.6VG.16.B.O", "1.140 K 6", "03.1"],
+            ["302098", "03.1.140.10VG.16.B.O", "1.140 K 10", "03.1"],
+            ["300888", "03.1.140.25G.16.B.O", "1.140 G 25", "03.1"],
+            ["306387", "03.1.140.25VG.16.B.O", "1.140 K 25", "03.1"],
+            ["300452", "03.1.140.40G.16.B.O", "1.140 G 40", "03.1"],
+            ["306383", "03.1.140.60G.16.B.O", "1.140 G 60", "03.1"],
+            ["300453", "03.1.140.100G.16.B.O", "1.140 G 100", "03.1"],
+            ["306390", "03.1.225.3VG.16.B.O", "1.225 K 3", "03.1"],
+            ["306391", "03.1.225.6VG.16.B.O", "1.225 K 6", "03.1"],
+            ["300454", "03.1.225.10VG.16.B.O", "1.225 K 10", "03.1"],
+            ["300455", "03.1.225.25G.16.B.O", "1.225 G 25", "03.1"],
+            ["303275", "03.1.225.25VG.16.B.O", "1.225 K 25", "03.1"],
+            ["302229", "03.1.225.40G.16.B.O", "1.225 G 40", "03.1"],
+            ["306388", "03.1.225.60G.16.B.O", "1.225 G 60", "03.1"],
+            ["300889", "03.1.225.100G.16.B.O", "1.225 G 100", "03.1"],
+            ["319249", "03.1.361.3VG.16.B.P", "1.361 K 3", "03.1"],
+            ["321246", "03.1.361.6VG.16.B.P", "1.361 K 6", "03.1"],
+            ["314527", "03.1.361.10VG.16.B.P", "1.361 K 10", "03.1"],
+            ["321206", "03.1.361.25G.16.B.P", "1.361 G 25", "03.1"],
+            ["317535", "03.1.361.25VG.16.B.P", "1.361 K 25", "03.1"],
+            ["323658", "03.1.361.40G.16.B.P", "1.361 G 40", "03.1"],
+            ["—", "03.1.361.60G.16.B.P", "1.361 G 60", "03.1"],
+            ["323086", "03.1.361.100G.16.B.P", "1.361 G 100", "03.1"],
+            ["323368", "03.1.561.3VG.16.B.P", "1.561 K 3", "03.1"],
+            ["—", "03.1.561.6VG.16.B.P", "1.561 K 6", "03.1"],
+            ["323819", "03.1.561.10VG.16.B.P", "1.560 K 10", "03.1"],
+            ["321098", "03.1.561.25G.16.B.P", "1.561 G 25", "03.1"],
+            ["—", "03.1.561.25VG.16.B.P", "1.561 K 25", "03.1"],
+            ["314524", "03.1.561.40G.16.B.P", "1.561 G 40", "03.1"],
+            ["321873", "03.1.561.60G.16.B.P", "1.561 G 60", "03.1"],
+            ["315407", "03.1.561.100G.16.B.P", "1.561 G 100", "03.1"],
+            ["—", "03.1.901.3VG.16.B.P", "1.901 K 3", "03.1"],
+            ["316638", "03.1.901.6VG.16.B.P", "1.901 K 6", "03.1"],
+            ["311596", "03.1.901.10VG.16.B.P", "1.901 K 10", "03.1"],
+            ["319450", "03.1.901.25G.16.B.P", "1.901 G 25", "03.1"],
+            ["317207", "03.1.901.25VG.16.B.P", "1.901 K 25", "03.1"],
+            ["312528", "03.1.901.40G.16.B.P", "1.901 G 40", "03.1"],
+            ["312529", "03.1.901.60G.16.B.P", "1.901 G 60", "03.1"],
+            ["312530", "03.1.901.100G.16.B.P", "1.901 G 100", "03.1"],
+            ["322812", "03.1.1401.3VG.16.B.P", "1.1401 K 3", "03.1"],
+            ["312076", "03.1.1401.6VG.16.B.P", "1.1401 K 6", "03.1"],
+            ["316656", "03.1.1401.10VG.16.B.P", "1.1401 K 10", "03.1"],
+            ["317437", "03.1.1401.25G.16.B.P", "1.1401 G 25", "03.1"],
+            ["305404", "03.1.1401.25VG.16.B.P", "1.1401 K 25", "03.1"],
+            ["317598", "03.1.1401.40G.16.B.P", "1.1401 G 40", "03.1"],
+            ["317980", "03.1.1401.60G.16.B.P", "1.1401 G 60", "03.1"],
+            ["321591", "03.1.1401.100G.16.B.P", "1.1401 G 100", "03.1"],
+            ["320300", "03.1.1801.3VG.16.B.P", "1.1801 K 3", "03.1"],
+            ["318820", "03.1.1801.6VG.16.B.P", "1.1801 K 6", "03.1"],
+            ["316301", "03.1.1801.10VG.16.B.P", "1.1801 K 10", "03.1"],
+            ["314228", "03.1.1801.25G.16.B.P", "1.1801 G 25", "03.1"],
+            ["312270", "03.1.1801.25VG.16.B.P", "1.1801 K 25", "03.1"],
+            ["318837", "03.1.1801.40G.16.B.P", "1.1801 G 40", "03.1"],
+            ["322748", "03.1.1801.60G.16.B.P", "1.1801 G 60", "03.1"],
+            ["—", "03.1.1801.100G.16.B.P", "1.1801 G 100", "03.1"],
+            ["317483", "01.NR 63.3VG.10.B.P.-", "1.0063 H 3 SL", "03.1"],
+            ["317484", "01.NR 63.6VG.10.B.P.-", "1.0063 H 6 SL", "03.1"],
+            ["314218", "01.NR 63.10VG.10.B.P.-", "1.0063 H 10 SL", "03.1"],
+            ["312792", "01.NR 63.25VG.10.B.P.-", "1.0063 H 20 SL", "03.1"],
+            ["317487", "01.NR 100.3VG.10.B.P.-", "1.0100 H 3 SL", "03.1"],
+            ["316886", "01.NR 100.6VG.10.B.P.-", "1.0100 H 6 SL", "03.1"],
+            ["313167", "01.NR 100.10VG.10.B.P.-", "1.0100 H 10 SL", "03.1"],
+            ["312504", "01.NR 100.25VG.10.B.P.-", "1.0100 H 20 SL", "03.1"],
+            ["314485", "01.NR 160.3VG.10.B.P.-", "1.0160 H 3 SL", "03.1"],
+            ["314486", "01.NR 160.6VG.10.B.P.-", "1.0160 H 6 SL", "03.1"],
+            ["314220", "01.NR 160.10VG.10.B.P.-", "1.0160 H 10 SL", "03.1"],
+            ["314449", "01.NR 160.25VG.10.B.P.-", "1.0160 H 20 SL", "03.1"],
+            ["314491", "01.NR 250.3VG.10.B.P.-", "1.0250 H 3 SL", "03.1"],
+            ["314492", "01.NR 250.6VG.10.B.P.-", "1.0250 H 6 SL", "03.1"],
+            ["314191", "01.NR 250.10VG.10.B.P.-", "1.0250 H 10 SL", "03.1"],
+            ["314454", "01.NR 250.25VG.10.B.P.-", "1.0250 H 20 SL", "03.1"],
+            ["317489", "01.NR 400.3VG.10.B.P.-", "1.0160 H 3 SL", "03.1"],
+            ["314817", "01.NR 400.6VG.10.B.P.-", "1.0160 H 6 SL", "03.1"],
+            ["314870", "01.NR 400.10VG.10.B.P.-", "1.0160 H 10 SL", "03.1"],
+            ["317492", "01.NR 400.25VG.10.B.P.-", "1.0160 H 20 SL", "03.1"],
+            ["304533", "01.NR 630.3VG.10.B.P.-", "1.0250 H 3 SL", "03.1"],
+            ["304534", "01.NR 630.6VG.10.B.P.-", "1.0250 H 6 SL", "03.1"],
+            ["304535", "01.NR 630.10VG.10.B.P.-", "1.0250 H 10 SL", "03.1"],
+            ["305036", "01.NR 630.25VG.10.B.P.-", "1.0250 H 20 SL", "03.1"],
+            ["306604", "01.NR 1000.3VG.10.B.P.-", "1.1000 H 3 SL", "03.1"],
+            ["305449", "01.NR 1000.6VG.10.B.P.-", "1.1000 H 6 SL", "03.1"],
+            ["306605", "01.NR 1000.10VG.10.B.P.-", "1.1000 H 10 SL", "03.1"],
+            ["306606", "01.NR 1000.25VG.10.B.P.-", "1.1000 H 20 SL", "03.1"],
+
+            // ===== 03.2 (EPE) =====
+            ["306338", "03.2.56.3VG.16.E.P", "2.56. K 3", "03.2"],
+            ["306339", "03.2.56.6VG.16.E.P", "2.56 K 6", "03.2"],
+            ["300476", "03.2.56.10VG.16.E.P", "2.56 K 10", "03.2"],
+            ["300477", "03.2.56.25G.16.E.P", "2.56 G 25", "03.2"],
+            ["304957", "03.2.56.25VG.16.E.P", "2.56 K 25", "03.2"],
+            ["300478", "03.2.56.40G.16.E.P", "2.56 G 40", "03.2"],
+            ["300906", "03.2.56.60G.16.E.P", "2.56 G 60", "03.2"],
+            ["300479", "03.2.56.100G.16.E.P", "2.56 G 100", "03.2"],
+            ["306340", "03.2.90.3VG.16.E.P", "2.90 K 3", "03.2"],
+            ["300907", "03.2.90.6VG.16.E.P", "2.90 K 6", "03.2"],
+            ["300480", "03.2.90.10VG.16.E.P", "2.90 K 10", "03.2"],
+            ["300483", "03.2.90.25G.16.E.P", "2.90 G 25", "03.2"],
+            ["300482", "03.2.90.25VG.16.E.P", "2.90 K 25", "03.2"],
+            ["300484", "03.2.90.40G.16.E.P", "2.90 G 40", "03.2"],
+            ["300485", "03.2.90.60G.16.E.P", "2.90 G 60", "03.2"],
+            ["300486", "03.2.90.100G.16.E.P", "2.90 G 100", "03.2"],
+            ["300908", "03.2.140.3VG.16.E.P", "2.140 K 3", "03.2"],
+            ["300912", "03.2.140.6VG.16.E.P", "2.140 K 6", "03.2"],
+            ["300487", "03.2.140.10VG.16.E.P", "2.140 K 10", "03.2"],
+            ["300488", "03.2.140.25G.16.E.P", "2.140 G 25", "03.2"],
+            ["300910", "03.2.140.25VG.16.E.P", "2.140 K 25", "03.2"],
+            ["300911", "03.2.140.40G.16.E.P", "2.140 G 40", "03.2"],
+            ["300491", "03.2.140.60G.16.E.P", "2.140 G 60", "03.2"],
+            ["300492", "03.2.140.100G.16.E.P", "2.140 G 100", "03.2"],
+            ["300493", "03.2.225.3VG.16.E.P", "2.225 K 3", "03.2"],
+            ["306341", "03.2.225.6VG.16.E.P", "2.225 K 6", "03.2"],
+            ["300913", "03.2.225.10VG.16.E.P", "2.225 K 10", "03.2"],
+            ["300495", "03.2.225.25G.16.E.P", "2.225 G 25", "03.2"],
+            ["300914", "03.2.225.25VG.16.E.P", "2.225 K 25", "03.2"],
+            ["300497", "03.2.225.40G.16.E.P", "2.225 G 40", "03.2"],
+            ["300498", "03.2.225.60G.16.E.P", "2.225 G 60", "03.2"],
+            ["300499", "03.2.225.100G.16.E.P", "2.225 G 100", "03.2"],
+            ["306342", "03.2.360.3VG.16.E.P", "2.360 K 3", "03.2"],
+            ["306343", "03.2.360.6VG.16.E.P", "2.360 K 6", "03.2"],
+            ["300500", "03.2.360.10VG.16.E.P", "2.360 K 10", "03.2"],
+            ["300502", "03.2.360.25G.16.E.P", "2.360 G 25", "03.2"],
+            ["300919", "03.2.360.25VG.16.E.P", "2.360 K 25", "03.2"],
+            ["300920", "03.2.360.40G.16.E.P", "2.360 G 40", "03.2"],
+            ["300921", "03.2.360.60G.16.E.P", "2.360 G 60", "03.2"],
+            ["300922", "03.2.360.100G.16.E.P", "2.360 G 100", "03.2"],
+            ["306349", "03.2.460.3VG.16.E.P", "2.460 K 3", "03.2"],
+            ["306350", "03.2.460.6VG.16.E.P", "2.460 K 6", "03.2"],
+            ["304958", "03.2.460.10VG.16.E.P", "2.460 K 10", "03.2"],
+            ["306347", "03.2.460.25G.16.E.P", "2.460 G 25", "03.2"],
+            ["306351", "03.2.460.25VG.16.E.P", "2.460 K 25", "03.2"],
+            ["306346", "03.2.460.40G.16.E.P", "2.460 G 40", "03.2"],
+            ["306345", "03.2.460.60G.16.E.P", "2.460 G 60", "03.2"],
+            ["306344", "03.2.460.100G.16.E.P", "2.460 G 100", "03.2"],
+            ["306356", "03.2.560.3VG.16.E.P", "2.560 K 3", "03.2"],
+            ["306357", "03.2.560.6VG.16.E.P", "2.560 K 6", "03.2"],
+            ["300503", "03.2.560.10VG.16.E.P", "2.560 K 10", "03.2"],
+            ["303276", "03.2.560.25G.16.E.P", "2.560 G 25", "03.2"],
+            ["303274", "03.2.560.25VG.16.E.P", "2.560 K 25", "03.2"],
+            ["305275", "03.2.560.40G.16.E.P", "2.560 G 40", "03.2"],
+            ["306353", "03.2.560.60G.16.E.P", "2.560 G 60", "03.2"],
+            ["306352", "03.2.560.100G.16.E.P", "2.560 G 100", "03.2"],
+            ["300923", "03.2.900.3VG.16.E.P", "2.900 K 3", "03.2"],
+            ["306362", "03.2.900.6VG.16.E.P", "2.900 K 6", "03.2"],
+            ["305860", "03.2.900.10VG.16.E.P", "2.900 K 10", "03.2"],
+            ["300504", "03.2.900.25G.16.E.P", "2.900 G 25", "03.2"],
+            ["306363", "03.2.900.25VG.16.E.P", "2.900 K 25", "03.2"],
+            ["306360", "03.2.900.40G.16.E.P", "2.900 G 40", "03.2"],
+            ["306359", "03.2.900.60G.16.E.P", "2.900 G 60", "03.2"],
+            ["306358", "03.2.900.100G.16.E.P", "2.900 G 100", "03.2"],
+            ["312621", "01.NL 40.3VG.30.E.P.-", "2.0040 H 3 SL", "03.2"],
+            ["313873", "01.NL 40.3VG.HR.E.P.-", "2.0040 H 3 SL.B", "03.2"],
+            ["312623", "01.NL 40.6VG.30.E.P.-", "2.0040 H 6 SL", "03.2"],
+            ["312884", "01.NL 40.6VG.HR.E.P.-", "2.0040 H 6 SL.B", "03.2"],
+            ["311433", "01.NL 40.10VG.30.E.P.-", "2.0040 H 10 SL", "03.2"],
+            ["312299", "01.NL 40.10VG.HR.E.P.-", "2.0040 H 10 SL.B", "03.2"],
+            ["312542", "01.NL 40.25VG.30.E.P.-", "2.0040 H 20 SL", "03.2"],
+            ["314169", "01.NL 40.25VG.HR.E.P.-", "2.0040 H 20 SL.B", "03.2"],
+            ["312636", "01.NL 63.3VG.30.E.P.-", "2.0063 H 3 SL", "03.2"],
+            ["316536", "01.NL 63.3VG.HR.E.P.-", "2.0063 H 3 SL.B", "03.2"],
+            ["312637", "01.NL 63.6VG.30.E.P.-", "2.0063 H 6 SL", "03.2"],
+            ["317323", "01.NL 63.6VG.HR.E.P.-", "2.0063 H 6 SL.B", "03.2"],
+            ["311365", "01.NL 63.10VG.30.E.P.-", "2.0063 H 10 SL", "03.2"],
+            ["311487", "01.NL 63.10VG.HR.E.P.-", "2.0063 H 10 SL.B", "03.2"],
+            ["311571", "01.NL 63.25VG.30.E.P.-", "2.0063 H 20 SL", "03.2"],
+            ["315123", "01.NL 63.25VG.HR.E.P.-", "2.0063 H 20 SL.B", "03.2"],
+            ["312649", "01.NL 100.3VG.30.E.P.-", "2.0100 H 3 SL", "03.2"],
+            ["312797", "01.NL 100.3VG.HR.E.P.-", "2.0100 H 3 SL.B", "03.2"],
+            ["312651", "01.NL 100.6VG.30.E.P.-", "2.0100 H 6 SL", "03.2"],
+            ["313670", "01.NL 100.6VG.HR.E.P.-", "2.0100 H 6 SL.B", "03.2"],
+            ["311574", "01.NL 100.10VG.30.E.P.-", "2.0100 H 10 SL", "03.2"],
+            ["312301", "01.NL 100.10VG.HR.E.P.-", "2.0100 H 10 SL.B", "03.2"],
+            ["312653", "01.NL 100.25VG.30.E.P.-", "2.0100 H 20 SL", "03.2"],
+            ["301752", "01.NL 100.25VG.HR.E.P.-", "2.0100 H 20 SL.B", "03.2"],
+            ["300784", "01.NL 250.3VG.30.E.P.-", "2.0250 H 3 SL", "03.2"],
+            ["300790", "01.NL 250.6VG.30.E.P.-", "2.0250 H 6 SL", "03.2"],
+            ["300367", "01.NL 250.10VG.30.E.P.-", "2.0250 H 10 SL", "03.2"],
+            ["301900", "01.NL 250.25VG.30.E.P.-", "2.0250 H 20 SL", "03.2"],
+            ["307250", "01.NL 400.3VG.30.E.P.-", "2.0400 H 3 SL", "03.2"],
+            ["311449", "01.NL 400.3VG.HR.E.P.-", "2.0400 H 3 SL.B", "03.2"],
+            ["307251", "01.NL 400.6VG.30.E.P.-", "2.0400 H 6 SL", "03.2"],
+            ["311448", "01.NL 400.6VG.HR.E.P.-", "2.0400 H 6 SL.B", "03.2"],
+            ["307252", "01.NL 400.10VG.30.E.P.-", "2.0400 H 10 SL", "03.2"],
+            ["312800", "01.NL 400.10VG.HR.E.P.-", "2.0400 H 10 SL.B", "03.2"],
+            ["307255", "01.NL 400.25VG.30.E.P.-", "2.0400 H 20 SL", "03.2"],
+            ["314880", "01.NL 400.25VG.HR.E.P.-", "2.0400 H 20 SL.B", "03.2"],
+            ["300371", "01.NL 630.3VG.30.E.P.-", "2.0630 H 3 SL", "03.2"],
+            ["300795", "01.NL 630.6VG.30.E.P.-", "2.0630 H 6 SL", "03.2"],
+            ["300791", "01.NL 630.10VG.30.E.P.-", "2.0630 H 10 SL", "03.2"],
+            ["300792", "01.NL 630.25VG.30.E.P.-", "2.0630 H 20 SL", "03.2"],
+
+            // ===== 03.RL (EPE) =====
+            ["306429", "03.RL 65.3VG.16.E.O", "RL65 K 3", "03.RL"],
+            ["306430", "03.RL 65.6VG.16.E.O", "RL65 K 6", "03.RL"],
+            ["306431", "03.RL 65.10VG.16.E.O", "RL65 K 10", "03.RL"],
+            ["300506", "03.RL 65.25G.16.S.O", "RL65 G 25", "03.RL"],
+            ["306432", "03.RL 65.25VG.16.E.O", "RL65 K 25", "03.RL"],
+            ["300925", "03.RL 65.40G.16.S.O", "RL65 G 40", "03.RL"],
+            ["300926", "03.RL 65.60G.16.S.O", "RL65 G 60", "03.RL"],
+            ["300507", "03.RL 65.100G.16.S.O", "RL65 G 100", "03.RL"],
+            ["306433", "03.RL 85.3VG.16.E.O", "RL85 K 3", "03.RL"],
+            ["306434", "03.RL 85.6VG.16.E.O", "RL85 K 6", "03.RL"],
+            ["306435", "03.RL 85.10VG.16.E.O", "RL85 K 10", "03.RL"],
+            ["300508", "03.RL 85.25G.16.S.O", "RL85 G 25", "03.RL"],
+            ["300931", "03.RL 85.25VG.16.E.O", "RL85 K 25", "03.RL"],
+            ["300934", "03.RL 85.40G.16.S.O", "RL85 G 40", "03.RL"],
+            ["300509", "03.RL 85.60G.16.S.O", "RL85 G 60", "03.RL"],
+            ["303217", "03.RL 85.100G.16.S.O", "RL85 G 99", "03.RL"],
+            ["306436", "03.RL 125.3VG.16.E.O", "RL125 K 3", "03.RL"],
+            ["306437", "03.RL 125.6VG.16.E.O", "RL125 K 6", "03.RL"],
+            ["302167", "03.RL 125.10VG.16.E.O", "RL125 K 10", "03.RL"],
+            ["300510", "03.RL 125.25G.16.S.O", "RL125 G 25", "03.RL"],
+            ["306438", "03.RL 125.25VG.16.E.O", "RL125 K 25", "03.RL"],
+            ["300939", "03.RL 125.40G.16.S.O", "RL125 G 40", "03.RL"],
+            ["300940", "03.RL 125.60G.16.S.O", "RL125 G 60", "03.RL"],
+            ["300941", "03.RL 125.100G.16.S.O", "RL125 G 100", "03.RL"],
+            ["306440", "03.RL 165.3VG.16.E.O", "RL165 K 3", "03.RL"],
+            ["300953", "03.RL 165.6VG.16.E.O", "RL165 K 6", "03.RL"],
+            ["300511", "03.RL 165.10VG.16.E.O", "RL165 K 10", "03.RL"],
+            ["300513", "03.RL 165.25G.16.S.O", "RL165 G 25", "03.RL"],
+            ["300949", "03.RL 165.25VG.16.E.O", "RL165 K 25", "03.RL"],
+            ["300514", "03.RL 165.40G.16.S.O", "RL165 G 40", "03.RL"],
+            ["300515", "03.RL 165.60G.16.S.O", "RL165 G 60", "03.RL"],
+            ["300516", "03.RL 165.100G.16.S.O", "RL165 G 100", "03.RL"],
+            ["306441", "03.RL 250.3VG.16.E.O", "RL250 K 3", "03.RL"],
+            ["306442", "03.RL 250.6VG.16.E.O", "RL250 K 6", "03.RL"],
+            ["300955", "03.RL 250.10VG.16.E.O", "RL250 K 10", "03.RL"],
+            ["300518", "03.RL 250.25G.16.S.O", "RL250 G 25", "03.RL"],
+            ["300517", "03.RL 250.25VG.16.E.O", "RL250 K 25", "03.RL"],
+            ["300520", "03.RL 250.40G.16.S.O", "RL250 G 40", "03.RL"],
+            ["300521", "03.RL 250.60G.16.S.O", "RL250 G 60", "03.RL"],
+            ["300522", "03.RL 250.100G.16.S.O", "RL250 G 100", "03.RL"],
+            ["306443", "03.RL 330.3VG.16.E.O", "RL330 K 3", "03.RL"],
+            ["306444", "03.RL 330.6VG.16.E.O", "RL330 K 6", "03.RL"],
+            ["300523", "03.RL 330.10VG.16.E.O", "RL330 K 10", "03.RL"],
+            ["300525", "03.RL 330.25G.16.S.O", "RL330 G 25", "03.RL"],
+            ["306201", "03.RL 330.25VG.16.E.O", "RL330 K 25", "03.RL"],
+            ["300526", "03.RL 330.40G.16.S.O", "RL330 G 40", "03.RL"],
+            ["300967", "03.RL 330.60G.16.S.O", "RL330 G 60", "03.RL"],
+            ["300527", "03.RL 330.100G.16.S.O", "RL330 G 100", "03.RL"],
+            ["306445", "03.RL 500.3VG.16.E.O", "RL500 K 3", "03.RL"],
+            ["306446", "03.RL 500.6VG.16.E.O", "RL500 K 6", "03.RL"],
+            ["303213", "03.RL 500.10VG.16.E.O", "RL500 K 10", "03.RL"],
+            ["300529", "03.RL 500.25G.16.S.O", "RL500 G 25", "03.RL"],
+            ["300528", "03.RL 500.25VG.16.E.O", "RL500 K 25", "03.RL"],
+            ["300531", "03.RL 500.40G.16.S.O", "RL500 G 40", "03.RL"],
+            ["300532", "03.RL 500.60G.16.S.O", "RL500 G 60", "03.RL"],
+            ["300533", "03.RL 500.100G.16.S.O", "RL500 G 100", "03.RL"],
+            ["306448", "03.RL 660.3VG.16.E.O", "RL660 K 3", "03.RL"],
+            ["306449", "03.RL 660.6VG.16.E.O", "RL660 K 6", "03.RL"],
+            ["306450", "03.RL 660.10VG.16.E.O", "RL660 K 10", "03.RL"],
+            ["300536", "03.RL 660.25G.16.S.O", "RL660 G 25", "03.RL"],
+            ["300534", "03.RL 660.25VG.16.E.O", "RL660 K 25", "03.RL"],
+            ["300538", "03.RL 660.40G.16.S.O", "RL660 G 40", "03.RL"],
+            ["300539", "03.RL 660.60G.16.S.O", "RL660 G 60", "03.RL"],
+            ["300540", "03.RL 660.100G.16.S.O", "RL660 G 100", "03.RL"],
+            ["300541", "03.RL 750.3VG.16.E.O", "RL750 K 3", "03.RL"],
+            ["300981", "03.RL 750.6VG.16.E.O", "RL750 K 6", "03.RL"],
+            ["300974", "03.RL 750.10VG.16.E.O", "RL750 K 10", "03.RL"],
+            ["300545", "03.RL 750.25G.16.S.O", "RL750 G 25", "03.RL"],
+            ["300543", "03.RL 750.25VG.16.E.O", "RL750 K 25", "03.RL"],
+            ["300979", "03.RL 750.40G.16.S.O", "RL750 G 40", "03.RL"],
+            ["300980", "03.RL 750.60G.16.S.O", "RL750 G 60", "03.RL"],
+            ["300982", "03.RL 750.100G.16.S.O", "RL750 G 100", "03.RL"],
+
+            // ===== 03.DL (EPE) =====
+            ["304311", "03.DL 65.3VG.16.E.P", "DL65 K 3", "03.DL"],
+            ["300984", "03.DL 65.6VG.16.E.P", "DL65 K 6", "03.DL"],
+            ["306416", "03.DL 65.10VG.16.E.P", "DL65 K 10", "03.DL"],
+            ["300943", "03.DL 65.25G.16.S.P", "DL65 G 25", "03.DL"],
+            ["300988", "03.DL 65.25VG.16.E.P", "DL65 K 25", "03.DL"],
+            ["300552", "03.DL 65.40G.16.S.P", "DL65 G 40", "03.DL"],
+            ["300553", "03.DL 65.60G.16.S.P", "DL65 G 60", "03.DL"],
+            ["300555", "03.DL 65.100G.16.S.P", "DL65 G 100", "03.DL"],
+            ["306417", "03.DL 85.3VG.16.E.P", "DL85 K 3", "03.DL"],
+            ["300998", "03.DL 85.6VG.16.E.P", "DL85 K 6", "03.DL"],
+            ["301845", "03.DL 85.10VG.16.E.P", "DL85 K 10", "03.DL"],
+            ["300556", "03.DL 85.25G.16.S.P", "DL85 G 25", "03.DL"],
+            ["300993", "03.DL 85.25VG.16.E.P", "DL85 K 25", "03.DL"],
+            ["300996", "03.DL 85.40G.16.S.P", "DL85 G 40", "03.DL"],
+            ["300557", "03.DL 85.60G.16.S.P", "DL85 G 60", "03.DL"],
+            ["300558", "03.DL 85.100G.16.S.P", "DL85 G 100", "03.DL"],
+            ["306419", "03.DL 125.3VG.16.E.P", "DL125 K 3", "03.DL"],
+            ["306420", "03.DL 125.6VG.16.E.P", "DL125 K 6", "03.DL"],
+            ["301001", "03.DL 125.10VG.16.E.P", "DL125 K 10", "03.DL"],
+            ["300560", "03.DL 125.25G.16.S.P", "DL125 G 25", "03.DL"],
+            ["301002", "03.DL 125.25VG.16.E.P", "DL125 K 25", "03.DL"],
+            ["300561", "03.DL 125.40G.16.S.P", "DL125 G 40", "03.DL"],
+            ["300562", "03.DL 125.60G.16.S.P", "DL125 G 60", "03.DL"],
+            ["301006", "03.DL 125.100G.16.S.P", "DL125 G 100", "03.DL"],
+
+            // ===== 03.EN (EPE) =====
+            ["300570", "03.EN 165.25G.16.S.O", "EN165 G 25", "03.EN"],
+            ["301010", "03.EN 165.40G.16.S.O", "EN165 G 40", "03.EN"],
+            ["303236", "03.EN 165.100G.16.S.O", "EN165 G 100", "03.EN"],
+            ["300572", "03.EN 250.25G.16.S.O", "EN250 G 25", "03.EN"],
+            ["300573", "03.EN 250.40G.16.S.O", "EN250 G 40", "03.EN"],
+            ["300574", "03.EN 250.60G.16.S.O", "EN250 G 60", "03.EN"],
+            ["301012", "03.EN 250.100G.16.S.O", "EN250 G 100", "03.EN"],
+            ["300579", "03.EN 330.25G.16.S.O", "EN330 G 25", "03.EN"],
+            ["301026", "03.EN 330.40G.16.S.O", "EN330 G 40", "03.EN"],
+            ["306795", "03.EN 330.60G.16.S.O", "EN330 G 60", "03.EN"],
+            ["301027", "03.EN 330.100G.16.S.O", "EN330 G 100", "03.EN"],
+            ["300576", "03.EN 500.25G.16.S.O", "EN500 G 25", "03.EN"],
+            ["300577", "03.EN 500.40G.16.S.O", "EN500 G 40", "03.EN"],
+            ["301016", "03.EN 500.60G.16.S.O", "EN500 G 60", "03.EN"],
+            ["306797", "03.EN 500.100G.16.S.O", "EN500 G 100", "03.EN"],
+            ["300581", "03.EN 660.25G.16.S.O", "EN660 G 25", "03.EN"],
+            ["306799", "03.EN 660.40G.16.S.O", "EN660 G 40", "03.EN"],
+            ["306900", "03.EN 660.60G.16.S.O", "EN660 G 60", "03.EN"],
+            ["306800", "03.EN 660.100G.16.S.O", "EN660 G 100", "03.EN"],
+            ["301017", "03.EN 750.25G.16.S.O", "EN750 G 25", "03.EN"],
+            ["300578", "03.EN 750.40G.16.S.O", "EN750 G 40", "03.EN"],
+            ["301018", "03.EN 750.60G.16.S.O", "EN750 G 60", "03.EN"],
+            ["306790", "03.EN 750.100G.16.S.O", "EN750 G 100", "03.EN"],
+
+            // ===== 03.HD (EPE) =====
+            ["306407", "03.HD 10.3VG.16.E.P", "EN10 K 3", "03.HD"],
+            ["306408", "03.HD 10.6VG.16.E.P", "EN10 K 6", "03.HD"],
+            ["306409", "03.HD 10.10VG.16.E.P", "EN10 K 10", "03.HD"],
+            ["301028", "03.HD 10.25G.16.E.P", "EN10 G 25", "03.HD"],
+            ["306410", "03.HD 10.25VG.16.E.P", "EN10 K 25", "03.HD"],
+            ["301019", "03.HD 10.40G.16.E.P", "EN10 G 40", "03.HD"],
+            ["301020", "03.HD 10.60G.16.E.P", "EN10 G 60", "03.HD"],
+            ["301029", "03.HD 10.100G.16.E.P", "EN10 G 100", "03.HD"],
+            ["306411", "03.HD 18.3VG.16.E.P", "EN20 K 3", "03.HD"],
+            ["306412", "03.HD 18.6VG.16.E.P", "EN20 K 6", "03.HD"],
+            ["301021", "03.HD 18.10VG.16.E.P", "EN20 K 10", "03.HD"],
+            ["301023", "03.HD 18.25G.16.E.P", "EN20 G 25", "03.HD"],
+            ["306413", "03.HD 18.25VG.16.E.P", "EN20 K 25", "03.HD"],
+            ["301030", "03.HD 18.40G.16.E.P", "EN20 G 40", "03.HD"],
+            ["301031", "03.HD 18.60G.16.E.P", "EN20 G 60", "03.HD"],
+            ["301032", "03.HD 18.100G.16.E.P", "EN20 G 100", "03.HD"],
+
+            // ===== 04.PI (MAHLE) =====
+            ["302240", "04.PI 2105.3VG.16.E.O", "PI 2105 SM 3", "04.PI"],
+            ["306470", "04.PI 2108.3VG.16.E.O", "PI 2108 SM 3", "04.PI"],
+            ["306482", "04.PI 2111.3VG.16.E.O", "PI 2111 SM 3", "04.PI"],
+            ["300814", "04.PI 2115.3VG.16.E.O", "PI 2115 SM 3", "04.PI"],
+            ["300815", "04.PI 2130.3VG.16.E.O", "PI 2130 SM 3", "04.PI"],
+            ["303025", "04.PI 2145.3VG.16.E.O", "PI 2145 SM 3", "04.PI"],
+            ["301034", "04.PI 2205.3VG.HR.E.O", "PI 2205 SM VST 3", "04.PI"],
+            ["301035", "04.PI 2208.3VG.HR.E.O", "PI 2208 SM VST 3", "04.PI"],
+            ["306149", "04.PI 2211.3VG.HR.E.O", "PI 2211 SM VST 3", "04.PI"],
+            ["301036", "04.PI 2215.3VG.HR.E.O", "PI 2215 SM VST 3", "04.PI"],
+            ["300816", "04.PI 2230.3VG.HR.E.O", "PI 2230 SM VST 3", "04.PI"],
+            ["306521", "04.PI 2245.3VG.HR.E.O", "PI 2245 SM VST 3", "04.PI"],
+            ["300817", "04.PI 3105.10VG.16.E.O", "PI 3105 SM 10", "04.PI"],
+            ["303313", "04.PI 3108.10VG.16.E.O", "PI 3108 SM 10", "04.PI"],
+            ["300818", "04.PI 3111.10VG.16.E.O", "PI 3111 SM 10", "04.PI"],
+            ["301039", "04.PI 3115.10VG.16.E.O", "PI 3115 SM 10", "04.PI"],
+            ["300819", "04.PI 3130.10VG.16.E.O", "PI 3130 SM 10", "04.PI"],
+            ["301040", "04.PI 3145.10VG.16.E.O", "PI 3145 SM 10", "04.PI"],
+            ["301042", "04.PI 3205.10VG.HR.E.O", "PI 3205 SM VST 10", "04.PI"],
+            ["301043", "04.PI 3208.10VG.HR.E.O", "PI 3208 SM VST 10", "04.PI"],
+            ["300820", "04.PI 3211.10VG.HR.E.O", "PI 3211 SM VST 10", "04.PI"],
+            ["300821", "04.PI 3215.10VG.HR.E.O", "PI 3215 SM VST 10", "04.PI"],
+            ["301044", "04.PI 3230.10VG.HR.E.O", "PI 3230 SM VST 10", "04.PI"],
+            ["301045", "04.PI 3245.10VG.HR.E.O", "PI 3245 SM VST 10", "04.PI"],
+            ["301046", "04.PI 4105.25VG.16.E.O", "PI 4105 SM 25", "04.PI"],
+            ["301047", "04.PI 4108.25VG.16.E.O", "PI 4108 SM 25", "04.PI"],
+            ["306483", "04.PI 4111.25VG.16.E.O", "PI 4111 SM 25", "04.PI"],
+            ["303318", "04.PI 4115.25VG.16.E.O", "PI 4115 SM 25", "04.PI"],
+            ["300822", "04.PI 4130.25VG.16.E.O", "PI 4130 SM 25", "04.PI"],
+            ["306517", "04.PI 4145.25VG.16.E.O", "PI 4145 SM 25", "04.PI"],
+            ["301851", "04.PI 4205.25VG.HR.E.O", "PI 4205 SM VST 25", "04.PI"],
+            ["301049", "04.PI 4208.25VG.HR.E.O", "PI 4208 SM VST 25", "04.PI"],
+            ["301050", "04.PI 4211.25VG.HR.E.O", "PI 4211 SM VST 25", "04.PI"],
+            ["301967", "04.PI 4215.25VG.HR.E.O", "PI 4215 SM VST 25", "04.PI"],
+            ["300823", "04.PI 4230.25VG.HR.E.O", "PI 4230 SM VST 25", "04.PI"],
+            ["301051", "04.PI 4245.25VG.HR.E.O", "PI 4245 SM VST 25", "04.PI"],
+            ["311314", "04.PI 5105.6VG.16.E.O", "PI 5105 SMX 6", "04.PI"],
+            ["311317", "04.PI 5108.6VG.16.E.O", "PI 5108 SMX 6", "04.PI"],
+            ["303314", "04.PI 5115.6VG.16.E.O", "PI 5115 SMX 6", "04.PI"],
+            ["319334", "04.PI 5145.6VG.16.E.O", "PI 5145 SMX 6", "04.PI"],
+            ["301037", "04.PI 5215.6VG.16.E.O", "PI 5215 SMX VST 6", "04.PI"],
+            ["301038", "04.PI 5230.6VG.16.E.O", "PI 5230 SMX VST 6", "04.PI"],
+            ["319461", "04.PI 5245.6VG.16.E.O", "PI 5245 SMX VST 6", "04.PI"],
+            ["306465", "04.PI 8105.10G.16.E.O", "PI 8105 DRG 10", "04.PI"],
+            ["306471", "04.PI 8108.10G.16.E.O", "PI 8108 DRG 10", "04.PI"],
+            ["306484", "04.PI 8111.10G.16.E.O", "PI 8111 DRG 10", "04.PI"],
+            ["306496", "04.PI 8115.10G.16.E.O", "PI 8115 DRG 10", "04.PI"],
+            ["306511", "04.PI 8130.10G.16.E.O", "PI 8130 DRG 10", "04.PI"],
+            ["306518", "04.PI 8145.10G.16.E.O", "PI 8145 DRG 10", "04.PI"],
+            ["301052", "04.PI 8205.25G.16.E.O", "PI 8205 DRG 25", "04.PI"],
+            ["306472", "04.PI 8208.25G.16.E.O", "PI 8208 DRG 25", "04.PI"],
+            ["306485", "04.PI 8211.25G.16.E.O", "PI 8211 DRG 25", "04.PI"],
+            ["304590", "04.PI 8215.25G.16.E.O", "PI 8215 DRG 25", "04.PI"],
+            ["301053", "04.PI 8230.25G.16.E.O", "PI 8230 DRG 25", "04.PI"],
+            ["301054", "04.PI 8245.25G.16.E.O", "PI 8245 DRG 25", "04.PI"],
+            ["303309", "04.PI 8305.40G.16.E.O", "PI 8305 DRG 40", "04.PI"],
+            ["306473", "04.PI 8308.40G.16.E.O", "PI 8308 DRG 40", "04.PI"],
+            ["306486", "04.PI 8311.40G.16.E.O", "PI 8311 DRG 40", "04.PI"],
+            ["303316", "04.PI 8315.40G.16.E.O", "PI 8315 DRG 40", "04.PI"],
+            ["303580", "04.PI 8330.40G.16.E.O", "PI 8330 DRG 40", "04.PI"],
+            ["302040", "04.PI 8345.40G.16.E.O", "PI 8345 DRG 40", "04.PI"],
+            ["303308", "04.PI 8405.60G.16.E.O", "PI 8405 DRG 60", "04.PI"],
+            ["306474", "04.PI 8408.60G.16.E.O", "PI 8408 DRG 60", "04.PI"],
+            ["306487", "04.PI 8411.60G.16.E.O", "PI 8411 DRG 60", "04.PI"],
+            ["303317", "04.PI 8415.60G.16.E.O", "PI 8415 DRG 60", "04.PI"],
+            ["301825", "04.PI 8430.60G.16.E.O", "PI 8430 DRG 60", "04.PI"],
+            ["306519", "04.PI 8445.60G.16.E.O", "PI 8445 DRG 60", "04.PI"],
+            ["300824", "04.PI 8505.100G.16.E.O", "PI 8505 DRG 100", "04.PI"],
+            ["306475", "04.PI 8508.100G.16.E.O", "PI 8508 DRG 100", "04.PI"],
+            ["306489", "04.PI 8511.100G.16.E.O", "PI 8511 DRG 100", "04.PI"],
+            ["306497", "04.PI 8515.100G.16.E.O", "PI 8515 DRG 100", "04.PI"],
+            ["300825", "04.PI 8530.100G.16.E.O", "PI 8530 DRG 100", "04.PI"],
+            ["306520", "04.PI 8545.100G.16.E.O", "PI 8545 DRG 100", "04.PI"],
+            ["306466", "04.PI 9105.10G.HR.E.O", "PI 9105 DRG VST 10", "04.PI"],
+            ["306476", "04.PI 9108.10G.HR.E.O", "PI 9108 DRG VST 10", "04.PI"],
+            ["306491", "04.PI 9111.10G.HR.E.O", "PI 9111 DRG VST 10", "04.PI"],
+            ["306499", "04.PI 9115.10G.HR.E.O", "PI 9115 DRG VST 10", "04.PI"],
+            ["306512", "04.PI 9130.10G.HR.E.O", "PI 9130 DRG VST 10", "04.PI"],
+            ["306522", "04.PI 9145.10G.HR.E.O", "PI 9145 DRG VST 10", "04.PI"],
+            ["303310", "04.PI 9205.25G.HR.E.O", "PI 9205 DRG VST 25", "04.PI"],
+            ["306477", "04.PI 9208.25G.HR.E.O", "PI 9208 DRG VST 25", "04.PI"],
+            ["306492", "04.PI 9211.25G.HR.E.O", "PI 9211 DRG VST 25", "04.PI"],
+            ["306500", "04.PI 9215.25G.HR.E.O", "PI 9215 DRG VST 25", "04.PI"],
+            ["306513", "04.PI 9230.25G.HR.E.O", "PI 9230 DRG VST 25", "04.PI"],
+            ["306523", "04.PI 9245.25G.HR.E.O", "PI 9245 DRG VST 25", "04.PI"],
+            ["306467", "04.PI 9305.40G.HR.E.O", "PI 9305 DRG VST 40", "04.PI"],
+            ["306478", "04.PI 9308.40G.HR.E.O", "PI 9308 DRG VST 40", "04.PI"],
+            ["306493", "04.PI 9311.40G.HR.E.O", "PI 9311 DRG VST 40", "04.PI"],
+            ["306501", "04.PI 9315.40G.HR.E.O", "PI 9315 DRG VST 40", "04.PI"],
+            ["306514", "04.PI 9330.40G.HR.E.O", "PI 9330 DRG VST 40", "04.PI"],
+            ["306524", "04.PI 9345.40G.HR.E.O", "PI 9345 DRG VST 40", "04.PI"],
+            ["306468", "04.PI 9405.60G.HR.E.O", "PI 9405 DRG VST 60", "04.PI"],
+            ["303724", "04.PI 9408.60G.HR.E.O", "PI 9408 DRG VST 60", "04.PI"],
+            ["306494", "04.PI 9411.60G.HR.E.O", "PI 9411 DRG VST 60", "04.PI"],
+            ["306502", "04.PI 9415.60G.HR.E.O", "PI 9415 DRG VST 60", "04.PI"],
+            ["306515", "04.PI 9430.60G.HR.E.O", "PI 9430 DRG VST 60", "04.PI"],
+            ["306525", "04.PI 9445.60G.HR.E.O", "PI 9445 DRG VST 60", "04.PI"],
+            ["306469", "04.PI 9505.100G.HR.E.O", "PI 9505 DRG VST 100", "04.PI"],
+            ["306479", "04.PI 9508.100G.HR.E.O", "PI 9508 DRG VST 100", "04.PI"],
+            ["306495", "04.PI 9511.100G.HR.E.O", "PI 9511 DRG VST 100", "04.PI"],
+            ["306503", "04.PI 9515.100G.HR.E.O", "PI 9515 DRG VST 100", "04.PI"],
+            ["306516", "04.PI 9530.100G.HR.E.O", "PI 9530 DRG VST 100", "04.PI"],
+            ["306526", "04.PI 9545.100G.HR.E.O", "PI 9545 DRG VST 100", "04.PI"],
+
+            // ===== 04.PI-NR (MAHLE RN) =====
+            ["317483", "01.NR 63.3VG.10.B.P.-", "PI 21006 RN SMX 3", "04.PI-NR"],
+            ["317484", "01.NR 63.6VG.10.B.P.-", "PI 22006 RN SMX 6", "04.PI-NR"],
+            ["314218", "01.NR 63.10VG.10.B.P.-", "PI 23006 RN SMX 6", "04.PI-NR"],
+            ["312792", "01.NR 63.25VG.10.B.P.-", "PI 25006 RN SMX 6", "04.PI-NR"],
+            ["317487", "01.NR 100.3VG.10.B.P.-", "PI 21010 RN SMX 3", "04.PI-NR"],
+            ["316886", "01.NR 100.6VG.10.B.P.-", "PI 22010 RN SMX 6", "04.PI-NR"],
+            ["313167", "01.NR 100.10VG.10.B.P.-", "PI 23010 RN SMX 10", "04.PI-NR"],
+            ["312504", "01.NR 100.25VG.10.B.P.-", "PI 25010 RN SMX 25", "04.PI-NR"],
+            ["314485", "01.NR 160.3VG.10.B.P.-", "PI 21016 RN SMX 3", "04.PI-NR"],
+            ["314486", "01.NR 160.6VG.10.B.P.-", "PI 22016 RN SMX 6", "04.PI-NR"],
+            ["314220", "01.NR 160.10VG.10.B.P.-", "PI 23016 RN SMX 10", "04.PI-NR"],
+            ["314449", "01.NR 160.25VG.10.B.P.-", "PI 25010 RN SMX 25", "04.PI-NR"],
+            ["314491", "01.NR 250.3VG.10.B.P.-", "PI 21025 RN SMX 3", "04.PI-NR"],
+            ["314492", "01.NR 250.6VG.10.B.P.-", "PI 22025 RN SMX 6", "04.PI-NR"],
+            ["314191", "01.NR 250.10VG.10.B.P.-", "PI 23025 RN SMX 10", "04.PI-NR"],
+            ["314454", "01.NR 250.25VG.10.B.P.-", "PI 25025 RN SMX 25", "04.PI-NR"],
+            ["317489", "01.NR 400.3VG.10.B.P.-", "PI 21040 RN SMX 3", "04.PI-NR"],
+            ["314817", "01.NR 400.6VG.10.B.P.-", "PI 22040 RN SMX 6", "04.PI-NR"],
+            ["314870", "01.NR 400.10VG.10.B.P.-", "PI 23040 RN SMX 10", "04.PI-NR"],
+            ["317492", "01.NR 400.25VG.10.B.P.-", "PI 25040 RN SMX 25", "04.PI-NR"],
+            ["304533", "01.NR 630.3VG.10.B.P.-", "PI 21063 RN SMX 3", "04.PI-NR"],
+            ["304534", "01.NR 630.6VG.10.B.P.-", "PI 22063 RN SMX 6", "04.PI-NR"],
+            ["304535", "01.NR 630.10VG.10.B.P.-", "PI 23063 RN SMX 10", "04.PI-NR"],
+            ["305036", "01.NR 630.25VG.10.B.P.-", "PI 25063 RN SMX 25", "04.PI-NR"],
+            ["306604", "01.NR 1000.3VG.10.B.P.-", "PI 21100 RN SMX 3", "04.PI-NR"],
+            ["305449", "01.NR 1000.6VG.10.B.P.-", "PI 22100 RN SMX 6", "04.PI-NR"],
+            ["306605", "01.NR 1000.10VG.10.B.P.-", "PI 23100 RN SMX 10", "04.PI-NR"],
+            ["306606", "01.NR 1000.25VG.10.B.P.-", "PI 25100 RN SMX 25", "04.PI-NR"],
+
+            // ===== 04.PI-DN (MAHLE DN) =====
+            ["312621", "01.NL 40.3VG.30.E.P.-", "PI 21004 DN SMX 3", "04.PI-DN"],
+            ["313873", "01.NL 40.3VG.HR.E.P.-", "PI 71004 DN SMX VST 3", "04.PI-DN"],
+            ["312623", "01.NL 40.6VG.30.E.P.-", "PI 22004 DN SMX 6", "04.PI-DN"],
+            ["312884", "01.NL 40.6VG.HR.E.P.-", "PI 72004 DN SMX VST 6", "04.PI-DN"],
+            ["311433", "01.NL 40.10VG.30.E.P.-", "PI 23004 DN SMX 10", "04.PI-DN"],
+            ["312299", "01.NL 40.10VG.HR.E.P.-", "PI 73004 DN SMX VST 10", "04.PI-DN"],
+            ["312542", "01.NL 40.25VG.30.E.P.-", "PI 25004 DN SMX 25", "04.PI-DN"],
+            ["314169", "01.NL 40.25VG.HR.E.P.-", "PI 75004 DN SMX VST 25", "04.PI-DN"],
+            ["312636", "01.NL 63.3VG.30.E.P.-", "PI 21006 DN SMX 3", "04.PI-DN"],
+            ["316536", "01.NL 63.3VG.HR.E.P.-", "PI 71006 DN SMX VST 3", "04.PI-DN"],
+            ["312637", "01.NL 63.6VG.30.E.P.-", "PI 22006 DN SMX 6", "04.PI-DN"],
+            ["317323", "01.NL 63.6VG.HR.E.P.-", "PI 72006 DN SMX VST 6", "04.PI-DN"],
+            ["311365", "01.NL 63.10VG.30.E.P.-", "PI 23006 DN SMX 10", "04.PI-DN"],
+            ["311487", "01.NL 63.10VG.HR.E.P.-", "PI 73006 DN SMX VST 10", "04.PI-DN"],
+            ["311571", "01.NL 63.25VG.30.E.P.-", "PI 25006 DN SMX 25", "04.PI-DN"],
+            ["315123", "01.NL 63.25VG.HR.E.P.-", "PI75006 DN SMX VST 25", "04.PI-DN"],
+            ["312649", "01.NL 100.3VG.30.E.P.-", "PI 21010 DN SMX 3", "04.PI-DN"],
+            ["312797", "01.NL 100.3VG.HR.E.P.-", "PI 71010 DN SMX VST 3", "04.PI-DN"],
+            ["312651", "01.NL 100.6VG.30.E.P.-", "PI 22010 DN SMX 6", "04.PI-DN"],
+            ["313670", "01.NL 100.6VG.HR.E.P.-", "PI 72010 DN SMX VST 6", "04.PI-DN"],
+            ["311574", "01.NL 100.10VG.30.E.P.-", "PI 23010 DN SMX 10", "04.PI-DN"],
+            ["312301", "01.NL 100.10VG.HR.E.P.-", "PI 73010 DN SMX VST 10", "04.PI-DN"],
+            ["312653", "01.NL 100.25VG.30.E.P.-", "PI 25010 DN SMX 25", "04.PI-DN"],
+            ["301752", "01.NL 100.25VG.HR.E.P.-", "PI 75010 DN SMX VST 25", "04.PI-DN"],
+            ["300784", "01.NL 250.3VG.30.E.P.-", "PI 21025 DN SMX 3", "04.PI-DN"],
+            ["300790", "01.NL 250.6VG.30.E.P.-", "PI 22025 DN SMX 6", "04.PI-DN"],
+            ["300367", "01.NL 250.10VG.30.E.P.-", "PI 22025 DN SMX 6", "04.PI-DN"],
+            ["301900", "01.NL 250.25VG.30.E.P.-", "PI 25025 DN SMX 25", "04.PI-DN"],
+            ["307250", "01.NL 400.3VG.30.E.P.-", "PI 21040 DN SMX 3", "04.PI-DN"],
+            ["311449", "01.NL 400.3VG.HR.E.P.-", "PI 71040 DN SMX VST 3", "04.PI-DN"],
+            ["307251", "01.NL 400.6VG.30.E.P.-", "PI 22040 DN SMX 6", "04.PI-DN"],
+            ["311448", "01.NL 400.6VG.HR.E.P.-", "PI 72040 DN SMX VST 6", "04.PI-DN"],
+            ["307252", "01.NL 400.10VG.30.E.P.-", "PI 23040 DN SMX 10", "04.PI-DN"],
+            ["312800", "01.NL 400.10VG.HR.E.P.-", "PI 73040 DN SMX VST 10", "04.PI-DN"],
+            ["307255", "01.NL 400.25VG.30.E.P.-", "PI 25040 DN SMX 25", "04.PI-DN"],
+            ["314880", "01.NL 400.25VG.HR.E.P.-", "PI 75040 DN SMX VST 25", "04.PI-DN"],
+            ["300371", "01.NL 630.3VG.30.E.P.-", "PI 21063 DN SMX 3", "04.PI-DN"],
+            ["300795", "01.NL 630.6VG.30.E.P.-", "PI 22063 DN SMX 6", "04.PI-DN"],
+            ["300791", "01.NL 630.10VG.30.E.P.-", "PI 23063 DN SMX 10", "04.PI-DN"],
+            ["300792", "01.NL 630.25VG.30.E.P.-", "PI 25063 DN SMX 25", "04.PI-DN"],
+
+            // ===== 04.852 (MAHLE) =====
+            ["306677", "04.852 024.10G.16.B.P", "852 024 DRG 10", "04.852"],
+            ["306678", "04.852 024.25G.16.B.P", "852 024 DRG 25", "04.852"],
+            ["306679", "04.852 024.60G.16.B.P", "852 024 DRG 60", "04.852"],
+            ["306680", "04.852 024.100G.16.B P", "852 024 DRG 100", "04.852"],
+            ["306681", "04.852 034.3VG.16.E.P", "852 034 SM 3", "04.852"],
+            ["306682", "04.852 034.3VG.HR.E.P", "852 034 SM VST 3", "04.852"],
+            ["303322", "04.852 034.10G.16.E.P", "852 034 DRG 10", "04.852"],
+            ["306685", "04.852 034.10G.HR.E.P", "852 034 DRG VST 10", "04.852"],
+            ["303321", "04.852 034.10VG.16.E.P", "852 034 SM 10", "04.852"],
+            ["300801", "04.852 034.10VG.HR.E.P", "852 034 SM VST 10", "04.852"],
+            ["303323", "04.852 034.25G.16.E.P", "852 034 DRG 25", "04.852"],
+            ["306686", "04.852 034.25G.HR.E.P", "852 034 DRG VST 25", "04.852"],
+            ["304485", "04.852 034.25VG.16.E.P", "852 034 SM 25", "04.852"],
+            ["306683", "04.852 034.25VG.HR.E.P", "852 034 SM VST 25", "04.852"],
+            ["303324", "04.852 034.60G.16.E.P", "852 034 DRG 60", "04.852"],
+            ["306687", "04.852 034.60G.HR.E.P", "852 034 DRG VST 60", "04.852"],
+            ["306684", "04.852 034.100G.16.E.P", "852 034 DRG 100", "04.852"],
+            ["306688", "04.852 034.100G.HR.E.P", "852 034 DRG VST 100", "04.852"],
+            ["306709", "04.852 059.10G.16.B.O", "852 059 DRG 10", "04.852"],
+            ["306707", "04.852 059.10VG.16.B.O", "852 059 SM 10", "04.852"],
+            ["303326", "04.852 059.25G.16.B.O", "852 059 DRG 25", "04.852"],
+            ["306708", "04.852 059.25VG.16.B.O", "852 059 SM 25", "04.852"],
+            ["306710", "04.852 059.60G.16.B.O", "852 059 DRG 60", "04.852"],
+            ["306711", "04.852 059.100G.16.B.O", "852 059 DRG 100", "04.852"],
+            ["306726", "04.852 070.3VG.16.B.P", "852 070 SM 3", "04.852"],
+            ["300803", "04.852 070.10VG.16.B.P", "852 070 SM 10", "04.852"],
+            ["306728", "04.852 070.25G.16.B.P", "852 070 DRG 25", "04.852"],
+            ["303327", "04.852 070.25VG.16.B.P", "852 070 SM 25", "04.852"],
+            ["306729", "04.852 070.60G.16.B.P", "852 070 DRG 60", "04.852"],
+            ["306730", "04.852 070.100G.16.B P", "852 070 DRG 100", "04.852"],
+            ["306733", "04.852 087.10G.16.B.O", "852 087 DRG 10", "04.852"],
+            ["306731", "04.852 087.10VG.16.B O", "852 087 SM 10", "04.852"],
+            ["306734", "04.852 087.25G.16.B.O", "852 087 DRG 25", "04.852"],
+            ["306732", "04.852 087.25VG.16.B O", "852 087 SM 25", "04.852"],
+            ["303331", "04.852 087.60G.16.B.O", "852 087 DRG 60", "04.852"],
+            ["306735", "04.852 087.100G.16.B O", "852 087 DRG 100", "04.852"],
+            ["303023", "04.852 125.3VG.HR.E.P", "852 125 SM VST 3", "04.852"],
+            ["303335", "04.852 125.10G.16.E.P", "852 125 DRG 10", "04.852"],
+            ["306741", "04.852 125.10G.HR.E.P", "852 125 DRG VST 10", "04.852"],
+            ["303333", "04.852 125.10VG.16.E.P", "852 125 SM 10", "04.852"],
+            ["303024", "04.852 125.3VG.16.E.P", "852 125 SM 3", "04.852"],
+            ["303050", "04.852 125.10VG.HR.E.P", "852 125 SM VST 10", "04.852"],
+            ["306737", "04.852 125.25G.16.E.P", "852 125 DRG 25", "04.852"],
+            ["306742", "04.852 125.25G.HR.E.P", "852 125 DRG VST 25", "04.852"],
+            ["306736", "04.852 125.25VG.16.E.P", "852 125 SM 25", "04.852"],
+            ["300804", "04.852 125.25VG.HR.E.P", "852 125 SM VST 25", "04.852"],
+            ["306738", "04.852 125.40G.16.E.P", "852 125 DRG 40", "04.852"],
+            ["306743", "04.852 125.40G.HR.E.P", "852 125 DRG VST 40", "04.852"],
+            ["306739", "04.852 125.60G.16.E.P", "852 125 DRG 60", "04.852"],
+            ["306744", "04.852 125.60G.HR.E.P", "852 125 DRG VST 60", "04.852"],
+            ["306740", "04.852 125.100G.16.E.P", "852 125 DRG 100", "04.852"],
+            ["306745", "04.852 125.100G.HR.E.P", "852 125 DRG VST 100", "04.852"],
+            ["306746", "04.852 126.3VG.16.E.P", "852 126 SM 3", "04.852"],
+            ["306747", "04.852 126.3VG.HR.E.P", "852 126 SM VST 3", "04.852"],
+            ["303336", "04.852 126.10G.16.E.P", "852 126 DRG 10", "04.852"],
+            ["306752", "04.852 126.10G.HR.E.P", "852 126 DRG VST 10", "04.852"],
+            ["300805", "04.852 126.10VG.16.E.P", "852 126 SM 10", "04.852"],
+            ["300806", "04.852 126.10VG.HR.E.P", "852 126 SM VST 10", "04.852"],
+            ["306750", "04.852 126.25G.16.E.P", "852 126 DRG 25", "04.852"],
+            ["303337", "04.852 126.25G.HR.E.P", "852 126 DRG VST 25", "04.852"],
+            ["300807", "04.852 126.25VG.16.E.P", "852 126 SM 25", "04.852"],
+            ["306749", "04.852 126.25VG.HR.E.P", "852 126 SM VST 25", "04.852"],
+            ["306751", "04.852 126.40G.16.E.P", "852 126 DRG 40", "04.852"],
+            ["306753", "04.852 126.40G.HR.E.P", "852 126 DRG VST 40", "04.852"],
+            ["303339", "04.852 126.60G.16.E.P", "852 126 DRG 60", "04.852"],
+            ["303338", "04.852 126.60G.HR.E.P", "852 126 DRG VST 60", "04.852"],
+            ["303340", "04.852 126.100G.16.E.P", "852 126 DRG 100", "04.852"],
+            ["300808", "04.852 126.100G.HR.E.P", "852 126 DRG VST 100", "04.852"],
+            ["303049", "04.852 127.3VG.16.E.P", "852 127 SM 3", "04.852"],
+            ["303027", "04.852 127.3VG.HR.E.P", "852 127 SM VST 3", "04.852"],
+            ["306754", "04.852 127.10G.16.E.P", "852 127 DRG 10", "04.852"],
+            ["306757", "04.852 127.10G.HR.E. P", "852 127 DRG VST 10", "04.852"],
+            ["303342", "04.852 127.10VG.16.E.P", "852 127 SM 10", "04.852"],
+            ["303026", "04.852 127.10VG.HR.E.P", "852 127 SM VST 10", "04.852"],
+            ["306755", "04.852 127.25G.16.E.P", "852 127 DRG 25", "04.852"],
+            ["303343", "04.852 127.25G.HR.E.P", "852 127 DRG VST 25", "04.852"],
+            ["303341", "04.852 127.25VG.16.E.P", "852 127 SM 25", "04.852"],
+            ["306072", "04.852 127.25VG.HR.E.P", "852 127 SM VST 25", "04.852"],
+            ["303344", "04.852 127.40G.16.E.P", "852 127 DRG 40", "04.852"],
+            ["306758", "04.852 127.40G.HR.E.P", "852 127 DRG VST 40", "04.852"],
+            ["303345", "04.852 127.60G.16.E.P", "852 127 DRG 60", "04.852"],
+            ["306759", "04.852 127.60G.HR.E.P", "852 127 DRG VST 60", "04.852"],
+            ["306756", "04.852 127.100G.16.E.P", "852 127 DRG 100", "04.852"],
+            ["306760", "04.852 127.100G.HR.E.P", "852 127 DRG VST 100", "04.852"],
+            ["306763", "04.852 264.10G.16.B.O", "852 264 DRG 10", "04.852"],
+            ["306761", "04.852 264.10VG.16.B.O", "852 264 SM 10", "04.852"],
+            ["306764", "04.852 264.25G.16.B.O", "852 264 DRG 25", "04.852"],
+            ["306762", "04.852 264.25VG.16.B.O", "852 264 SM 25", "04.852"],
+            ["306765", "04.852 264.60G.16.B.O", "852 264 DRG 60", "04.852"],
+            ["306766", "04.852 264.100G.16.B.O", "852 264 DRG 100", "04.852"],
+            ["306767", "04.852 362.3VG.16.B.P", "852 362 SM 3", "04.852"],
+            ["304929", "04.852 362.3VG.HR.B.P", "852 362 SM VST 3", "04.852"],
+            ["306769", "04.852 362.10G.16.B.P", "852 362 DRG 10", "04.852"],
+            ["306773", "04.852 362.10G.HR.B.P", "852 362 DRG VST 10", "04.852"],
+            ["306768", "04.852 362.10VG.16.B.P", "852 362 SM 10", "04.852"],
+            ["301963", "04.852 362.10VG.HR.B.P", "852 362 SM VST 10", "04.852"],
+            ["306770", "04.852 362.25G.16.B.P", "852 362 DRG 25", "04.852"],
+            ["300811", "04.852 362.25G.HR.B.P", "852 362 DRG VST 25", "04.852"],
+            ["303347", "04.852 362.25VG.16.B.P", "852 362 SM 25", "04.852"],
+            ["300810", "04.852 362.25VG.HR.B.P", "852 362 SM VST 25", "04.852"],
+            ["306771", "04.852 362.60G.16.B.P", "852 362 DRG 60", "04.852"],
+            ["306774", "04.852 362.60G.HR.B.P", "852 362 DRG VST 60", "04.852"],
+            ["306772", "04.852 362.100G.16.B.P", "852 362 DRG 100", "04.852"],
+            ["—", "04.852 362.100G.HR.B.P", "851 362 DRG VST 100", "04.852"],
+            ["306776", "04.852 444.6VG.16.B.P", "852 444 SM 6", "04.852"],
+            ["306777", "04.852 444.10VG.16.B.P", "852 444 SM 10", "04.852"],
+            ["306778", "04.852 444.25G.16.B.P", "852 444 DRG 25", "04.852"],
+            ["303531", "04.852 444.25VG.16.B.P", "852 444 SM 25", "04.852"],
+            ["302044", "04.852 444.40G.16.B.P", "852 444 DRG 40", "04.852"],
+            ["306779", "04.852 690.6VG.16.B.P", "852 690 SM 6", "04.852"],
+            ["306780", "04.852 690.10VG.16.B.P", "852 690 SM 10", "04.852"],
+            ["306782", "04.852 690.25G.16.B.P", "852 690 DRG 25", "04.852"],
+            ["306781", "04.852 690.25VG.16.B.P", "852 690 SM 25", "04.852"],
+            ["306783", "04.852 690.40G.16.B.P", "852 690 DRG 40", "04.852"],
+
+            // ===== 05 (PALL) =====
+            ["306531", "05.8300.3VG.10.B.P. 8", "HC8300 FDP 8 H", "05"],
+            ["305209", "05.8300.3VG.10.B.P. 16", "HC8300 FDP 16 H", "05"],
+            ["301916", "05.8300.3VG.10.B.P. 39", "HC8300 FDP 39 H", "05"],
+            ["304655", "05.8300.6VG.10.B.P. 8", "HC8300 FDN 8 H", "05"],
+            ["301081", "05.8300.6VG.10.B.P. 16", "HC8300 FDN 16 H", "05"],
+            ["301059", "05.8300.6VG.10.B.P. 39", "HC8300 FDN 39 H", "05"],
+            ["306532", "05.8300.12.200.10.B.P. 8", "HC8300 FDS 8 H", "05"],
+            ["301080", "05.8300.12.200.10.B.P. 16", "HC8300 FDS 16 H", "05"],
+            ["301056", "05.8300.12.200.10.B.P. 39", "HC8300 FDS 39 H", "05"],
+            ["301826", "05.8300.25VG.10.B.P. 8", "HC8300 FDT 8 H", "05"],
+            ["301057", "05.8300.25VG.10.B.P. 16", "HC8300 FDT 16 H", "05"],
+            ["301058", "05.8300.25VG.10.B.P. 39", "HC8300 FDT 39 H", "05"],
+            ["333429", "05.8304.1VG.10.B.P.16", "HC8304 FKZ 16 H", "05"],
+            ["333430", "05.8304.1VG.10.B.V.16", "HC8304 FKZ 16 Z", "05"],
+            ["333427", "05.8304.1VG.10.B.P.39", "HC8304 FKZ 39 H", "05"],
+            ["333431", "05.8304.1VG.10.B.V.39", "HC8304 FKZ 39 Z", "05"],
+            ["333420", "05.8304.3VG.10.B.P.16", "HC8304 FKP 16 H", "05"],
+            ["333421", "05.8304.3VG.10.B.V.16", "HC8304 FKP 16 Z", "05"],
+            ["333422", "05.8304.3VG.10.B.P.39", "HC8304 FKP 39 H", "05"],
+            ["333419", "05.8304.6VG.10.B.P.16", "HC8304 FKN 16 H", "05"],
+            ["333417", "05.8304.6VG.10.B.V.16", "HC8304 FKN 16 Z", "05"],
+            ["333418", "05.8304.6VG.10.B.P.39", "HC8304 FKN 39 H", "05"],
+            ["333407", "05.8304.6VG.10.B.V.39", "HC8304 FKN 39 Z", "05"],
+            ["333424", "05.8304.25VG.10.B.P.16", "HC8304 FKT 16 H", "05"],
+            ["333425", "05.8304.25VG.10.B.V.16", "HC8304 FKT 16 Z", "05"],
+            ["333426", "05.8304.25VG.10.B.P.39", "HC8304 FKT 39 H", "05"],
+            ["333428", "05.8304.25VG.10.B.V.39", "HC8304 FKT 39 Z", "05"],
+            ["333432", "05.8304.12.200.10.B.P.16", "HC8304 FKS 16 H", "05"],
+            ["333434", "05.8304.12.200.10.B.V.16", "HC8304 FKS 16 Z", "05"],
+            ["333433", "05.8304.12.200.10.B.P.39", "HC8304 FKS 39 H", "05"],
+            ["333435", "05.8304.12.200.10.B.V.39", "HC8304 FKS 39 Z", "05"],
+            ["333453", "05.8314.1VG.10.B.P.16", "HC8314 FKZ 16 H", "05"],
+            ["333454", "05.8314.1VG.10.B.V.16", "HC8314 FKZ 16 Z", "05"],
+            ["333455", "05.8314.1VG.10.B.P.39", "HC8314 FKZ 39 H", "05"],
+            ["333456", "05.8314.1VG.10.B.V.39", "HC8314 FKZ 39 Z", "05"],
+            ["333442", "05.8314.3VG.10.B.P.16", "HC8314 FKP 16 H", "05"],
+            ["333444", "05.8314.3VG.10.B.V.16", "HC8314 FKP 16 Z", "05"],
+            ["333443", "05.8314.3VG.10.B.P.39", "HC8314 FKP 39 H", "05"],
+            ["333445", "05.8314.3VG.10.B.V.39", "HC8314 FKP 39 Z", "05"],
+            ["333438", "05.8314.6VG.10.B.P.16", "HC8314 FKN 16 H", "05"],
+            ["333439", "05.8314.6VG.10.B.V.16", "HC8314 FKN 16 Z", "05"],
+            ["333441", "05.8314.6VG.10.B.P.39", "HC8314 FKN 39 H", "05"],
+            ["333440", "05.8314.6VG.10.B.V.39", "HC8314 FKN 39 Z", "05"],
+            ["333449", "05.8314.25VG.10.B.P.16", "HC8314 FKT 16 H", "05"],
+            ["333450", "05.8314.25VG.10.B.V.16", "HC8314 FKT 16 Z", "05"],
+            ["333451", "05.8314.25VG.10.B.P.39", "HC8314 FKT 39 H", "05"],
+            ["333452", "05.8314.25VG.10.B.V.39", "HC8314 FKT 39 Z", "05"],
+            ["333457", "05.8314.12.200.10.B.P.16", "HC8314 FKS 16 H", "05"],
+            ["333458", "05.8314.12.200.10.B.V.16", "HC8314 FKS 16 Z", "05"],
+            ["333459", "05.8314.12.200.10.B.P.39", "HC8314 FKS 39 H", "05"],
+            ["333436", "05.8314.12.200.10.B.V.39", "HC8314 FKS 39 Z", "05"],
+            ["306533", "05.8400.3VG.10.B.P. 8", "HC8400 FDP 8 H", "05"],
+            ["306537", "05.8400.3VG.10.B.P. 16", "HC8400 FDP 16 H", "05"],
+            ["306540", "05.8400.3VG.10.B.P. 26", "HC8400 FDP 26 H", "05"],
+            ["306543", "05.8400.3VG.10.B.P. 39", "HC8400 FDP 39 H", "05"],
+            ["306534", "05.8400.6VG.10.B.P. 8", "HC8400 FDN 8 H", "05"],
+            ["306538", "05.8400.6VG.10.B.P. 16", "HC8400 FDN 16 H", "05"],
+            ["301084", "05.8400.6VG.10.B.P. 26", "HC8400 FDN 26 H", "05"],
+            ["306544", "05.8400.6VG.10.B.P. 39", "HC8400 FDN 39 H", "05"],
+            ["306535", "05.8400.12.200.10.B.P. 8", "HC8400 FDS 8 H", "05"],
+            ["306539", "05.8400.12.200.10.B.P. 16", "HC8400 FDS 16 H", "05"],
+            ["306541", "05.8400.12.200.10.B.P. 26", "HC8400 FDS 26 H", "05"],
+            ["306545", "05.8400.12.200.10.B.P. 39", "HC8400 FDS 39 H", "05"],
+            ["306536", "05.8400.25VG.10.B.P. 8", "HC8400 FDT 8 H", "05"],
+            ["301082", "05.8400.25VG.10.B.P. 16", "HC8400 FDT 16 H", "05"],
+            ["306542", "05.8400.25VG.10.B.P. 26", "HC8400 FDT 26 H", "05"],
+            ["306546", "05.8400.25VG.10.B.P. 39", "HC8400 FDT 39 H", "05"],
+            ["306547", "05.8500.3VG.10.B.P. 8", "HC8500 FDP 8 H", "05"],
+            ["306550", "05.8500.3VG.10.B.P. 13", "HC8500 FDP 13 H", "05"],
+            ["301085", "05.8500.3VG.10.B.P. 26", "HC8500 FDP 26 H", "05"],
+            ["306548", "05.8500.6VG.10.B.P. 8", "HC8500 FDN 8 H", "05"],
+            ["301060", "05.8500.6VG.10.B.P. 13", "HC8500 FDN 13 H", "05"],
+            ["301090", "05.8500.6VG.10.B.P. 26", "HC8500 FDN 26 H", "05"],
+            ["306549", "05.8500.12.200.10.B.P. 8", "HC8500 FDS 8 H", "05"],
+            ["305443", "05.8500.12.200.10.B.P. 13", "HC8500 FDS 13 H", "05"],
+            ["301086", "05.8500.12.200.10.B.P. 26", "HC8500 FDS 26 H", "05"],
+            ["301087", "05.8500.25VG.10.B.P. 8", "HC8500 FDT 8 H", "05"],
+            ["301088", "05.8500.25VG.10.B.P. 13", "HC8500 FDT 13 H", "05"],
+            ["301089", "05.8500.25VG.10.B.P. 26", "HC8500 FDT 26 H", "05"],
+            ["306551", "05.8700.3VG.10.B.P. 4", "HC8700 FDP 4 H", "05"],
+            ["301091", "05.8700.3VG.10.B.P. 8", "HC8700 FDP 8 H", "05"],
+            ["306552", "05.8700.6VG.10.B.P. 4", "HC8700 FDN 4 H", "05"],
+            ["301094", "05.8700.6VG.10.B.P. 8", "HC8700 FDN 8 H", "05"],
+            ["312747", "05.8700.12.200.10.B.P. 4", "HC8700 FDS 4 H", "05"],
+            ["312746", "05.8700.12.200.10.B.P. 8", "HC8700 FDS 8 H", "05"],
+            ["306553", "05.8700.25VG.10.B.P. 4", "HC8700 FDT 4 H", "05"],
+            ["301093", "05.8700.25VG.10.B.P. 8", "HC8700 FDT 8 H", "05"],
+            ["306554", "05.8900.3VG.10.E.P. 8", "HC8900 FDP 8 H", "05"],
+            ["306561", "05.8900.3VG.10.E.P. 13", "HC8900 FDP 13 H", "05"],
+            ["301095", "05.8900.3VG.10.E.P. 16", "HC8900 FDP 16 H", "05"],
+            ["318751", "05.8900.3VG.10.E.P. 26", "HC8900 FKP 26 H", "05"],
+            ["306555", "05.8900.6VG.10.E.P. 8", "HC8900 FDN 8 H", "05"],
+            ["306562", "05.8900.6VG.10.E.P. 13", "HC8900 FDN 13 H", "05"],
+            ["301096", "05.8900.6VG.10.E.P. 16", "HC8900 FDN 16 H", "05"],
+            ["318753", "05.8900.6VG.10.E.P. 26", "HC8900 FKN 26 H", "05"],
+            ["306559", "05.8900.12.200.10.E.P. 8", "HC8900 FDS 8 H", "05"],
+            ["321936", "05.8900.6VG.10.E.P.39.", "HC8900 FKN 39 H", "05"],
+            ["312748", "05.8900.12.200.10.E.P. 13", "HC8900 FDS 13 H", "05"],
+            ["306565", "05.8900.12.200.10.E.P. 16", "HC8900 FDS 16 H", "05"],
+            ["318750", "05.8900.12.200.10.E.P. 26", "HC8900 FKS 26 H", "05"],
+            ["318766", "05.8900.12.200.10.E.P. 39", "HC8900 FKS 39 H", "05"],
+            ["306560", "05.8900.25VG.10.E.P. 8", "HC8900 FDT 8 H", "05"],
+            ["306564", "05.8900.25VG.10.E.P. 13", "HC8900 FDT 13 H", "05"],
+            ["306566", "05.8900.25VG.10.E.P. 16", "HC8900 FDT 16 H", "05"],
+            ["318752", "05.8900.25VG.10.E.P. 26", "HC8900 FKT 26 H", "05"],
+            ["317615", "05.8900.25VG.10.E.P.39", "HC8900 FDT 39 H", "05"],
+            ["301061", "05.9020.3VG.10.E.P. 4", "HC9020 FDP 4 H", "05"],
+            ["301097", "05.9020.3VG.10.E.P. 8", "HC9020 FDP 8 H", "05"],
+            ["301102", "05.9020.6VG.10.E.P. 4", "HC9020 FDN 4 H", "05"],
+            ["306567", "05.9020.6VG.10.E.P. 8", "HC9020 FDN 8 H", "05"],
+            ["301098", "05.9020.12.200.10.E.P. 4", "HC9020 FDS 4 H", "05"],
+            ["301099", "05.9020.12.200.10.E.P. 8", "HC9020 FDS 8 H", "05"],
+            ["301100", "05.9020.25VG.10.E.P. 4", "HC9020 FDT 4 H", "05"],
+            ["301101", "05.9020.25VG.10.E.P. 8", "HC9020 FDT 8 H", "05"],
+            ["301104", "05.9021.3VG.210.E.P. 4", "HC9021 FDP 4 H", "05"],
+            ["301105", "05.9021.3VG.210.E.P. 8", "HC9021 FDP 8 H", "05"],
+            ["301107", "05.9021.6VG.210.E.P. 4", "HC9021 FDN 4 H", "05"],
+            ["301108", "05.9021.6VG.210.E.P. 8", "HC9021 FDN 8 H", "05"],
+            ["301106", "05.9021.12.200.210.E.P. 4", "HC9021 FDS 4 H", "05"],
+            ["312762", "05.9021.12.200.210.E.P. 8", "HC9021 FDS 8 H", "05"],
+            ["303167", "05.9021.25VG.210.E.P. 4", "HC9021 FDT 4 H", "05"],
+            ["306568", "05.9021.25VG.210.E.P . 8", "HC9021 FDT 8 H", "05"],
+            ["309654", "05.9400.3VG.10.B.P.26", "HC9400F*P 26 H", "05"],
+            ["304764", "05.9400 3VH.10.B.P.39", "HC9400F*P 39 H", "05"],
+            ["323931", "05.9400.6VG.10.B.P.39", "HC9400F*N 39 H", "05"],
+            ["312764", "05.9400.12.200.10.B.P.26", "HC9400F*S 26 H", "05"],
+            ["301110", "05.9600.3VG.10.E.P. 4", "HC9600 FDP 4 H", "05"],
+            ["301062", "05.9600.3VG.10.E.P. 8", "HC9600 FDP 8 H", "05"],
+            ["301063", "05.9600.3VG.10.E.P. 13", "HC9600 FDP 13 H", "05"],
+            ["301064", "05.9600.3VG.10.E.P. 16", "HC9600 FDP 16 H", "05"],
+            ["301115", "05.9600.6VG.10.E.P. 4", "HC9600 FDN 4 H", "05"],
+            ["301070", "05.9600.6VG.10.E.P. 8", "HC9600 FDN 8 H", "05"],
+            ["301071", "05.9600.6VG.10.E.P. 13", "HC9600 FDN 13 H", "05"],
+            ["301072", "05.9600.6VG.10.E.P. 16", "HC9600 FDN 16 H", "05"],
+            ["312752", "05.9600.12.200.10.E.P. 4", "HC9600 FDS 4 H", "05"],
+            ["301065", "05.9600.12.200.10.E.P. 8", "HC9600 FDS 8 H", "05"],
+            ["312751", "05.9600.12.200.10.E.P. 13", "HC9600 FDS 13 H", "05"],
+            ["312753", "05.9600.12.200.10.B.P. 16", "HC9600 FDS 16 H", "05"],
+            ["301067", "05.9600.25VG.10.E.P. 4", "HC9600 FDT 4 H", "05"],
+            ["301068", "05.9600.25VG.10.E.P. 8", "HC9600 FDT 8 H", "05"],
+            ["301069", "05.9600.25VG.10.E.P. 13", "HC9600 FDT 13 H", "05"],
+            ["301114", "05.9600.25VG.10.E.P. 16", "HC9600 FDT 16 H", "05"],
+            ["301073", "05.9601.3VG.210.E.P. 4", "HC9601 FDP 4 H", "05"],
+            ["301117", "05.9601.3VG.210.E.P. 8", "HC9601 FDP 8 H", "05"],
+            ["301118", "05.9601.3VG.210.E.P. 13", "HC9601 FDP 13 H", "05"],
+            ["301074", "05.9601.3VG.210.E.P. 16", "HC9601 FDP 16 H", "05"],
+            ["301129", "05.9601.6VG.210.E.P. 4", "HC9601 FDN 4 H", "05"],
+            ["301130", "05.9601.6VG.210.E.P. 8", "HC9601 FDN 8 H", "05"],
+            ["301131", "05.9601.6VG.210.E.P. 13", "HC9601 FDN 13 H", "05"],
+            ["301132", "05.9601.6VG.210.E.P. 16", "HC9601 FDN 16 H", "05"],
+            ["312769", "05.9601.12.200.210.E. P. 4", "HC9601 FDS 4 H", "05"],
+            ["312766", "05.9601.12.200.210.E. P. 8", "HC9601 FDS 8 H", "05"],
+            ["312768", "05.9601.12.200.210.E. P.13", "HC9601 FDS 13 H", "05"],
+            ["312767", "05.9601.12.200.210.E. P.16", "HC9601 FDS 16 H", "05"],
+            ["301125", "05.9601.25VG.210.E. P. 4", "HC9601 FDT 4 H", "05"],
+            ["303350", "05.9601.25VG.210.E. P. 8", "HC9601 FDT 8 H", "05"],
+            ["301127", "05.9601.25VG.210.E. P.13", "HC9601 FDT 13 H", "05"],
+            ["301128", "05.9601.25VG.210.E. P.16", "HC9601 FDT 16 H", "05"],
+            ["303348", "05.9800.3VG.10.E.P. 4", "HC9800 FDP 4 H", "05"],
+            ["306570", "05.9800.3VG.10.E.P. 8", "HC9800 FDP 8 H", "05"],
+            ["301137", "05.9800.6VG.10.E.P. 4", "HC9800 FDN 4 H", "05"],
+            ["305375", "05.9800.6VG.10.E.P. 8", "HC9800 FDN 8 H", "05"],
+            ["312775", "05.9800.12.200.10.E.P. 4", "HC9800 FDS 4 H", "05"],
+            ["312776", "05.9800.12.200.10.E.P. 8", "HC9800 FDS 8 H", "05"],
+            ["301076", "05.9800.25VG.10.E.P. 4", "HC9800 FDT 4 H", "05"],
+            ["301077", "05.9800.25VG.10.E.P. 8", "HC9800 FDT 8 H", "05"],
+            ["301138", "05.9801.3VG.210.E.P. 4", "HC9801 FDP 4 H", "05"],
+            ["301139", "05.9801.3VG.210.E.P. 8", "HC9801 FDP 8 H", "05"],
+            ["306571", "05.9801.3VG.210.E.P. 13", "HC9801 FDP 13 H", "05"],
+            ["301145", "05.9801.6VG.210.E.P. 4", "HC9801 FDN 4 H", "05"],
+            ["301146", "05.9801.6VG.210.E.P. 8", "HC9801 FDN 8 H", "05"],
+            ["306572", "05.9801.6VG.210.E.P. 13", "HC9801 FDN 13 H", "05"],
+            ["301079", "05.9801.12.200.210.E.P. 4", "HC9801 FDS 4 H", "05"],
+            ["312782", "05.9801.12.200.210.E.P. 8", "HC9801 FDS 8 H", "05"],
+            ["312784", "05.9801.12.200.210.E.P.13", "HC9801 FDS 13 H", "05"],
+            ["301143", "05.9801.25VG.210.E.P. 4", "HC9801 FDT 4 H", "05"],
+            ["301144", "05.9801.25VG.210.E.P. 8", "HC9801 FDT 8 H", "05"],
+            ["306573", "05.9801.25VG.210.E.P.13", "HC9801 FDT 13 H", "05"],
+            ["306578", "05.9901.3VG.210.B.P. 13", "HC9901 FDP 13 H", "05"],
+            ["301981", "05.9901.3VG.210.B.P. 26", "HC9901 FDP 26 H", "05"],
+            ["306579", "05.9901.6VG.210.B.P. 13", "HC9901 FDN 13 H", "05"],
+            ["306582", "05.9901.6VG.210.B.P. 26", "HC9901 FDN 26 H", "05"],
+            ["306580", "05.9901.12.200.210.B.P. 13", "HC9901 FDS 13 H", "05"],
+            ["306583", "05.9901.12.200.210.B.P. 26", "HC9901 FDS 26 H", "05"],
+            ["306581", "05.9901.25VG.210.B.P. 13", "HC9901 FDT 13 H", "05"],
+            ["306584", "05.9901.25VG.210.B.P. 26", "HC9901 FDT 26 H", "05"],
+            ["317487", "01.NR 100.3VG.10.B.P.-", "HC0251 F*P 10 H", "05"],
+            ["316886", "01.NR 100.6VG.10.B.P.-", "HC0251 F*N 10 H", "05"],
+            ["313167", "01.NR 100.10VG.10.B.P.-", "HC0251 F*S 10 H", "05"],
+            ["314491", "01.NR 250.3VG.10.B.P.-", "HC0252 F*P 10 H", "05"],
+            ["314492", "01.NR 250.6VG.10.B.P.-", "HC0252 F*N 10 H", "05"],
+            ["314191", "01.NR 250.10VG.10.B.P.-", "HC0252 F*S 10 H", "05"],
+            ["304533", "01.NR 630.3VG.10.B.P.-", "HC0171 F*P 16 H", "05"],
+            ["304534", "01.NR 630.6VG.10.B.P.-", "HC0171 F*N 16 H", "05"],
+            ["304535", "01.NR 630.10VG.10.B.P.-", "HC0171 F*S 16 H", "05"],
+            ["306604", "01.NR 1000.3VG.10.B.P.-", "HC0600 F*P 16 H", "05"],
+            ["305449", "01.NR 1000.6VG.10.B.P.-", "HC0600 F*N 16 H", "05"],
+            ["306605", "01.NR 1000.10VG.10.B.P.-", "HC0600 F*S 16 H", "05"],
+            ["347973", "05.UE 219.6VG.10.E.V.4", "UE219AN04Z", "05"],
+            ["347978", "05.UE 219.6VG.10.E.V.8", "UE219AN08Z", "05"],
+            ["347979", "05.UE 219.10VG.10.E.V.8", "UE219AS08Z", "05"],
+            ["347983", "05.UE 219.6VG.10.E.V.13", "UE219AN13Z", "05"],
+            ["347992", "05.UE 319.3VG.10.E.V.8", "UE319AP08Z", "05"],
+            ["347993", "05.UE 319.6VG.10.E.V.8", "UE319AN08Z", "05"],
+            ["347997", "05.UE 319.3VG.10.E.V.13", "UE319AP13Z", "05"],
+            ["347998", "05.UE 319.6VG.10.E.V.13", "UE319AN13Z", "05"],
+            ["347999", "05.UE 319.10VG.10.E.V.13", "UE319AS13Z", "05"],
+            ["347863", "05.UE 319.25VG.10.E.V.13", "UE319AT13Z", "05"],
+            ["347864", "05.UE 319.1VG.10.E.V.20", "UE319AZ20Z", "05"],
+            ["347952", "05.UE 319.3VG.10.E.V.20", "UE319AP20Z", "05"],
+            ["347951", "05.UE 319.6VG.10.E.V.20", "UE319AN20Z", "05"],
+            ["347953", "05.UE 319.10VG.10.E.V.20", "UE319AS20Z", "05"],
+            ["347865", "05.UE 319.25VG.10.E.V.20", "UE319AT20Z", "05"],
+            ["347868", "05.UE 319.6VG.10.E.V.40", "UE319AN40Z", "05"],
+            ["347870", "05.UE 319.25VG.10.E.V.40", "UE319AT40Z", "05"],
+            ["347872", "05.UE 619.3VG.10.E.V.20", "UE619AP20Z", "05"],
+            ["347874", "05.UE 619.10VG.10.E.V.20", "UE619AS20Z", "05"],
+        ];
+
+        // ================================================================
+        //  🧠 منطق التطبيق
+        // ================================================================
+
+        const searchInput = document.getElementById('searchInput');
+        const suggestionsBox = document.getElementById('suggestionsBox');
+        const resultCard = document.getElementById('resultCard');
+        const statusMsg = document.getElementById('statusMessage');
+        const clearBtn = document.getElementById('clearBtn');
+
+        let currentSection = 'الكل';
+        let currentResult = null;
+
+        function renderStats() {
+            const stats = {};
+            filterData.forEach(item => {
+                const section = item[3];
+                stats[section] = (stats[section] || 0) + 1;
+            });
+            const container = document.getElementById('statsContainer');
+            let html = '';
+            for (const [section, count] of Object.entries(stats)) {
+                html += `<span class="stat-item"><strong>${section}</strong>: ${count}</span>`;
+            }
+            container.innerHTML = html;
+            document.getElementById('totalBadge').textContent = filterData.length + ' فلتر';
+            document.getElementById('totalCount').textContent = filterData.length;
+        }
+        renderStats();
+
+        document.querySelectorAll('.filters button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentSection = this.dataset.section;
+                const query = searchInput.value.trim();
+                if (query.length > 0) {
+                    performSearch(query);
+                } else {
+                    suggestionsBox.classList.remove('show');
+                    resultCard.classList.remove('show');
+                    setStatus('info', '💡 اختر فلترًا من القائمة أو اكتب رقمًا للبحث');
+                }
+            });
+        });
+
+        function performSearch(query) {
+            const q = query.toLowerCase().trim();
+            suggestionsBox.innerHTML = '';
+            resultCard.classList.remove('show');
+
+            if (q.length === 0) {
+                suggestionsBox.classList.remove('show');
+                setStatus('info', '💡 اكتب رقم الفلتر أو جزء من الوصف للبحث');
+                return;
+            }
+
+            let filtered = filterData;
+            if (currentSection !== 'الكل') {
+                filtered = filtered.filter(item => item[3] === currentSection);
+            }
+
+            const results = filtered.filter(item =>
+                item[0].toLowerCase().includes(q) ||
+                item[1].toLowerCase().includes(q) ||
+                item[2].toLowerCase().includes(q)
+            );
+
+            if (results.length === 0) {
+                suggestionsBox.classList.remove('show');
+                setStatus('warning', '⚠️ لا توجد نتائج مطابقة لـ "' + query + '" في القسم ' + currentSection);
+                return;
+            }
+
+            setStatus('success', '🔍 تم العثور على ' + results.length + ' نتيجة');
+
+            const top = results.slice(0, 25);
+            suggestionsBox.innerHTML = '';
+            suggestionsBox.classList.add('show');
+
+            top.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'suggestion-item';
+                const numHighlight = highlightText(item[0], q);
+                const descHighlight = highlightText(item[1], q);
+                const altHighlight = highlightText(item[2], q);
+
+                div.innerHTML = `
+                    <span class="num">${numHighlight}</span>
+                    <span class="desc">${descHighlight}</span>
+                    <span class="alt">🔄 ${altHighlight}</span>
+                    <span class="section-tag">${item[3]}</span>
+                `;
+
+                div.addEventListener('click', function() {
+                    displayResult(item);
+                    suggestionsBox.classList.remove('show');
+                    searchInput.value = (item[0] === '—') ? item[1] : item[0];
+                });
+
+                suggestionsBox.appendChild(div);
+            });
+        }
+
+        function highlightText(text, query) {
+            const index = text.toLowerCase().indexOf(query);
+            if (index === -1) return text;
+            const before = text.substring(0, index);
+            const matched = text.substring(index, index + query.length);
+            const after = text.substring(index + query.length);
+            return before + '<span class="highlight">' + matched + '</span>' + after;
+        }
+
+        function displayResult(item) {
+            currentResult = item;
+            document.getElementById('resultNumber').textContent = (item[0] === '—') ? '— (رقم القطعة غير مذكور في الكتالوج)' : item[0];
+            document.getElementById('resultDesc').textContent = item[1];
+            document.getElementById('resultAlt').innerHTML =
+                `<span class="alt-link" onclick="searchAlternative('${item[2]}')">${item[2]}</span>`;
+            const eatonEl = document.getElementById('resultEaton');
+            eatonEl.className = 'value eaton-val';
+            eatonEl.innerHTML = '';
+            if (item[0] !== '—') {
+                const n = document.createElement('span');
+                n.className = 'e-num';
+                n.textContent = item[0];
+                eatonEl.appendChild(n);
+            }
+            const dsp = document.createElement('span');
+            dsp.className = 'e-desc';
+            dsp.textContent = item[1];
+            eatonEl.appendChild(dsp);
+            document.getElementById('resultSection').textContent = item[3];
+            document.getElementById('resultSectionFull').textContent = item[3];
+            resultCard.classList.add('show');
+            setStatus('success', '✅ تم العثور على الفلتر بنجاح');
+            resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function searchAlternative(altNumber) {
+            if (!altNumber || altNumber === '-' || altNumber === 'لا يوجد بديل') {
+                setStatus('warning', '⚠️ لا يوجد بديل لهذا الفلتر');
+                return;
+            }
+            searchInput.value = altNumber;
+            performSearch(altNumber);
+            setTimeout(() => {
+                suggestionsBox.classList.add('show');
+            }, 100);
+        }
+
+        function setStatus(type, message) {
+            statusMsg.className = 'status-msg ' + type;
+            statusMsg.textContent = message;
+            statusMsg.style.display = 'block';
+        }
+
+        function clearSearch() {
+            searchInput.value = '';
+            suggestionsBox.classList.remove('show');
+            resultCard.classList.remove('show');
+            setStatus('info', '💡 اكتب رقم الفلتر أو جزء من الوصف للبحث');
+            searchInput.focus();
+        }
+
+        function printResult() {
+            if (!currentResult) {
+                setStatus('warning', '⚠️ لا توجد نتيجة للطباعة');
+                return;
+            }
+            const printContent = `
+                <div style="font-family:Arial;padding:20px;direction:rtl;background:white;">
+                    <h2 style="color:#1a3c6e;">📋 بيانات الفلتر</h2>
+                    <table style="width:100%;border-collapse:collapse;margin-top:15px;">
+                        <tr><td style="padding:8px;font-weight:bold;background:#f0f2f5;width:30%;">رقم القطعة</td>
+                            <td style="padding:8px;">${currentResult[0]}</td></tr>
+                        <tr><td style="padding:8px;font-weight:bold;background:#f0f2f5;">الوصف</td>
+                            <td style="padding:8px;">${currentResult[1]}</td></tr>
+                        <tr><td style="padding:8px;font-weight:bold;background:#f0f2f5;">الفلتر البديل</td>
+                            <td style="padding:8px;">${currentResult[2]}</td></tr>
+                        <tr><td style="padding:8px;font-weight:bold;background:#f0f2f5;">البديل في EATON</td>
+                            <td style="padding:8px;">${currentResult[0] === '—' ? '' : currentResult[0] + ' - '}${currentResult[1]}</td></tr>
+                        <tr><td style="padding:8px;font-weight:bold;background:#f0f2f5;">القسم</td>
+                            <td style="padding:8px;">${currentResult[3]}</td></tr>
+                    </table>
+                    <p style="margin-top:20px;color:#888;font-size:12px;">EHP - الهندسيه للهيدروليك والنيوماتيك | Eaton EasyFit Cross Reference</p>
+                </div>
+            `;
+            const printWindow = window.open('', '_blank', 'width=600,height=400');
+            printWindow.document.write(`
+                <html><head><title>طباعة الفلتر</title>
+                <style>body{font-family:Arial;padding:20px;background:white;}</style>
+                </head><body>${printContent}
+                <script>
+                    window.onload = function() { window.print(); window.close(); };
+                <\/script>
+                </body></html>
+            `);
+            printWindow.document.close();
+        }
+
+        function sendWhatsApp() {
+            if (!currentResult) {
+                setStatus('warning', '⚠️ لا توجد بيانات للإرسال');
+                return;
+            }
+            const phone = '01273007266';
+            const message = `🔍 *بيانات الفلتر - EHP*\nالهندسيه للهيدروليك والنيوماتيك\n\n` +
+                `🔢 *رقم القطعة:* ${currentResult[0]}\n` +
+                `📝 *الوصف:* ${currentResult[1]}\n` +
+                `🔄 *الفلتر البديل:* ${currentResult[2]}\n` +
+                `🔵 *البديل في EATON:* ${currentResult[0] === '—' ? '' : currentResult[0] + ' - '}${currentResult[1]}\n` +
+                `📂 *القسم:* ${currentResult[3]}\n\n` +
+                `📅 ${new Date().toLocaleDateString('ar-EG')}`;
+
+            const encoded = encodeURIComponent(message);
+            const url = `https://wa.me/${phone}?text=${encoded}`;
+            window.open(url, '_blank');
+        }
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value;
+            if (query.length > 0) {
+                clearBtn.style.display = 'block';
+                performSearch(query);
+            } else {
+                clearBtn.style.display = 'none';
+                suggestionsBox.classList.remove('show');
+                resultCard.classList.remove('show');
+                setStatus('info', '💡 اكتب رقم الفلتر أو جزء من الوصف للبحث');
+            }
+        });
+
+        searchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                clearSearch();
+            }
+            if (e.key === 'Enter') {
+                const firstSuggestion = suggestionsBox.querySelector('.suggestion-item');
+                if (firstSuggestion) {
+                    firstSuggestion.click();
+                }
+            }
+            if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                const items = suggestionsBox.querySelectorAll('.suggestion-item');
+                if (items.length === 0) return;
+                let currentIndex = -1;
+                items.forEach((el, i) => {
+                    if (el.classList.contains('active')) {
+                        el.classList.remove('active');
+                        currentIndex = i;
+                    }
+                });
+                let newIndex = e.key === 'ArrowDown' ?
+                    Math.min(currentIndex + 1, items.length - 1) :
+                    Math.max(currentIndex - 1, 0);
+                items[newIndex].classList.add('active');
+                items[newIndex].scrollIntoView({ block: 'nearest' });
+            }
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-wrapper')) {
+                suggestionsBox.classList.remove('show');
+            }
+        });
+
+        clearBtn.addEventListener('click', clearSearch);
+
+        setStatus('info', '💡 اكتب رقم الفلتر أو جزء من الوصف للبحث');
+
+        console.log('✅ نظام البحث جاهز | عدد الفلاتر:', filterData.length);
+    </script>
+
+
+<a href="index.html" id="ehpHome" aria-label="القائمة الرئيسية" title="القائمة الرئيسية"
+   style="position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);left:10px;z-index:99999;width:40px;height:40px;border-radius:50%;background:rgba(10,15,28,.88);color:#f5b042;border:2px solid #f5b042;display:flex;align-items:center;justify-content:center;font-size:20px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.5)">🏠</a>
+<style>@media print{#ehpHome{display:none!important}}</style>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}</script>
+</body>
+</html>

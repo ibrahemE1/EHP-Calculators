@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>EHP | الهندسيه للهيدروليك والنيوماتيك</title>
+    <meta name="theme-color" content="#0a0f1c">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="assets/icon-192.png">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:'Segoe UI','Poppins','Roboto',sans-serif;background:linear-gradient(135deg,#0a0f1c,#03060e);padding:1rem;min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;color:#e2e8f0}
+        body::before{content:"";position:fixed;inset:0;background-image:repeating-linear-gradient(45deg,rgba(245,176,66,.03) 0,rgba(245,176,66,.03) 2px,transparent 2px,transparent 8px);pointer-events:none;z-index:0}
+        .container{max-width:1100px;width:100%;background:rgba(12,20,30,.88);backdrop-filter:blur(8px);border-radius:2rem;box-shadow:0 25px 45px -12px black,0 0 0 1px rgba(245,176,66,.25);overflow:hidden;position:relative;z-index:1}
+        .hero{position:relative;line-height:0;border-bottom:3px solid #f5b042}
+        .hero img{width:100%;height:auto;max-height:380px;object-fit:cover;object-position:center;display:block}
+        .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:35%;background:linear-gradient(to bottom,transparent,rgba(12,20,30,.9));pointer-events:none}
+        .header{padding:1rem 1.5rem;text-align:center;border-bottom:1px solid #1e2a44}
+        .header h1{color:#fff;font-size:1.4rem;font-weight:800}
+        .header h1 span{color:#f5b042}
+        .header p{color:#8aa4c2;font-size:.8rem;margin-top:4px}
+        .menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;padding:1.2rem}
+        .card{display:block;text-decoration:none;background:rgba(51,65,85,.6);border:1px solid #2a3a60;border-radius:1rem;padding:1.2rem;transition:.25s;color:inherit}
+        .card:hover,.card:focus{transform:translateY(-3px);border-color:#f5b042;box-shadow:0 8px 24px rgba(245,176,66,.2);outline:none}
+        .card .ic{font-size:2rem}
+        .card h2{color:#f5b042;font-size:1.05rem;margin:.4rem 0 .2rem}
+        .card .en{color:#94a3b8;font-size:.72rem;direction:ltr;text-align:right;margin-bottom:.4rem}
+        .card p{color:#cbd5e1;font-size:.8rem;line-height:1.6}
+        .install{padding:0 1.2rem 1.4rem;text-align:center}
+        .install button{background:linear-gradient(135deg,#f5b042,#d48d2b);color:#0a0f1c;font-weight:800;font-size:1rem;border:none;border-radius:.9rem;padding:14px 28px;cursor:pointer;font-family:inherit;transition:.25s}
+        .install button:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(245,176,66,.4)}
+        .install .help{display:none;margin-top:12px;background:#0f1828;border:1px solid #2a3a60;border-radius:.8rem;padding:12px 16px;color:#cbd5e1;font-size:.85rem;line-height:1.9;text-align:right}
+        .foot{text-align:center;color:#6c86a3;font-size:.7rem;padding:0 1rem 1rem}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <img src="assets/logo.jpg" alt="EHP - Engineering For Hydraulics &amp; Pneumatics - الهندسيه للهيدروليك والنيوماتيك">
+        </div>
+
+        <div class="header">
+            <h1>⚙️ <span>الحاسبات الهندسية</span></h1>
+            <p>اختر الحاسبة المطلوبة</p>
+        </div>
+
+        <nav class="menu">
+            <a class="card" href="filter.html">
+                <div class="ic">🔍</div>
+                <h2>نظام البحث عن الفلاتر</h2>
+                <div class="en">Filter Cross Reference</div>
+                <p>البحث عن الفلاتر الهيدروليكية ومقابلاتها.</p>
+            </a>
+            <a class="card" href="viscosity.html">
+                <div class="ic">🛢️</div>
+                <h2>حاسبة لزوجة الزيت</h2>
+                <div class="en">Oil Viscosity Calculator</div>
+                <p>حساب اللزوجة وتحويل الوحدات ومؤشر اللزوجة.</p>
+            </a>
+            <a class="card" href="pipe.html">
+                <div class="ic">🔧</div>
+                <h2>نظام حساب التدفق للمواسير</h2>
+                <div class="en">Pipe Flow Simulator</div>
+                <p>محاكاة تدفق الزيت داخل المواسير وحساب الفاقد.</p>
+            </a>
+            <a class="card" href="cylinder.html">
+                <div class="ic">⚙️</div>
+                <h2>الحاسبة الهيدروليكية للسلندر</h2>
+                <div class="en">Hydraulic Calculator Pro</div>
+                <p>حسابات المضخة والسلندر والخزان والتبريد مع محاكاة حية.</p>
+            </a>
+        </nav>
+
+        <div class="install" id="installBox">
+            <button id="installBtn" type="button">📲 تثبيت التطبيق على الهاتف</button>
+            <div class="help" id="installHelp"></div>
+        </div>
+
+        <div class="foot">EHP - Engineering For Hydraulics &amp; Pneumatics</div>
+    </div>
+
+<script>
+(function(){
+    var box=document.getElementById('installBox'), btn=document.getElementById('installBtn'), help=document.getElementById('installHelp');
+    var deferred=null;
+    var standalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+    if(standalone){ box.style.display='none'; }
+
+    window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); deferred=e; });
+    window.addEventListener('appinstalled', function(){ box.style.display='none'; deferred=null; });
+
+    btn.addEventListener('click', function(){
+        if(deferred){
+            deferred.prompt();
+            deferred.userChoice.then(function(){ deferred=null; });
+            return;
+        }
+        var ua=navigator.userAgent||'';
+        var ios=/iPad|iPhone|iPod/.test(ua) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
+        help.innerHTML = ios
+            ? 'على الآيفون/الآيباد (Safari):<br>1) اضغط زر المشاركة <b>⬆️</b><br>2) اختر <b>إضافة إلى الشاشة الرئيسية</b><br>3) اضغط <b>إضافة</b>'
+            : 'من قائمة المتصفح <b>⋮</b> اختر <b>تثبيت التطبيق</b> أو <b>إضافة إلى الشاشة الرئيسية</b>.<br>(يعمل من Chrome على أندرويد)';
+        help.style.display='block';
+    });
+
+    if('serviceWorker' in navigator){
+        window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); });
+    }
+})();
+</script>
+</body>
+</html>
