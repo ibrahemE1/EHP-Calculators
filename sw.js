@@ -1,6 +1,6 @@
-const CACHE = 'ehp-v1';
+const CACHE = 'ehp-v3';
 const FILES = ['./','index.html','filter.html','viscosity.html','pipe.html','cylinder.html',
-  'manifest.webmanifest','assets/logo.jpg','assets/icon-192.png','assets/icon-512.png','assets/apple-touch-icon.png'];
+  'manifest.webmanifest','icon-192.png','icon-512.png','apple-touch-icon.png'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting()));
 });
