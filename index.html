@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>EHP | الهندسيه للهيدروليك والنيوماتيك</title>
     <meta name="theme-color" content="#0a0f1c">
-    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="manifest" href="manifest.json">
     <link rel="icon" href="icon-192.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <style>
@@ -87,10 +87,38 @@
     var standalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
     if(standalone){ box.style.display='none'; }
 
-    window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); deferred=e; });
+    window.addEventListener('beforeinstallprompt', function(e){
+        e.preventDefault(); deferred=e;
+        btn.textContent='📲 تثبيت التطبيق على الهاتف ✔';
+        help.style.display='none';
+    });
     window.addEventListener('appinstalled', function(){ box.style.display='none'; deferred=null; });
 
-    btn.addEventListener('click', function(){
+    function show(html){ help.innerHTML=html; help.style.display='block'; }
+
+    async function diagnose(){
+        var ok='✅ ', no='❌ ', out=[];
+        out.push((window.isSecureContext?ok:no)+'اتصال آمن (HTTPS)');
+        try{
+            var link=document.querySelector('link[rel=manifest]');
+            var r=await fetch(link.href,{cache:'no-store'});
+            out.push((r.ok?ok:no)+'ملف manifest.json ('+r.status+')');
+            if(r.ok){
+                var m=await r.json();
+                for(var i=0;i<m.icons.length;i++){
+                    var ir=await fetch(new URL(m.icons[i].src,link.href),{cache:'no-store'});
+                    out.push((ir.ok?ok:no)+'أيقونة '+m.icons[i].sizes+' ('+ir.status+')');
+                }
+            }
+        }catch(e){ out.push(no+'تعذر قراءة manifest.json'); }
+        try{
+            var regs=await navigator.serviceWorker.getRegistrations();
+            out.push((regs.length?ok:no)+'Service Worker مسجل');
+        }catch(e){ out.push(no+'Service Worker غير مدعوم'); }
+        return out.join('<br>');
+    }
+
+    btn.addEventListener('click', async function(){
         if(deferred){
             deferred.prompt();
             deferred.userChoice.then(function(){ deferred=null; });
@@ -98,10 +126,16 @@
         }
         var ua=navigator.userAgent||'';
         var ios=/iPad|iPhone|iPod/.test(ua) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
-        help.innerHTML = ios
-            ? 'على الآيفون/الآيباد (Safari):<br>1) اضغط زر المشاركة <b>⬆️</b><br>2) اختر <b>إضافة إلى الشاشة الرئيسية</b><br>3) اضغط <b>إضافة</b>'
-            : 'من قائمة المتصفح <b>⋮</b> اختر <b>تثبيت التطبيق</b> أو <b>إضافة إلى الشاشة الرئيسية</b>.<br><br>على الكمبيوتر (Edge/Chrome): قائمة ⋯ ← التطبيقات ← تثبيت هذا الموقع كتطبيق';
-        help.style.display='block';
+        if(ios){
+            show('على الآيفون/الآيباد (Safari) التثبيت يدوي دائماً:<br>1) اضغط زر المشاركة <b>⬆️</b><br>2) اختر <b>إضافة إلى الشاشة الرئيسية</b><br>3) اضغط <b>إضافة</b>');
+            return;
+        }
+        show('جاري الفحص...');
+        var d=await diagnose();
+        show('المتصفح لم يرسل إذن التثبيت التلقائي بعد.<br><br>'+d+
+            '<br><br>• لو كل النتائج ✅: غالباً التطبيق <b>مثبّت بالفعل</b> أو رفضت نافذته من قبل. افتح <b>edge://apps</b> أو <b>chrome://apps</b> واحذفه ثم حدّث الصفحة.<br>'+
+            '• أو ثبّته يدوياً: قائمة المتصفح <b>⋮</b> ← <b>تثبيت التطبيق / Install</b> (أندرويد)، أو <b>⋯ ← التطبيقات ← تثبيت هذا الموقع</b> (كمبيوتر).<br>'+
+            '• لو ظهر ❌ أرسل لي الصورة.');
     });
 
     if('serviceWorker' in navigator){
